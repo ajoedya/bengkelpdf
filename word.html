@@ -1774,6 +1774,16 @@ function deteksiTabelGaris(mentah, opsi, konteks) {
     const rapatY = [], rapatX = [];
     k.h.map((h) => h.y).sort((a, b) => b - a).forEach((y) => { if (!rapatY.length || Math.abs(rapatY[rapatY.length - 1] - y) > 2.5) rapatY.push(y); });
     k.v.map((v) => v.x).sort((a, b) => a - b).forEach((x) => { if (!rapatX.length || Math.abs(rapatX[rapatX.length - 1] - x) > 2.5) rapatX.push(x); });
+    /* Tabel yang sisi kiri atau kanannya terbuka (tanpa garis tegak terluar)
+       dikenali dari garis mendatar yang menjulur melewati garis tegak terakhir.
+       Ujung julurannya dipakai sebagai batas kolom tambahan tanpa tepi. */
+    if (rapatX.length >= 2 && k.h.length >= 3) {
+      const banyak = Math.max(3, Math.ceil(k.h.length * 0.6));
+      const kanan = k.h.map((h) => Math.max(...h.span.map((r) => r[1]))).filter((x) => x > rapatX[rapatX.length - 1] + 12);
+      if (kanan.length >= banyak) rapatX.push(median(kanan));
+      const kiri = k.h.map((h) => Math.min(...h.span.map((r) => r[0]))).filter((x) => x < rapatX[0] - 12);
+      if (kiri.length >= banyak) rapatX.unshift(median(kiri));
+    }
     const cukup = (rapatY.length >= 3 && rapatX.length >= 2) || (rapatY.length >= 2 && rapatX.length >= 3);
     if (!cukup) return;
     const nKol = rapatX.length - 1, nBar = rapatY.length - 1;
@@ -3290,7 +3300,10 @@ function hitungMargin(daftarHal) {
   const atas = jepit(T - Math.max(...yAtas) - 2, 14, T * 0.2);
   /* batas bawah dilonggarkan sedikit supaya selisih kecil ukuran huruf tidak
      melempar baris terakhir ke halaman baru */
-  const bawah = jepit(Math.min(...yBawah) - 22, 6, T * 0.2);
+  /* Setiap halaman PDF diawali pemisah halaman, jadi ruang kosong di bawah
+     isi tidak perlu dijadikan margin. Margin bawah cukup selebar margin atas
+     (paling sedikit 2 cm) supaya Word punya ruang cadangan. */
+  const bawah = jepit(Math.min(...yBawah) - 22, 6, Math.min(T * 0.2, Math.max(atas, 56)));
   return { kiri, kanan, atas, bawah, kiriPt: kiri };
 }
 
