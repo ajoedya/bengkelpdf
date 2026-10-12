@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ubah Ukuran Kertas — Perkakas PDF</title>
+    <title>Ubah Ukuran Kertas — Bengkel PDF</title>
     <script src="tema.js"></script>
 <link rel="stylesheet" href="gaya.css">
 
@@ -99,7 +99,7 @@
 <body>
     <header class="kop">
         <div class="kop-isi">
-            <p class="kop-label"><a href="./">Perkakas PDF</a> / 08</p>
+            <p class="kop-label"><a href="./">Bengkel PDF</a> / 08</p>
             <h1>Ubah Ukuran Kertas</h1>
             <p>
                 Mengubah ukuran halaman PDF menjadi <em>A4, A3, A5, Letter, Legal, Folio, F4, Tabloid, B5</em>,
@@ -555,7 +555,7 @@
             });
 
             const outDoc = await PDFDocument.create();
-            outDoc.setProducer("Perkakas PDF - Ubah Ukuran Kertas");
+            outDoc.setProducer("Bengkel PDF - Ubah Ukuran Kertas");
 
             const embedded = await outDoc.embedPages(selectedPages);
 
