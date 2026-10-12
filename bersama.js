@@ -75,7 +75,7 @@
     const merek = document.createElement("a");
     merek.className = "menu-nama";
     merek.href = "./";
-    merek.innerHTML = "Perkakas PDF<small>KPKNL BALIKPAPAN</small>";
+    merek.innerHTML = "Bengkel PDF<small>KPKNL BALIKPAPAN</small>";
     isi.appendChild(merek);
 
     const beranda = document.createElement("a");
@@ -116,9 +116,6 @@
     isi.appendChild(container);
     pasangBukaTutup(container, tombol);
 
-    const pengalih = buatPengalihTema();
-    if (pengalih) isi.appendChild(pengalih);
-
     bar.appendChild(isi);
     // Pada beranda, tautan "Lewati navigasi" harus menjadi elemen fokus pertama.
     const lewati = document.querySelector(".lewati-konten");
@@ -153,64 +150,6 @@
       if (!container.contains(e.relatedTarget)) aturTerbuka(false);
     });
     return aturTerbuka;
-  }
-
-  // Tombol pengalih tema. Daftar temanya berasal dari tema.js; bila berkas itu
-  // tidak termuat, tombol tidak dibuat dan situs tetap memakai tema bawaan.
-  function buatPengalihTema() {
-    if (!window.Tema) return null;
-
-    const wadah = document.createElement("div");
-    wadah.className = "menu-dropdown-wrapper menu-tema";
-
-    const tombol = document.createElement("button");
-    tombol.className = "menu-dropdown-btn menu-tema-btn";
-    tombol.type = "button";
-    tombol.setAttribute("aria-expanded", "false");
-    tombol.setAttribute("aria-controls", "menu-tema");
-    tombol.setAttribute("aria-haspopup", "true");
-    tombol.setAttribute("aria-label", "Ganti tema tampilan");
-    tombol.innerHTML = '<span class="menu-tema-bulatan" aria-hidden="true"></span><span class="menu-tema-teks">Tema</span>';
-
-    const daftar = document.createElement("div");
-    daftar.className = "menu-dropdown-content";
-    daftar.id = "menu-tema";
-    daftar.setAttribute("role", "menu");
-    daftar.setAttribute("aria-label", "Pilihan tema");
-
-    const aturTerbuka = pasangBukaTutup(wadah, tombol);
-
-    function tandai() {
-      const kini = window.Tema.kini();
-      daftar.querySelectorAll(".menu-tema-pilihan").forEach((b) => {
-        b.setAttribute("aria-checked", String(b.dataset.tema === kini));
-      });
-    }
-
-    window.Tema.daftar.forEach((tema) => {
-      const pilihan = document.createElement("button");
-      pilihan.type = "button";
-      pilihan.className = "menu-tema-pilihan";
-      pilihan.dataset.tema = tema.id;
-      pilihan.setAttribute("role", "menuitemradio");
-      const bulatan = document.createElement("span");
-      bulatan.className = "menu-tema-bulatan";
-      bulatan.setAttribute("aria-hidden", "true");
-      bulatan.style.setProperty("--warna-1", tema.warna[0]);
-      bulatan.style.setProperty("--warna-2", tema.warna[1]);
-      pilihan.append(bulatan, document.createTextNode(tema.nama));
-      pilihan.addEventListener("click", () => {
-        window.Tema.pakai(tema.id);
-        tandai();
-        aturTerbuka(false);
-        tombol.focus();
-      });
-      daftar.appendChild(pilihan);
-    });
-
-    tandai();
-    wadah.append(tombol, daftar);
-    return wadah;
   }
 
   // ============================================================

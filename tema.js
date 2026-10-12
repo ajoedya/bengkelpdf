@@ -1,29 +1,31 @@
 /* ============================================================
-   Tema Perkakas PDF
+   Tema Bengkel PDF
    Berkas kecil ini dimuat di <head> setiap halaman, SEBELUM gaya.css, supaya
-   tema yang dipilih pengguna sudah terpasang saat halaman pertama kali
-   digambar (tidak berkedip dari tema bawaan).
+   tema sudah terpasang saat halaman pertama kali digambar (tidak berkedip
+   dari tema bawaan).
+
+   Tema dipilih otomatis secara acak setiap kali situs dikunjungi. Selama
+   kunjungan itu (satu tab peramban), semua halaman memakai tema yang sama,
+   dan kunjungan berikutnya diusahakan mendapat banner yang berbeda.
 
    Warna dan gambar tiap tema ada di gaya.css, bagian "Tema".
-   Tombol pengalihnya dibuat bersama.js di menu atas.
-
-   Menambah tema: tambahkan satu baris di DAFTAR, lalu buat blok
-   :root[data-tema="id-nya"] di gaya.css.
+   Menambah tema: unggah bannernya, tambahkan satu baris di DAFTAR, lalu buat
+   blok :root[data-tema="id-nya"] di gaya.css. Tema baru langsung ikut diundi.
    ============================================================ */
 (function () {
   "use strict";
 
-  var KUNCI = "perkakas-tema";
+  var KUNCI_SESI = "bengkel-tema-sesi";        // tema kunjungan yang sedang berjalan
+  var KUNCI_TERAKHIR = "bengkel-tema-terakhir"; // tema kunjungan sebelumnya
   var BAWAAN = "pelabuhan";
 
-  // warna: dua warna contoh untuk bulatan pada tombol pengalih (utama, aksen).
   // gambar: uraian banner untuk pembaca layar.
   var DAFTAR = [
-    { id: "pelabuhan", nama: "Pelabuhan Senja", warna: ["#08274d", "#b8893a"],
+    { id: "pelabuhan", nama: "Pelabuhan Senja",
       gambar: "Pemandangan teluk saat matahari terbenam dengan perbukitan, gedung kota, dermaga, kilang, dan kapal" },
-    { id: "hutan", nama: "Hutan Hujan", warna: ["#123a2b", "#b48a30"],
+    { id: "hutan", nama: "Hutan Hujan",
       gambar: "Hutan hujan berkabut di tepi sungai saat matahari terbit, dengan orang utan di dahan pohon" },
-    { id: "mangrove", nama: "Mangrove", warna: ["#0b3d46", "#c18b2f"],
+    { id: "mangrove", nama: "Mangrove",
       gambar: "Jembatan kayu dan pondok di hutan mangrove saat senja, dengan bekantan di dahan dan kilang di kejauhan" }
   ];
 
@@ -32,8 +34,19 @@
     return null;
   }
 
-  function tersimpan() {
-    try { return localStorage.getItem(KUNCI); } catch (e) { return null; }
+  // Penyimpanan bisa ditolak (mode privat, kuki diblokir); tema tetap jalan.
+  function baca(tempat, kunci) {
+    try { return window[tempat].getItem(kunci); } catch (e) { return null; }
+  }
+  function tulis(tempat, kunci, nilai) {
+    try { window[tempat].setItem(kunci, nilai); } catch (e) { /* abaikan */ }
+  }
+
+  function undi() {
+    var terakhir = baca("localStorage", KUNCI_TERAKHIR);
+    var calon = DAFTAR.filter(function (t) { return t.id !== terakhir; });
+    if (!calon.length) calon = DAFTAR;
+    return calon[Math.floor(Math.random() * calon.length)].id;
   }
 
   // Memasang tema pada <html>. Tema bawaan tidak memakai atribut sama sekali.
@@ -48,17 +61,17 @@
     return tema;
   }
 
-  var kini = pasang(tersimpan());
+  var id = baca("sessionStorage", KUNCI_SESI);
+  if (!cari(id)) {
+    id = undi();
+    tulis("sessionStorage", KUNCI_SESI, id);
+    tulis("localStorage", KUNCI_TERAKHIR, id);
+  }
+  var kini = pasang(id);
 
   window.Tema = {
     daftar: DAFTAR,
     kini: function () { return kini.id; },
-    // Dipanggil tombol pengalih: pasang, simpan, lalu kabari halaman.
-    pakai: function (id) {
-      kini = pasang(id);
-      try { localStorage.setItem(KUNCI, kini.id); } catch (e) { /* mode privat: tema tetap berlaku di halaman ini */ }
-      return kini;
-    },
     // Dipanggil sekali setelah halaman selesai dimuat, agar uraian gambar ikut terpasang.
     segarkan: function () { kini = pasang(kini.id); }
   };

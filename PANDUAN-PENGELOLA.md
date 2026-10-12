@@ -1,40 +1,47 @@
-# Panduan Pengelolaan Perkakas PDF
+# Panduan Pengelolaan Bengkel PDF
 
-Dokumen ini untuk pengelola situs, bukan untuk pengguna. Panduan pemakaian sehari-hari sudah tersedia di dalam situs pada halaman **Panduan**, jadi tidak perlu diulang di sini.
+Dokumen ini untuk pengelola situs, bukan untuk pengguna. Petunjuk pemakaian tiap perkakas sudah tertulis di halamannya masing-masing, jadi tidak perlu diulang di sini. Gambaran umum situs ada di `README.md`.
 
 ---
 
 ## 1. Isi situs
 
-Sebelas berkas, semuanya harus duduk sejajar pada lapisan paling atas *repository*. Tidak boleh ada yang masuk ke dalam folder, sebab seluruh tautan antarhalaman ditulis secara relatif.
+Semua berkas duduk sejajar pada lapisan paling atas *repository*. Tidak boleh ada yang masuk ke dalam folder (kecuali folder `dokumentasi`, yang hanya berisi gambar untuk README), sebab seluruh tautan antarhalaman ditulis secara relatif.
 
 | Berkas | Peran |
 |---|---|
-| `index.html` | Beranda, memuat petak menuju tiap perkakas |
+| `index.html` | Beranda, memuat petak menuju tiap perkakas dan kotak pencarian |
+| `gabung.html` | Gabung dan susun PDF, termasuk putar dan nomor halaman |
+| `pecah.html` | Pecah PDF per halaman atau per rentang |
+| `koreksi.html` | Edit Teks, termasuk sisipan teks, gambar, dan bentuk |
+| `tanda-air.html` | Pembubuh tanda air (*watermark*) |
+| `gambar.html` | PDF ke gambar dan gambar ke PDF |
+| `word.html` | PDF ke Word, termasuk OCR untuk hasil pindaian |
 | `penanda.html` | Pembubuh penanda tanda tangan elektronik |
-| `gabung.html` | Penggabung beberapa PDF |
-| `pecah.html` | Pemecah PDF |
-| `susun.html` | Penyusun halaman, hapus, putar, urutkan |
-| `nomor.html` | Pembubuh nomor halaman |
-| `tanda-air.html` | Pembubuh tanda air |
-| `gambar.html` | Pengubah PDF ke gambar dan sebaliknya |
-| `panduan.html` | Panduan pemakaian untuk pengguna |
-| `gaya.css` | Warna, huruf, dan tata letak seluruh halaman |
-| `bersama.js` | Menu atas dan alat bantu yang dipakai semua halaman |
+| `pengubah-uk.html` | Pengubah ukuran kertas |
+| `kompres.html` | Pemampat ukuran berkas |
+| `susun.html`, `nomor.html` | Halaman pengalih ke `gabung.html`, supaya tautan lama tetap jalan |
+| `tema.js` | Pengundi tema, dimuat paling awal di setiap halaman |
+| `gaya.css` | Warna, huruf, tema, dan tata letak seluruh halaman |
+| `editorial.css` | Tata letak khusus beranda |
+| `bersama.js` | Menu atas, ikon situs, alamat pendek, dan alat bantu yang dipakai semua halaman |
+| `banner-*.jpg` | Gambar banner, satu untuk tiap tema |
+| `ornamen-kalimantan-anyaman.svg` | Ornamen di sisi kop dan beranda |
+| `favicon*` | Ikon situs untuk tab peramban dan layar ponsel |
 
-Dua berkas terakhir adalah tulang punggungnya. Kalau salah satu tidak ikut terunggah, seluruh situs tetap terbuka tetapi tanpa warna atau tanpa menu.
+Tiga berkas `tema.js`, `gaya.css`, dan `bersama.js` adalah tulang punggungnya. Kalau salah satu tidak ikut terunggah, seluruh situs tetap terbuka tetapi tanpa tema, tanpa warna, atau tanpa menu.
 
 ---
 
 ## 2. Menerbitkan pertama kali
 
-1. Kumpulkan kesebelas berkas dalam satu folder di komputer, lalu hitung ulang jumlahnya.
+1. Kumpulkan seluruh berkas pada tabel di atas dalam satu folder di komputer, lalu cocokkan ulang daftarnya.
 2. Buka `github.com`, buat akun bila belum punya, lalu klik tanda tambah di pojok kanan atas dan pilih **New repository**.
-3. Isi *Repository name* dengan `perkakas-pdf`, pilih **Public**, lalu klik **Create repository**. GitHub Pages gratis hanya berjalan pada *repository* publik.
+3. Isi *Repository name* dengan `bengkelpdf`, pilih **Public**, lalu klik **Create repository**. GitHub Pages gratis hanya berjalan pada *repository* publik.
 4. Klik **Add file** lalu **Upload files**. Buka folder tadi, tekan Ctrl+A untuk memilih seluruh berkasnya, lalu seret ke kotak unggahan. **Yang diseret harus berkasnya, bukan foldernya**, sebab GitHub akan ikut membuatkan folder itu di dalam *repository* dan seluruh tautan jadi salah alamat.
 5. Gulir ke bawah lalu klik **Commit changes**.
 6. Masuk ke tab **Settings**, pilih menu **Pages** di kolom kiri, ubah *Branch* dari `None` menjadi `main`, biarkan folder pada pilihan `/ (root)`, lalu klik **Save**.
-7. Tunggu satu sampai dua menit, muat ulang halaman *Pages* tadi, dan alamat situsnya akan muncul dengan bentuk `https://namapenggunamu.github.io/perkakas-pdf/`.
+7. Tunggu satu sampai dua menit, muat ulang halaman *Pages* tadi, dan alamat situsnya akan muncul dengan bentuk `https://namapenggunamu.github.io/bengkelpdf/`.
 
 ---
 
@@ -66,28 +73,33 @@ Menu atas ditulis sekali saja di dalam `bersama.js`, pada senarai `HALAMAN` di b
 
 Halaman baru cukup memuat `tema.js` dan `gaya.css` pada bagian kepala (dengan urutan itu) serta `bersama.js` pada bagian bawah, lalu seluruh warna, tema, dan menunya mengikuti sendiri.
 
+### Alamat pendek
+
+Tautan antarhalaman ditulis tanpa akhiran `.html`, misalnya `pecah` alih-alih `pecah.html`. GitHub Pages melayani keduanya, dan `bersama.js` merapikan alamat di bilah peramban bila pengguna membuka versi berakhiran `.html`. Pertahankan cara ini saat menambah tautan baru.
+
 ### Mengganti atau menambah tema
 
-Situs punya beberapa tema yang dipilih pengguna lewat tombol **Tema** di menu atas. Pilihannya disimpan di peramban masing-masing pengguna. Tiap tema hanya berisi warna dan satu gambar banner, sedangkan tata letaknya sama.
+Situs punya beberapa tema, dan masing-masing berpasangan dengan satu gambar banner. Tema **diundi secara acak setiap kali situs dikunjungi**. Selama kunjungan itu (satu tab peramban), semua halaman memakai tema yang sama, dan kunjungan berikutnya diusahakan mendapat tema yang berbeda. Tidak ada tombol pemilih tema.
 
 Tema diatur di dua tempat:
 
-1. **`tema.js`**, senarai `DAFTAR`. Di sini nama tema, dua warna contoh untuk bulatan pada tombol, dan uraian gambar bannernya.
-2. **`gaya.css`**, bagian "Tema". Tiap tema punya satu blok `:root[data-tema="..."]` berisi nilai warna dan nama berkas bannernya. Tema bawaan memakai nilai pada blok `:root` di bagian paling atas berkas.
+1. **`tema.js`**, senarai `DAFTAR`. Di sini nama tema dan uraian gambar bannernya untuk pembaca layar.
+2. **`gaya.css`**, bagian "Tema". Tiap tema punya satu blok `:root[data-tema="..."]` berisi nilai warna, nama berkas banner, dan letak potongan gambarnya. Tema Pelabuhan Senja memakai nilai pada blok `:root` di bagian paling atas berkas, sekaligus menjadi cadangan bila skrip tidak berjalan.
 
-Untuk menambah tema, unggah gambar bannernya (perbandingan 3 banding 1, lebar sekitar 1800 piksel), salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
+Untuk menambah tema, unggah gambar bannernya (perbandingan 3 banding 1, lebar sekitar 1800 piksel), salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Tema baru langsung ikut diundi. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
 
 ---
 
 ## 5. Ketergantungan yang perlu diwaspadai
 
-Situs ini memanggil tiga alamat luar pada saat dijalankan.
+Situs ini memanggil empat alamat luar pada saat dijalankan.
 
 | Alamat | Kegunaan | Akibat kalau tersaring |
 |---|---|---|
 | `cdnjs.cloudflare.com` | Pustaka pdf.js, membaca dan menggambar PDF | Pratinjau dan deteksi nama mati total |
 | `unpkg.com` | Pustaka pdf-lib, menulis PDF | Penyimpanan hasil gagal |
-| `fonts.googleapis.com` | Huruf Newsreader dan Public Sans | Hanya hurufnya berubah, fungsinya tetap jalan |
+| `cdn.jsdelivr.net` | Tesseract.js untuk OCR di PDF ke Word | Hanya pengenalan teks hasil pindaian yang mati |
+| `fonts.googleapis.com` | Huruf Public Sans | Hanya hurufnya berubah, fungsinya tetap jalan |
 
 Dua yang pertama bersifat menentukan. Kalau jaringan kantormu menyaringnya, jalan keluarnya adalah membuat versi mandiri, yaitu kedua pustaka itu ikut diunggah ke *repository* sehingga tidak ada panggilan keluar sama sekali. Ukurannya bertambah sekitar satu setengah megabita, tetapi tahan terhadap penyaringan dan tetap jalan meski internet mati.
 
@@ -95,11 +107,7 @@ Dua yang pertama bersifat menentukan. Kalau jaringan kantormu menyaringnya, jala
 
 ## 6. Batas kemampuan yang sengaja tidak disediakan
 
-Tiga hal berikut sengaja tidak dibuat, dan alasannya perlu kamu pegang supaya bisa menjawab kalau ada yang meminta.
-
-**Pemampatan ukuran berkas.** Pemampatan yang sungguhan menuntut penyandian ulang gambar dan pemangkasan huruf tertanam, dan hal itu tidak bisa dikerjakan dengan baik di dalam peramban. Cara pintasnya adalah menggambar ulang tiap halaman menjadi gambar, tetapi itu membunuh teksnya sehingga dokumen tidak bisa lagi dicari, disalin, maupun dibaca oleh pembaca layar.
-
-**Pengubahan PDF menjadi Word.** Hasilnya selalu berantakan pada dokumen bertabel dan berkop, bahkan pada layanan besar yang mengerjakannya di server. Menyediakan fitur yang hasilnya harus dirapikan ulang setengah jam hanya memindahkan pekerjaan, bukan meringankannya.
+Hal berikut sengaja tidak dibuat, dan alasannya perlu kamu pegang supaya bisa menjawab kalau ada yang meminta.
 
 **Pembuatan QR *Code* verifikasi.** QR pada naskah dinas bertanda tangan elektronik bukan hiasan, melainkan penaut ke data verifikasi di sisi Kemenkeu dan Komdigi. QR yang dibuat sendiri atau disalin dari dokumen lain akan membuat naskah tampak sah padahal tidak, dan itu bukan sekadar keliru secara teknis melainkan berbahaya.
 
@@ -110,7 +118,7 @@ Tiga hal berikut sengaja tidak dibuat, dan alasannya perlu kamu pegang supaya bi
 Sejak alamat situs ini disebarkan, orang akan memakainya untuk naskah dinas yang sesungguhnya, dan statusnya bukan lagi percobaan pribadi. Tiga hal berikut sebaiknya kamu kerjakan.
 
 1. **Beri tahu pengelola teknologi informasi di kantormu.** Bukan meminta izin formal, melainkan supaya ada yang tahu ketika nanti muncul pertanyaan tentang keamanan atau ketika kamu berpindah tugas.
-2. **Tawarkan agar berkasnya dititipkan di laman internal kantor.** Alamat berakhiran `github.io` terbaca sebagai milik pribadi, dan untuk perkakas yang menyentuh naskah dinas hal itu akan terus menimbulkan pertanyaan tentang siapa yang bertanggung jawab bila ada dokumen yang rusak. Caranya sama saja, sebab yang dibutuhkan hanya sebelas berkas statis.
+2. **Tawarkan agar berkasnya dititipkan di laman internal kantor.** Alamat berakhiran `github.io` terbaca sebagai milik pribadi, dan untuk perkakas yang menyentuh naskah dinas hal itu akan terus menimbulkan pertanyaan tentang siapa yang bertanggung jawab bila ada dokumen yang rusak. Caranya sama saja, sebab yang dibutuhkan hanya berkas statis.
 3. **Cek dulu apakah aplikasi TTE kantormu sudah membubuhkan penandanya sendiri.** Sebagian aplikasi berbasis sertifikat BSrE membubuhkan penanda visual berikut QR secara otomatis pada saat penandatanganan. Kalau begitu keadaannya, perkakas penanda ini justru menghasilkan tulisan ganda, dan pengguna perlu diberi tahu kapan perkakas itu tidak boleh dipakai.
 
 ---

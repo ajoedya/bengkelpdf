@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PDF ke Word — Perkakas PDF</title>
+<title>PDF ke Word — Bengkel PDF</title>
 <script src="tema.js"></script>
 <link rel="stylesheet" href="gaya.css">
 <style>
@@ -28,7 +28,7 @@ details.pw-lipat summary{cursor:pointer;font-weight:600;font-size:14px}
 
 <header class="kop">
   <div class="kop-isi">
-    <p class="kop-label"><a href="./">Perkakas PDF</a> / 06</p>
+    <p class="kop-label"><a href="./">Bengkel PDF</a> / 06</p>
     <h1>PDF ke Word</h1>
     <p>Mengubah isi PDF menjadi berkas .docx yang bisa disunting di Word. Seluruh pengolahan berjalan di peramban, tidak ada berkas yang diunggah ke server mana pun.</p>
   </div>
@@ -382,13 +382,13 @@ const SETTINGS_XML =
 const APP_XML =
 `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
-<Application>Perkakas PDF</Application>
+<Application>Bengkel PDF</Application>
 </Properties>`;
 
 function coreXml(judul) {
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/">
-<dc:creator>Perkakas PDF</dc:creator><dc:title>${lolosXml(judul || "Hasil konversi PDF ke Word")}</dc:title>
+<dc:creator>Bengkel PDF</dc:creator><dc:title>${lolosXml(judul || "Hasil konversi PDF ke Word")}</dc:title>
 </cp:coreProperties>`;
 }
 
