@@ -53,6 +53,7 @@
   /* Warna pendukung. Semuanya ikut berganti saat tema diganti, lihat bagian
      "Tema" di bawah. Jangan menulis kode warna langsung di aturan lain. */
   --latar-bening: rgba(253, 251, 247, 0);   /* --latar dengan alfa 0, untuk gradasi */
+  --rgb-latar: 253, 251, 247;              /* --latar sebagai angka R,G,B */
   --menu-latar: #fffefa;
   --menu-garis: #e8e4db;
   --tombol-polos: #fffdfa;
@@ -91,8 +92,9 @@
 
   /* Banner: satu gambar dipakai di beranda dan di kop halaman alat. */
   --banner: url("banner-pelabuhan.jpg");
-  --banner-beranda-posisi: center 48%;
-  --banner-beranda-posisi-ponsel: 80% 48%;
+  /* Titik fokus banner pada latar kolom kiri beranda (bentuknya tegak, jadi
+     hanya sebagian foto yang tampak). */
+  --banner-latar-posisi: 72% 100%;
   --banner-kop-posisi: right 46%;
   --banner-pita-posisi: center 52%;
   /* Kepekatan lapisan gelap di bawah keterangan banner beranda. */
@@ -122,6 +124,7 @@
   --emas-garis: #d9cfa7;
   --latar: #fbfcf7;
   --latar-bening: rgba(251, 252, 247, 0);
+  --rgb-latar: 251, 252, 247;
   --tinta: #173527;
   --tinta-lembut: #526a5c;
   --garis: #e3e7db;
@@ -159,8 +162,7 @@
   --rgb-semburat: 226, 234, 194;
   --rgb-semburat-2: 214, 224, 190;
   --banner: url("banner-hutan.jpg");
-  --banner-beranda-posisi: center 46%;
-  --banner-beranda-posisi-ponsel: 15% 46%;
+  --banner-latar-posisi: 12% 100%;
   --banner-kop-posisi: right 30%;
   --banner-pita-posisi: center 25%;
   --banner-lapis-tengah: .3;
@@ -179,6 +181,7 @@
   --emas-garis: #e0d0a9;
   --latar: #fbfcfa;
   --latar-bening: rgba(251, 252, 250, 0);
+  --rgb-latar: 251, 252, 250;
   --tinta: #10373f;
   --tinta-lembut: #4e6a70;
   --garis: #dfe7e3;
@@ -216,8 +219,7 @@
   --rgb-semburat: 248, 220, 170;
   --rgb-semburat-2: 232, 222, 190;
   --banner: url("banner-mangrove.jpg");
-  --banner-beranda-posisi: center 50%;
-  --banner-beranda-posisi-ponsel: 30% 50%;
+  --banner-latar-posisi: 34% 100%;
   --banner-kop-posisi: right 40%;
   --banner-pita-posisi: center 55%;
   --banner-lapis-tengah: .36;
