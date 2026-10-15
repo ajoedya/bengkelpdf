@@ -37,7 +37,7 @@ Situs hanya memanggil beberapa alamat luar untuk memuat pustaka dan huruf:
 
 ## Tampilan
 
-Setiap kunjungan mendapat salah satu dari tiga tema secara acak, masing-masing dengan banner khas Kalimantan Timur, yaitu Pelabuhan Senja, Hutan Hujan, dan Mangrove. Selama satu kunjungan, semua halaman memakai tema yang sama.
+Setiap kunjungan mendapat salah satu dari enam tema secara acak, masing-masing dengan banner khas Kalimantan Timur, yaitu Pelabuhan Senja, Hutan Hujan, Mangrove, Tongkang Batu Bara, Tepian Kota, dan Kilang. Di beranda, banner menjadi latar penuh kolom kiri. Selama satu kunjungan, semua halaman memakai tema yang sama.
 
 ## Untuk pengelola
 

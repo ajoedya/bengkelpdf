@@ -88,7 +88,7 @@ Tema diatur di dua tempat:
 
 Untuk menambah tema, unggah gambar bannernya, salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Tema baru langsung ikut diundi. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
 
-Di beranda, banner menjadi latar penuh kolom kiri yang bentuknya tegak, jadi hanya sebagian foto yang tampak. Bagian yang tampak diatur lewat `--banner-latar-posisi` (posisi mendatar lalu tegak, misalnya `12% 100%` untuk menampakkan sisi kiri bawah foto). Supaya tidak buram di layar beresolusi tinggi, gambar banner sebaiknya **paling tidak 2400 × 1200 piksel** dan disimpan sebagai JPG berkualitas tinggi (sekitar 90), dengan objek khasnya tidak terlalu jauh dari bagian bawah foto.
+Di beranda, banner menjadi latar penuh kolom kiri yang bentuknya tegak, jadi hanya sebagian foto yang tampak. Bagian yang tampak diatur lewat `--banner-latar-posisi` (posisi mendatar lalu tegak, misalnya `12% 100%` untuk menampakkan sisi kiri bawah foto). Bila objek khasnya terlalu tinggi sehingga tertutup kabut di bagian atas, perbesar fotonya lewat `--banner-latar-ukuran` (misalnya `auto 140%` seperti pada tema Tongkang) dan atur posisinya ke atas. Supaya tidak buram di layar beresolusi tinggi, gambar banner sebaiknya **paling tidak 2400 × 1200 piksel** dan disimpan sebagai JPG berkualitas tinggi (sekitar 90), dengan objek khasnya tidak terlalu jauh dari bagian bawah foto.
 
 ---
 

@@ -26,7 +26,13 @@
     { id: "hutan", nama: "Hutan Hujan",
       gambar: "Hutan hujan berkabut di tepi sungai saat matahari terbit, dengan orang utan di dahan pohon" },
     { id: "mangrove", nama: "Mangrove",
-      gambar: "Jembatan kayu dan pondok di hutan mangrove saat senja, dengan bekantan di dahan dan kilang di kejauhan" }
+      gambar: "Jembatan kayu dan pondok di hutan mangrove saat senja, dengan bekantan di dahan dan kilang di kejauhan" },
+    { id: "tongkang", nama: "Tongkang Batu Bara",
+      gambar: "Kapal tunda menarik tongkang bermuatan batu bara di teluk, dengan dermaga muat dan kota di perbukitan" },
+    { id: "tepian", nama: "Tepian Kota",
+      gambar: "Jalan dan taman tepi laut berpohon palem di kota pesisir, dengan gedung tinggi dan dermaga di kejauhan" },
+    { id: "kilang", nama: "Kilang",
+      gambar: "Menara dan jaringan pipa kilang minyak di siang hari, dengan teluk dan perbukitan di belakangnya" }
   ];
 
   function cari(id) {
