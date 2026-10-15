@@ -118,7 +118,9 @@ body.beranda-editorial::before { display: none !important; }
   margin: 0 0 21px;
 }
 .beranda-editorial .editorial-privasi {
-  background: var(--emas-muda);
+  background: rgba(255,255,255,.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   border: 0;
   border-left: 3px solid var(--editorial-gold);
   border-radius: 4px;
@@ -195,50 +197,39 @@ body.beranda-editorial::before { display: none !important; }
 .beranda-editorial .editorial-cari button:focus-visible { outline: 3px solid var(--cari-fokus); outline-offset: -3px; }
 .beranda-editorial .editorial-cari button span { display: none; }
 
-/* Semburat hangat di belakang banner: latar kertas beralih perlahan ke warna langit foto. */
-.beranda-editorial .editorial-cerita::after {
+/* Banner sebagai latar penuh kolom kiri, menjulur sampai tepi kiri layar dan
+   melebur ke arah kartu di kanan. Bagian atas dipudarkan ke warna kertas supaya
+   judul dan teks tetap gelap dan mudah dibaca; foto tampil jelas di bagian bawah.
+   Banner mengikuti tema (variabel --banner dan --banner-latar-posisi di gaya.css). */
+.beranda-editorial .editorial-cerita { isolation: isolate; }
+.beranda-editorial .editorial-cerita::before {
   content: "";
   position: absolute;
-  z-index: 0;
-  left: calc(var(--editorial-gutter) * -1);
-  right: calc(var(--editorial-column-gap) * -.85);
+  z-index: -1;
+  top: 0;
   bottom: 0;
-  height: clamp(380px, 36vw, 520px);
-  background: linear-gradient(to bottom, rgba(var(--rgb-semburat),0), rgba(var(--rgb-semburat),.34) 58%, rgba(var(--rgb-semburat-2),.46));
-  -webkit-mask-image: linear-gradient(to right, #000 80%, transparent);
-  mask-image: linear-gradient(to right, #000 80%, transparent);
+  left: calc(var(--editorial-gutter) * -1 - max(0px, (100vw - 1550px) / 2));
+  right: calc(var(--editorial-column-gap) * -.85);
+  background:
+    linear-gradient(to bottom, rgba(var(--rgb-latar),.97) 0%, rgba(var(--rgb-latar),.93) 42%, rgba(var(--rgb-latar),.62) 62%, rgba(var(--rgb-latar),0) 82%),
+    linear-gradient(to bottom, transparent 60%, rgba(var(--rgb-gelap),.45)),
+    var(--banner) var(--banner-latar-posisi) / cover no-repeat;
+  -webkit-mask-image: linear-gradient(to right, #000 88%, transparent);
+  mask-image: linear-gradient(to right, #000 88%, transparent);
   pointer-events: none;
 }
+/* Pita anyaman kiri tidak dipakai lagi karena tepi kiri kini tertutup foto. */
+.beranda-editorial .editorial-split::before { display: none; }
 
-/* Foto pelabuhan: full bleed ke tepi kiri. Tepi atas dan kanan melebur ke latar
-   lewat mask supaya tidak ada garis potong yang tegas; keterangan tetap di atas foto. */
+/* Keterangan di pojok kiri bawah, di atas bagian foto yang paling jelas. */
 .beranda-editorial .editorial-lanskap {
   margin: auto calc(var(--editorial-column-gap) * -.85) 0 calc(var(--editorial-gutter) * -1);
   position: relative;
   z-index: 1;
-  overflow: hidden;
-  height: clamp(215px, 18vw, 264px);
-  background: transparent;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 46%), linear-gradient(to right, #000 86%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to bottom, transparent, #000 46%), linear-gradient(to right, #000 86%, transparent);
-  mask-composite: intersect;
+  height: 120px;
 }
-/* Foto sengaja dibiarkan bersih: tanpa overlay batik di atas pemandangan. */
-.beranda-editorial .editorial-lanskap::after {
-  content: "";
-  position: absolute;
-  inset: 37% 0 0;
-  background: linear-gradient(to bottom, transparent, rgba(var(--rgb-gelap),var(--banner-lapis-tengah)) 45%, rgba(var(--rgb-gelap),var(--banner-lapis-bawah)));
-  pointer-events: none;
-}
-/* Gambar banner dipasang sebagai latar supaya bisa berganti mengikuti tema
-   (variabel --banner di gaya.css). Uraian gambarnya ada di aria-label. */
-.beranda-editorial .editorial-lanskap-gambar {
-  position: absolute;
-  inset: 0;
-  background: var(--banner) var(--banner-beranda-posisi) / cover no-repeat;
-}
+/* Gambar latar ada di .editorial-cerita::before; elemen ini hanya membawa uraian gambarnya. */
+.beranda-editorial .editorial-lanskap-gambar { position: absolute; inset: 0; }
 .beranda-editorial .editorial-lanskap figcaption {
   z-index: 2;
   position: absolute;
@@ -250,7 +241,7 @@ body.beranda-editorial::before { display: none !important; }
   gap: 4px;
   font-size: 14px;
   line-height: 1.4;
-  text-shadow: 0 1px 8px var(--bayang-teks);
+  text-shadow: 0 1px 10px rgba(0,0,0,.55);
 }
 .beranda-editorial .editorial-lanskap figcaption span:first-child {
   font-size: 12px;
@@ -442,13 +433,8 @@ body.beranda-editorial::before { display: none !important; }
   .beranda-editorial .editorial-deskripsi { max-width: 620px; }
   .beranda-editorial .editorial-privasi,
   .beranda-editorial .editorial-cari { max-width: 620px; }
-  .beranda-editorial .editorial-lanskap {
-    margin: 10px calc(var(--editorial-gutter) * -1) 0;
-    height: 265px;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 46%);
-    mask-image: linear-gradient(to bottom, transparent, #000 46%);
-  }
-  .beranda-editorial .editorial-cerita::after {
+  .beranda-editorial .editorial-lanskap { margin: 10px calc(var(--editorial-gutter) * -1) 0; height: 150px; }
+  .beranda-editorial .editorial-cerita::before {
     right: calc(var(--editorial-gutter) * -1);
     -webkit-mask-image: none;
     mask-image: none;
@@ -493,8 +479,7 @@ body.beranda-editorial::before { display: none !important; }
   .beranda-editorial .editorial-kartu:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 0; }
   .beranda-editorial .editorial-kartu strong { font-size: 17px; }
   .beranda-editorial .editorial-kartu > span:nth-child(3) { font-size: 14px; }
-  .beranda-editorial .editorial-lanskap { height: 225px; }
-  .beranda-editorial .editorial-lanskap-gambar { background-position: var(--banner-beranda-posisi-ponsel); }
+  .beranda-editorial .editorial-lanskap { height: 140px; }
 }
 @media (max-width: 440px) {
   .beranda-editorial .editorial-kartu-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }

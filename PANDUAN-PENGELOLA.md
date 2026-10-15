@@ -86,7 +86,9 @@ Tema diatur di dua tempat:
 1. **`tema.js`**, senarai `DAFTAR`. Di sini nama tema dan uraian gambar bannernya untuk pembaca layar.
 2. **`gaya.css`**, bagian "Tema". Tiap tema punya satu blok `:root[data-tema="..."]` berisi nilai warna, nama berkas banner, dan letak potongan gambarnya. Tema Pelabuhan Senja memakai nilai pada blok `:root` di bagian paling atas berkas, sekaligus menjadi cadangan bila skrip tidak berjalan.
 
-Untuk menambah tema, unggah gambar bannernya (perbandingan 3 banding 1, lebar sekitar 1800 piksel), salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Tema baru langsung ikut diundi. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
+Untuk menambah tema, unggah gambar bannernya, salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Tema baru langsung ikut diundi. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
+
+Di beranda, banner menjadi latar penuh kolom kiri yang bentuknya tegak, jadi hanya sebagian foto yang tampak. Bagian yang tampak diatur lewat `--banner-latar-posisi` (posisi mendatar lalu tegak, misalnya `12% 100%` untuk menampakkan sisi kiri bawah foto). Supaya tidak buram di layar beresolusi tinggi, gambar banner sebaiknya **paling tidak 2400 × 1200 piksel** dan disimpan sebagai JPG berkualitas tinggi (sekitar 90), dengan objek khasnya tidak terlalu jauh dari bagian bawah foto.
 
 ---
 
