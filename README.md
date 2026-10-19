@@ -12,7 +12,7 @@ Kumpulan perkakas PDF untuk pekerjaan sehari-hari di kantor, buatan KPKNL Balikp
 |---|---|---|
 | 01 | [Gabung dan Susun PDF](https://ajoedya.github.io/bengkelpdf/gabung) | Menggabungkan beberapa PDF, mengurutkan, memutar, dan memberi nomor halaman |
 | 02 | [Pecah PDF](https://ajoedya.github.io/bengkelpdf/pecah) | Mengambil halaman tertentu atau memisahkan seluruh halaman |
-| 03 | [Edit Teks](https://ajoedya.github.io/bengkelpdf/koreksi) | Mengubah teks langsung di halaman dengan gaya huruf aslinya, serta menyisipkan teks, gambar, kotak, elips, garis, dan panah |
+| 03 | [Edit Teks](https://ajoedya.github.io/bengkelpdf/koreksi) | Mengetik langsung di halaman dengan gaya huruf aslinya, menyunting satu paragraf dengan alir ulang dan perataan, mengganti, memutar, atau memotong gambar, menandai dengan stabilo, coretan, dan catatan, mengenali teks pindaian lewat OCR, serta menyisipkan teks, gambar, dan bentuk |
 | 04 | [Watermark](https://ajoedya.github.io/bengkelpdf/tanda-air) | Membubuhkan tulisan seperti SALINAN atau KONSEP |
 | 05 | [PDF dan Gambar](https://ajoedya.github.io/bengkelpdf/gambar) | Mengubah halaman PDF menjadi JPG, atau menyusun gambar menjadi PDF |
 | 06 | [PDF ke Word](https://ajoedya.github.io/bengkelpdf/word) | Mengubah PDF menjadi dokumen Word yang bisa disunting, termasuk hasil pindaian lewat OCR |
@@ -32,7 +32,8 @@ Situs hanya memanggil beberapa alamat luar untuk memuat pustaka dan huruf:
 |---|---|
 | `cdnjs.cloudflare.com` | pdf.js, membaca dan menggambar PDF |
 | `unpkg.com` | pdf-lib, menulis PDF |
-| `cdn.jsdelivr.net` | Tesseract.js, OCR pada PDF ke Word |
+| `cdn.jsdelivr.net` | Tesseract.js untuk OCR, serta huruf Arimo, Tinos, dan Cousine yang ditanam saat menyunting teks |
+| `unpkg.com` (fontkit) | Menanam huruf berukuran sama dengan Arial, Times, dan Courier supaya huruf di luar Latin dasar ikut tertulis |
 | `fonts.googleapis.com` | Huruf Public Sans |
 
 ## Tampilan
