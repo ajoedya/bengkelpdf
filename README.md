@@ -10,15 +10,14 @@ Kumpulan perkakas PDF untuk pekerjaan sehari-hari di kantor, buatan KPKNL Balikp
 
 | No | Perkakas | Kegunaan |
 |---|---|---|
-| 01 | [Gabung dan Susun PDF](https://ajoedya.github.io/bengkelpdf/gabung) | Menggabungkan beberapa PDF, mengurutkan, memutar, dan memberi nomor halaman |
-| 02 | [Pecah PDF](https://ajoedya.github.io/bengkelpdf/pecah) | Mengambil halaman tertentu atau memisahkan seluruh halaman |
-| 03 | [Edit Teks](https://ajoedya.github.io/bengkelpdf/koreksi) | Mengetik langsung di halaman dengan gaya huruf aslinya, menyunting satu paragraf dengan alir ulang dan perataan, mengganti, memutar, atau memotong gambar, menandai dengan stabilo, coretan, dan catatan, mengenali teks pindaian lewat OCR, serta menyisipkan teks, gambar, dan bentuk |
-| 04 | [Watermark](https://ajoedya.github.io/bengkelpdf/tanda-air) | Membubuhkan tulisan seperti SALINAN atau KONSEP |
-| 05 | [PDF dan Gambar](https://ajoedya.github.io/bengkelpdf/gambar) | Mengubah halaman PDF menjadi JPG, atau menyusun gambar menjadi PDF |
-| 06 | [PDF ke Word](https://ajoedya.github.io/bengkelpdf/word) | Mengubah PDF menjadi dokumen Word yang bisa disunting, termasuk hasil pindaian lewat OCR |
-| 07 | [Penanda TTE](https://ajoedya.github.io/bengkelpdf/penanda) | Membubuhkan penanda tulisan tanda tangan elektronik |
-| 08 | [Ubah Ukuran Kertas](https://ajoedya.github.io/bengkelpdf/pengubah-uk) | Menyesuaikan ukuran halaman, misalnya ke A4 atau F4 |
-| 09 | [Kompres PDF](https://ajoedya.github.io/bengkelpdf/kompres) | Memperkecil ukuran berkas dengan teks tetap utuh dan bisa dicari |
+| 01 | [Gabung/Pecah](https://ajoedya.github.io/bengkelpdf/gabung-pecah) | Menggabungkan beberapa PDF, mengurutkan, memutar, dan memberi nomor halaman, lalu menyimpannya sebagai satu berkas, mengambil halaman tertentu, atau memecahnya satu berkas per halaman |
+| 02 | [Edit Teks](https://ajoedya.github.io/bengkelpdf/koreksi) | Mengetik langsung di halaman dengan gaya huruf aslinya, menyunting satu paragraf dengan alir ulang dan perataan, mengganti, memutar, atau memotong gambar, menandai dengan stabilo, coretan, dan catatan, mengenali teks pindaian lewat OCR, serta menyisipkan teks, gambar, dan bentuk |
+| 03 | [Watermark](https://ajoedya.github.io/bengkelpdf/tanda-air) | Membubuhkan tulisan seperti SALINAN atau KONSEP |
+| 04 | [PDF dan Gambar](https://ajoedya.github.io/bengkelpdf/gambar) | Mengubah halaman PDF menjadi JPG, atau menyusun gambar menjadi PDF |
+| 05 | [PDF ke Word](https://ajoedya.github.io/bengkelpdf/word) | Mengubah PDF menjadi dokumen Word yang bisa disunting, termasuk hasil pindaian lewat OCR |
+| 06 | [Penanda TTE](https://ajoedya.github.io/bengkelpdf/penanda) | Membubuhkan penanda tulisan tanda tangan elektronik |
+| 07 | [Ubah Ukuran Kertas](https://ajoedya.github.io/bengkelpdf/pengubah-uk) | Menyesuaikan ukuran halaman, misalnya ke A4 atau F4 |
+| 08 | [Kompres PDF](https://ajoedya.github.io/bengkelpdf/kompres) | Memperkecil ukuran berkas dengan teks tetap utuh dan bisa dicari |
 
 ![Edit Teks](dokumentasi/edit-teks.jpg)
 
@@ -38,7 +37,7 @@ Situs hanya memanggil beberapa alamat luar untuk memuat pustaka dan huruf:
 
 ## Tampilan
 
-Setiap kunjungan mendapat salah satu dari enam tema secara acak, masing-masing dengan banner khas Kalimantan Timur, yaitu Pelabuhan Senja, Hutan Hujan, Mangrove, Tongkang Batu Bara, Tepian Kota, dan Kilang. Di beranda, banner menjadi latar penuh kolom kiri. Selama satu kunjungan, semua halaman memakai tema yang sama.
+Setiap kunjungan mendapat salah satu dari enam tema secara acak, masing-masing dengan banner khas Kalimantan Timur, yaitu Pelabuhan Senja, Hutan Hujan, Mangrove, Tongkang Batu Bara, Tepian Kota, dan Kilang. Di beranda, banner menjadi latar panel kiri yang menempel saat halaman digulir, berdampingan dengan kisi kartu perkakas yang ringkas. Selama satu kunjungan, semua halaman memakai tema yang sama.
 
 ## Untuk pengelola
 

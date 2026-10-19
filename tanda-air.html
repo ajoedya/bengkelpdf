@@ -7,9 +7,25 @@
 <script src="tema.js"></script>
 <link rel="stylesheet" href="gaya.css">
 <style>
+  /* ============================================================
+     Tata letak: pratinjau lebar di kiri, panel pengaturan
+     di kanan yang ikut menempel saat digulir. Panel turun ke bawah
+     pratinjau di layar sempit.
+     ============================================================ */
+  .ruang-kerja{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;
+    align-items:start;margin-top:24px;}
+  .ruang-kerja > section{margin:0;padding:24px 26px 26px;background:var(--putih);
+    border:1px solid var(--garis);border-radius:var(--radius-sm);box-shadow:var(--bayangan-sm);}
+  .ruang-kerja > section.sembunyi{display:none;}
+  .rk-panel{position:sticky;top:96px;}
+  .rk-panel h2,.rk-pratinjau h2{font-size:20px;margin-bottom:16px;}
+  .rk-panel .isian{margin-bottom:16px;}
+  .rk-panel .tombol{width:100%;}
+  .rk-panel .petunjuk{font-size:14px;margin:4px 0 16px;}
+
   /* ---------- Pratinjau ---------- */
-  .pratinjau-wm{display:flex;align-items:center;justify-content:center;min-height:220px;
-    padding:16px;background:var(--biru-muda,#ebf3fc);border:1px solid var(--garis,#e2e8f0);
+  .pratinjau-wm{display:flex;align-items:center;justify-content:center;min-height:420px;
+    padding:20px;background:var(--biru-muda,#ebf3fc);border:1px solid var(--garis,#e2e8f0);
     border-radius:var(--radius-sm,6px);font-size:14px;line-height:1.5;text-align:center;
     color:var(--tinta-lembut,#475569);}
   .pratinjau-wm canvas{display:block;max-width:100%;height:auto;background:var(--putih,#fff);
@@ -19,19 +35,30 @@
     gap:10px 14px;margin:14px 0 0;}
   .pratinjau-nav span{min-width:150px;font-size:14px;font-weight:600;text-align:center;
     color:var(--biru-tua,#002f5f);}
+
+  /* Layar sedang dan ponsel: panel pengaturan turun ke bawah pratinjau. */
+  @media (max-width: 900px){
+    .ruang-kerja{grid-template-columns:1fr;}
+    .rk-panel{position:static;}
+    .pratinjau-wm{min-height:260px;}
+  }
+  @media (max-width: 640px){
+    .ruang-kerja{gap:16px;margin-top:16px;}
+    .ruang-kerja > section{padding:20px 18px 22px;}
+  }
 </style>
 </head>
 <body>
 
 <header class="kop">
-  <div class="kop-isi">
-    <p class="kop-label"><a href="./">Bengkel PDF</a> / 04</p>
+  <div class="kop-isi lebar">
+    <p class="kop-label"><a href="./">Bengkel PDF</a> / 03</p>
     <h1>Watermark</h1>
     <p>Menuliskan kata seperti SALINAN atau KONSEP secara menyerong di tengah tiap halaman, dengan warna samar sehingga <em>tidak menutupi isi naskah</em>.</p>
   </div>
 </header>
 
-<div class="bungkus">
+<div class="bungkus lebar">
 
   <section>
     <p class="nomor">Langkah 1</p>
@@ -44,16 +71,27 @@
     <div id="kabar" class="kabar"></div>
   </section>
 
-  <section id="bagianAtur" class="sembunyi">
-    <p class="nomor">Langkah 2</p>
-    <h2>Atur Watermarknya</h2>
+  <div class="ruang-kerja">
+    <section id="bagianPratinjau" class="rk-pratinjau sembunyi" aria-labelledby="judulPratinjau">
+      <p class="nomor">Hasil</p>
+      <h2 id="judulPratinjau">Pratinjau</h2>
+      <div class="pratinjau-wm" id="pratinjau"></div>
+      <div class="pratinjau-nav">
+        <button type="button" class="tombol sekunder kecil" id="sebelum">Sebelumnya</button>
+        <span id="letakHal" aria-live="polite"></span>
+        <button type="button" class="tombol sekunder kecil" id="sesudah">Berikutnya</button>
+      </div>
+      <p class="petunjuk">Pratinjau berganti sendiri setiap kali pengaturan diubah dan dibuat dengan cara yang sama seperti berkas hasilnya. Watermark dibubuhkan pada semua halaman; tombol di atas hanya untuk menengok halaman lain.</p>
+    </section>
 
-    <div class="isian">
-      <label for="tulisan">Kata yang dituliskan</label>
-      <input type="text" id="tulisan" value="SALINAN" maxlength="30">
-    </div>
+    <section id="bagianAtur" class="rk-panel sembunyi" aria-labelledby="judulAtur">
+      <p class="nomor">Langkah 2</p>
+      <h2 id="judulAtur">Atur lalu simpan</h2>
 
-    <div class="isian-baris">
+      <div class="isian">
+        <label for="tulisan">Kata yang dituliskan</label>
+        <input type="text" id="tulisan" value="SALINAN" maxlength="30">
+      </div>
       <div class="isian">
         <label for="kepekatan">Kepekatan</label>
         <select id="kepekatan">
@@ -79,26 +117,14 @@
           <option value="biru">Biru</option>
         </select>
       </div>
-    </div>
 
-    <p class="petunjuk" style="margin-top:0;">Watermark digambar di atas isi halaman, jadi kepekatan yang terlalu tinggi akan mengganggu keterbacaan naskah. Untuk naskah dinas, pilihan samar biasanya sudah cukup.</p>
-  </section>
-
-  <section id="bagianPratinjau" class="sembunyi">
-    <p class="nomor">Langkah 3</p>
-    <h2>Periksa pratinjau lalu simpan</h2>
-    <div class="pratinjau-wm" id="pratinjau"></div>
-    <div class="pratinjau-nav">
-      <button type="button" class="tombol sekunder kecil" id="sebelum">Sebelumnya</button>
-      <span id="letakHal" aria-live="polite"></span>
-      <button type="button" class="tombol sekunder kecil" id="sesudah">Berikutnya</button>
-    </div>
-    <p class="petunjuk">Pratinjau berganti sendiri setiap kali pengaturan di atas diubah, dan dibuat dengan cara yang sama seperti berkas hasilnya, jadi yang tampak di sini itulah yang tersimpan. Watermark dibubuhkan pada semua halaman, sedangkan tombol di atas hanya untuk menengok halaman yang lain.</p>
-    <div id="kabarSimpan" class="kabar" role="status"></div>
-    <div class="baris-tombol" style="margin-top:0;">
-      <button class="tombol" id="proses">Bubuhkan lalu simpan</button>
-    </div>
-  </section>
+      <p class="petunjuk">Untuk naskah dinas, kepekatan samar biasanya sudah cukup supaya isi tetap terbaca.</p>
+      <div id="kabarSimpan" class="kabar" role="status"></div>
+      <div class="baris-tombol" style="margin-top:12px;">
+        <button class="tombol" id="proses">Bubuhkan lalu simpan</button>
+      </div>
+    </section>
+  </div>
 
   <footer>
     <span>Seluruh pengolahan berjalan di peramban. Tidak ada berkas yang diunggah ke server mana pun.</span>
@@ -125,7 +151,7 @@ let sumber = null;                 // dokumen yang sudah dibaca, sumber halaman 
 let halPratinjau = 0;              // halaman yang sedang ditengok, dihitung dari nol
 let tiket = 0, tunda = null;       // hasil pratinjau yang sudah basi diabaikan
 const WARNA = { abu: [0.45,0.45,0.45], merah: [0.70,0.13,0.10], biru: [0.08,0.24,0.45] };
-const LEBAR_PRATINJAU = 560, TINGGI_PRATINJAU = 560;   // ukuran tampil terbesar, dalam piksel
+const LEBAR_PRATINJAU = 680, TINGGI_PRATINJAU = 720;   // ukuran tampil terbesar, dalam piksel
 const HURUF_ASING = "Kata itu memuat huruf atau tanda yang tidak tersedia pada huruf bawaan PDF, " +
   "misalnya emoji atau aksara selain Latin. Ganti dengan huruf Latin biasa.";
 
@@ -146,7 +172,7 @@ Bersama.pasangJatuhan(el("jatuhan"), el("berkas"), async (daftar) => {
     Bersama.pesan("kabarSimpan", "", "");
     el("pratinjau").textContent = "";
     ["bagianAtur", "bagianPratinjau"].forEach((id) => el(id).classList.remove("sembunyi"));
-    el("bagianAtur").scrollIntoView({ behavior: "smooth", block: "start" });
+    el("bagianPratinjau").scrollIntoView({ behavior: "smooth", block: "start" });
     gambarPratinjau();
   } catch (err) {
     Bersama.pesan("kabar", "Berkas tidak bisa dibaca, kemungkinan rusak atau berkata sandi.", "gagal");

@@ -6,21 +6,21 @@ Dokumen ini untuk pengelola situs, bukan untuk pengguna. Petunjuk pemakaian tiap
 
 ## 1. Isi situs
 
-Semua berkas duduk sejajar pada lapisan paling atas *repository*. Tidak boleh ada yang masuk ke dalam folder (kecuali folder `dokumentasi`, yang hanya berisi gambar untuk README), sebab seluruh tautan antarhalaman ditulis secara relatif.
+Semua berkas duduk sejajar pada lapisan paling atas *repository*. Tidak boleh ada yang masuk ke dalam folder (kecuali folder `dokumentasi`, yang hanya berisi gambar untuk README, dan folder `beta`, tempat uji coba tata letak yang memakai `<base href="../">`), sebab seluruh tautan antarhalaman ditulis secara relatif.
 
 | Berkas | Peran |
 |---|---|
-| `index.html` | Beranda, memuat petak menuju tiap perkakas dan kotak pencarian |
-| `gabung.html` | Gabung dan susun PDF, termasuk putar dan nomor halaman |
-| `pecah.html` | Pecah PDF per halaman atau per rentang |
+| `index.html` | Beranda: panel banner yang menempel di kiri berisi pencarian, kisi kartu perkakas ringkas di kanan |
+| `gabung-pecah.html` | Gabung/Pecah: gabung dan susun PDF (putar, buang, nomor halaman), ambil halaman tertentu, atau pecah satu berkas per halaman |
 | `koreksi.html` | Edit Teks: ketik langsung, sunting paragraf, huruf tertanam, teks di Form XObject, OCR, gambar asli dan sisipan, bentuk, serta anotasi stabilo, coretan, dan catatan |
-| `tanda-air.html` | Pembubuh tanda air (*watermark*) |
+| `tanda-air.html` | Pembubuh tanda air (*watermark*), pratinjau di kiri dan panel pengaturan di kanan |
 | `gambar.html` | PDF ke gambar dan gambar ke PDF |
 | `word.html` | PDF ke Word, termasuk OCR untuk hasil pindaian |
 | `penanda.html` | Pembubuh penanda tanda tangan elektronik |
 | `pengubah-uk.html` | Pengubah ukuran kertas |
 | `kompres.html` | Pemampat ukuran berkas |
-| `susun.html`, `nomor.html` | Halaman pengalih ke `gabung.html`, supaya tautan lama tetap jalan |
+| `gabung.html`, `pecah.html`, `susun.html`, `nomor.html` | Halaman pengalih ke `gabung-pecah.html`, supaya tautan lama tetap jalan |
+| `beta/` | Tempat uji coba tata letak; `beta/beta.js` mengarahkan menu ke halaman beta |
 | `tema.js` | Pengundi tema, dimuat paling awal di setiap halaman |
 | `gaya.css` | Warna, huruf, tema, dan tata letak seluruh halaman |
 | `editorial.css` | Tata letak khusus beranda |
@@ -49,10 +49,10 @@ Tiga berkas `tema.js`, `gaya.css`, dan `bersama.js` adalah tulang punggungnya. K
 
 Jangan menyebarkan alamatnya sebelum kelima hal berikut lolos, dan lakukan pengujian di **komputer kantor pada jaringan kantor**, bukan di komputer pribadi.
 
-1. **Seluruh menu terbuka.** Klik satu per satu kesembilan tautan pada menu atas, pastikan tidak ada yang menampilkan halaman 404. Kalau ada, berarti berkasnya belum terunggah atau namanya tertulis berbeda, sebab GitHub membedakan huruf besar dan kecil.
+1. **Seluruh menu terbuka.** Klik satu per satu kedelapan tautan perkakas pada menu atas, pastikan tidak ada yang menampilkan halaman 404. Kalau ada, berarti berkasnya belum terunggah atau namanya tertulis berbeda, sebab GitHub membedakan huruf besar dan kecil.
 2. **Warna dan menu muncul.** Kalau halaman tampil polos tanpa warna, `gaya.css` belum terunggah. Kalau menu atas tidak ada, `bersama.js` yang belum.
 3. **Pembacaan PDF berjalan.** Buka `penanda.html`, pilih satu Nota Dinas polos, dan pastikan pratinjaunya tergambar. Kalau berkas terpilih tetapi tidak terjadi apa pun, jaringan kantor menyaring `cdnjs.cloudflare.com` atau `unpkg.com`, dan situsnya tidak akan bisa dipakai sampai hal itu diatasi.
-4. **Unduhan beruntun.** Buka `pecah.html`, pilih cara memecah tiap halaman, lalu pastikan berkasnya benar-benar tersimpan semua dan bukan hanya yang pertama. Ini bagian yang paling sering bermasalah sebab perilaku tiap peramban berbeda.
+4. **Unduhan beruntun.** Buka `gabung-pecah.html`, pilih bentuk hasil satu berkas per halaman, lalu pastikan berkasnya benar-benar tersimpan semua dan bukan hanya yang pertama. Ini bagian yang paling sering bermasalah sebab perilaku tiap peramban berbeda.
 5. **Hasilnya benar.** Buka berkas keluaran dengan Adobe Reader, bukan hanya dengan pratinjau peramban, dan periksa letak penandanya pada halaman yang benar.
 
 ---
@@ -88,7 +88,7 @@ Tema diatur di dua tempat:
 
 Untuk menambah tema, unggah gambar bannernya, salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Tema baru langsung ikut diundi. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
 
-Di beranda, banner menjadi latar penuh kolom kiri yang bentuknya tegak, jadi hanya sebagian foto yang tampak. Bagian yang tampak diatur lewat `--banner-latar-posisi` (posisi mendatar lalu tegak, misalnya `12% 100%` untuk menampakkan sisi kiri bawah foto). Bila objek khasnya terlalu tinggi sehingga tertutup kabut di bagian atas, perbesar fotonya lewat `--banner-latar-ukuran` (misalnya `auto 140%` seperti pada tema Tongkang) dan atur posisinya ke atas. Supaya tidak buram di layar beresolusi tinggi, gambar banner sebaiknya **paling tidak 2400 × 1200 piksel** dan disimpan sebagai JPG berkualitas tinggi (sekitar 90), dengan objek khasnya tidak terlalu jauh dari bagian bawah foto.
+Di beranda, banner menjadi latar panel kiri yang bentuknya tegak, jadi hanya sebagian foto yang tampak. Bagian yang tampak diatur lewat `--banner-latar-posisi` (posisi mendatar lalu tegak, misalnya `12% 100%` untuk menampakkan sisi kiri bawah foto). Bila objek khasnya terlalu tinggi sehingga tertutup kabut di bagian atas, perbesar fotonya lewat `--banner-latar-ukuran` (misalnya `auto 140%` seperti pada tema Tongkang) dan atur posisinya ke atas. Supaya tidak buram di layar beresolusi tinggi, gambar banner sebaiknya **paling tidak 2400 × 1200 piksel** dan disimpan sebagai JPG berkualitas tinggi (sekitar 90), dengan objek khasnya tidak terlalu jauh dari bagian bawah foto.
 
 ---
 

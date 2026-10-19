@@ -5,16 +5,15 @@
   "use strict";
 
   const HALAMAN = [
-    { berkas: "index",     nama: "Beranda" },
-    { berkas: "koreksi",   nama: "Edit Teks" },
-    { berkas: "gabung",    nama: "Gabung dan Susun PDF" },
-    { berkas: "pecah",     nama: "Pecah PDF" },
-    { berkas: "tanda-air", nama: "Watermark" },
-    { berkas: "gambar",    nama: "PDF dan Gambar" },
-    { berkas: "word",      nama: "PDF ke Word" },
-    { berkas: "penanda",   nama: "Penanda TTE" },
+    { berkas: "index",       nama: "Beranda" },
+    { berkas: "gabung-pecah", nama: "Gabung/Pecah" },
+    { berkas: "koreksi",     nama: "Edit Teks" },
+    { berkas: "tanda-air",   nama: "Watermark" },
+    { berkas: "gambar",      nama: "PDF dan Gambar" },
+    { berkas: "word",        nama: "PDF ke Word" },
+    { berkas: "penanda",     nama: "Penanda TTE" },
     { berkas: "pengubah-uk", nama: "Ubah Ukuran Kertas" },
-    { berkas: "kompres",   nama: "Kompres PDF" }
+    { berkas: "kompres",     nama: "Kompres PDF" }
   ];
 
   // Memasang favicon secara otomatis jika belum ada di tag <head>

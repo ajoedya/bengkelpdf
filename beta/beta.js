@@ -9,7 +9,9 @@
   "use strict";
 
   // Perkakas yang sudah punya tata letak beta. Tambahkan di sini bila ada lagi.
-  var ADA_DI_BETA = ["tanda-air"];
+  var ADA_DI_BETA = [];
+  // Perkakas yang dilebur di beta: tautan lama diarahkan ke perkakas gabungannya.
+  var DILEBUR = {};
 
   function sesuaikan() {
     var menu = document.querySelector(".menu-isi");
@@ -22,6 +24,16 @@
 
     menu.querySelectorAll(".menu-dropdown-content a").forEach(function (a) {
       var tujuan = a.getAttribute("href");
+      if (Object.prototype.hasOwnProperty.call(DILEBUR, tujuan)) {
+        var lebur = DILEBUR[tujuan];
+        if (!lebur) { a.remove(); return; }
+        a.setAttribute("href", "beta/" + lebur.ke);
+        a.textContent = lebur.nama;
+        if (/gabung-pecah$/.test(location.pathname.replace(/\.html?$/, ""))) {
+          a.classList.add("aktif"); a.setAttribute("aria-current", "page");
+        }
+        return;
+      }
       if (ADA_DI_BETA.indexOf(tujuan) !== -1) a.setAttribute("href", "beta/" + tujuan);
     });
 
