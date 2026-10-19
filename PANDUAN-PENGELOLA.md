@@ -88,6 +88,12 @@ Tema diatur di dua tempat:
 
 Untuk menambah tema, unggah gambar bannernya, salin satu blok tema di `gaya.css` lalu ganti nilainya, dan tambahkan satu baris di `DAFTAR`. Tema baru langsung ikut diundi. Pastikan warna teks tetap terbaca di atas warna latar yang baru.
 
+### Mode terang dan gelap
+
+Selain tema, situs punya mode terang dan gelap. Saat dibuka, mode **mengikuti tema perangkat** pengunjung (pengaturan terang atau gelap di Windows, macOS, atau ponsel). Di ujung kanan menu atas ada tombol bulat kecil berikon bulan atau matahari untuk berganti mode. Pilihan itu diingat oleh peramban pengunjung dan berlaku di semua halaman. Bila pengunjung kembali memilih mode yang sama dengan perangkatnya, situs kembali mengikuti perangkat.
+
+Warnanya ada di `gaya.css`, bagian "Mode gelap". Blok `:root[data-mode="gelap"]` berisi warna dasar, sedangkan blok `:root[data-mode="gelap"][data-tema="..."]` menjaga rona khas tiap tema. Tombol dan penanda aktif memakai `--aksen-latar` dan `--aksen-teks`, bukan `--biru-tua` dan `--putih`, karena di mode gelap `--biru-tua` berubah menjadi warna judul yang terang. Pratinjau halaman PDF memakai `--kertas` yang selalu putih supaya isi dokumen tampak apa adanya. Bila menambah tema baru, periksa juga tampilannya di mode gelap.
+
 Di beranda, banner menjadi latar panel kiri yang bentuknya tegak, jadi hanya sebagian foto yang tampak. Bagian yang tampak diatur lewat `--banner-latar-posisi` (posisi mendatar lalu tegak, misalnya `12% 100%` untuk menampakkan sisi kiri bawah foto). Bila objek khasnya terlalu tinggi sehingga tertutup kabut di bagian atas, perbesar fotonya lewat `--banner-latar-ukuran` (misalnya `auto 140%` seperti pada tema Tongkang) dan atur posisinya ke atas. Supaya tidak buram di layar beresolusi tinggi, gambar banner sebaiknya **paling tidak 2400 × 1200 piksel** dan disimpan sebagai JPG berkualitas tinggi (sekitar 90), dengan objek khasnya tidak terlalu jauh dari bagian bawah foto.
 
 ---

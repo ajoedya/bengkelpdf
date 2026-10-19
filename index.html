@@ -19,7 +19,7 @@
 .beranda-c .editorial-halaman::after {
   content: ""; position: absolute; top: 0; bottom: 0; width: 48px;
   background: url("ornamen-kalimantan-anyaman.svg") left top / 48px 24px repeat-y;
-  opacity: .2; pointer-events: none; z-index: 0;
+  opacity: var(--anyaman-opasitas); pointer-events: none; z-index: 0;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
 }
@@ -97,11 +97,11 @@
   line-height: 1;
   font-weight: 800;
   letter-spacing: .04em;
-  background: linear-gradient(160deg, #ffffff 0%, var(--biru-tua) 100%);
+  background: linear-gradient(160deg, #ffffff 0%, var(--nomor-ujung) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  opacity: .55;
+  opacity: var(--nomor-opasitas);
   pointer-events: none;
 }
 /* Deskripsi kartu yang diberi label tambahan tetap bergaya sama. */
@@ -110,9 +110,9 @@
   align-self: flex-start;
   margin: 0 0 8px;
   padding: 4px 8px;
-  background: #f2e9d7;
+  background: var(--lencana-latar);
   border-radius: 12px;
-  color: #765412;
+  color: var(--lencana-teks);
   font: 700 10px/1 "Public Sans", sans-serif;
   letter-spacing: .04em;
 }
@@ -132,7 +132,7 @@
 .c-gerbang::after {
   content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 45%;
   background: url("ornamen-kalimantan-anyaman.svg") right center / 48px 24px repeat;
-  opacity: .28; pointer-events: none;
+  opacity: calc(var(--anyaman-opasitas) * 1.4); pointer-events: none;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 60%);
   mask-image: linear-gradient(to right, transparent, #000 60%);
 }

@@ -15,7 +15,7 @@
   .cip{font:inherit;font-size:14px;min-width:38px;min-height:36px;padding:6px 10px;cursor:pointer;
     border:1px solid var(--garis-fokus);background:var(--putih);border-radius:var(--radius-sm);color:var(--tinta);}
   .cip.ada{border-color:var(--emas-tua);background:var(--emas-muda);font-weight:700;}
-  .cip.kini{background:var(--biru-tua);color:var(--putih);border-color:var(--biru-tua);}
+  .cip.kini{background:var(--aksen-latar);color:var(--aksen-teks);border-color:var(--aksen-latar);}
   .tombol.aktif-mode{background:var(--emas-muda);border-color:var(--emas-tua);color:var(--biru-tua);}
 
   /* ---------- Cari dan ganti ---------- */
@@ -28,7 +28,7 @@
 
   /* ---------- Panggung: pratinjau hasil + penanda ---------- */
   .panggung-wadah{position:relative;display:block;width:100%;}
-  #panggung{position:relative;margin:0 auto;background:var(--putih);border:1px solid var(--garis);
+  #panggung{position:relative;margin:0 auto;background:var(--kertas);border:1px solid var(--garis);
     box-shadow:var(--bayangan-md);cursor:text;user-select:none;touch-action:pan-y;}
   #panggung.mode-tambah{cursor:copy;}
   #panggung canvas{display:block;width:100%;height:auto;}
@@ -56,12 +56,12 @@
     border-radius:var(--radius-sm);background:var(--putih);cursor:pointer;}
   .tg{min-width:36px;height:36px;padding:0 9px;font:inherit;font-size:14px;cursor:pointer;color:var(--biru-tua);
     background:var(--putih);border:1px solid var(--garis-fokus);border-radius:var(--radius-sm);}
-  .tg.aktif{background:var(--biru-tua);color:var(--putih);border-color:var(--biru-tua);}
+  .tg.aktif{background:var(--aksen-latar);color:var(--aksen-teks);border-color:var(--aksen-latar);}
   .tg:focus-visible{outline:3px solid var(--emas-tua);outline-offset:1px;}
   .aksi-penyunting{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
   .aksi-penyunting .ke-kanan{margin-left:auto;}
   #catatanPenyunting{margin:8px 0 0;font-size:13.5px;line-height:1.45;color:var(--tinta-lembut);}
-  #catatanPenyunting .awas{color:#8f1d14;}
+  #catatanPenyunting .awas{color:var(--bahaya-teks);}
 
   /* ---------- Ketik langsung di pratinjau ---------- */
   @font-face{font-family:"Arimo";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/arimo@0.4.3/400Regular/Arimo_400Regular.ttf");font-weight:400;font-style:normal;font-display:swap}

@@ -115,6 +115,23 @@
     isi.appendChild(container);
     pasangBukaTutup(container, tombol);
 
+    // Tombol mode terang/gelap: ikon saja, di ujung kanan menu.
+    // Ikon bulan tampil di mode terang, ikon matahari di mode gelap (lihat gaya.css).
+    if (window.Tema && window.Tema.alihMode) {
+      const mode = document.createElement("button");
+      mode.type = "button";
+      mode.className = "menu-mode";
+      mode.setAttribute("data-tombol-mode", "");
+      mode.innerHTML =
+        '<svg class="ikon-bulan" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+          '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>' +
+        '<svg class="ikon-matahari" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+          '<circle cx="12" cy="12" r="4"/>' +
+          '<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+      mode.addEventListener("click", function () { window.Tema.alihMode(); });
+      isi.appendChild(mode);
+    }
+
     bar.appendChild(isi);
     // Pada beranda, tautan "Lewati navigasi" harus menjadi elemen fokus pertama.
     const lewati = document.querySelector(".lewati-konten");

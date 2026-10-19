@@ -8,7 +8,8 @@
    kunjungan itu (satu tab peramban), semua halaman memakai tema yang sama,
    dan kunjungan berikutnya diusahakan mendapat banner yang berbeda.
 
-   Warna dan gambar tiap tema ada di gaya.css, bagian "Tema".
+   Warna dan gambar tiap tema ada di gaya.css, bagian "Tema". Mode terang
+   dan gelap diatur di bagian bawah berkas ini.
    Menambah tema: unggah bannernya, tambahkan satu baris di DAFTAR, lalu buat
    blok :root[data-tema="id-nya"] di gaya.css. Tema baru langsung ikut diundi.
    ============================================================ */
@@ -75,10 +76,61 @@
   }
   var kini = pasang(id);
 
+  /* ---------- Mode terang dan gelap ----------
+     Bawaannya mengikuti tema perangkat (prefers-color-scheme). Bila pengguna
+     menekan tombol mode di menu atas, pilihannya disimpan di peramban itu dan
+     dipakai seterusnya, termasuk untuk semua halaman alat.
+     Mode dipasang lewat atribut data-mode="gelap" pada <html>; warnanya ada di
+     gaya.css, bagian "Mode gelap". */
+  var KUNCI_MODE = "bengkel-mode";
+  var media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+  function modePerangkat() { return media && media.matches ? "gelap" : "terang"; }
+  function modeTersimpan() {
+    var m = baca("localStorage", KUNCI_MODE);
+    return m === "gelap" || m === "terang" ? m : null;
+  }
+  function pasangMode(m) {
+    var akar = document.documentElement;
+    if (m === "gelap") akar.setAttribute("data-mode", "gelap");
+    else akar.removeAttribute("data-mode");
+    akar.style.colorScheme = m === "gelap" ? "dark" : "light";
+    // Tombol mode di menu atas ikut diperbarui bila sudah terpasang.
+    var tombol = document.querySelectorAll("[data-tombol-mode]");
+    for (var i = 0; i < tombol.length; i++) {
+      tombol[i].setAttribute("aria-pressed", m === "gelap" ? "true" : "false");
+      tombol[i].setAttribute("aria-label", m === "gelap" ? "Ganti ke tampilan terang" : "Ganti ke tampilan gelap");
+      tombol[i].title = m === "gelap" ? "Tampilan terang" : "Tampilan gelap";
+    }
+    return m;
+  }
+
+  var mode = pasangMode(modeTersimpan() || modePerangkat());
+
+  // Selama pengguna belum memilih sendiri, ikuti perubahan tema perangkat.
+  if (media) {
+    var ikuti = function () { if (!modeTersimpan()) mode = pasangMode(modePerangkat()); };
+    if (media.addEventListener) media.addEventListener("change", ikuti);
+    else if (media.addListener) media.addListener(ikuti);
+  }
+
   window.Tema = {
     daftar: DAFTAR,
     kini: function () { return kini.id; },
+    mode: function () { return mode; },
+    // Dipanggil tombol mode: berganti mode dan mengingat pilihan pengguna.
+    // Bila hasilnya sama dengan tema perangkat, pilihan dihapus supaya situs
+    // kembali mengikuti perangkat.
+    alihMode: function () {
+      mode = mode === "gelap" ? "terang" : "gelap";
+      if (mode === modePerangkat()) {
+        try { localStorage.removeItem(KUNCI_MODE); } catch (e) { /* abaikan */ }
+      } else {
+        tulis("localStorage", KUNCI_MODE, mode);
+      }
+      return pasangMode(mode);
+    },
     // Dipanggil sekali setelah halaman selesai dimuat, agar uraian gambar ikut terpasang.
-    segarkan: function () { kini = pasang(kini.id); }
+    segarkan: function () { kini = pasang(kini.id); pasangMode(mode); }
   };
 })();

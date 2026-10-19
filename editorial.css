@@ -67,7 +67,7 @@ body.beranda-editorial::before { display: none !important; }
   top: 0;
   bottom: 0;
   background: url("ornamen-kalimantan-anyaman.svg") left top / 48px 24px repeat-y;
-  opacity: .2;
+  opacity: var(--anyaman-opasitas);
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
 }
@@ -118,7 +118,7 @@ body.beranda-editorial::before { display: none !important; }
   margin: 0 0 21px;
 }
 .beranda-editorial .editorial-privasi {
-  background: rgba(255,255,255,.72);
+  background: var(--kaca);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   border: 0;
@@ -160,7 +160,7 @@ body.beranda-editorial::before { display: none !important; }
 .beranda-editorial .editorial-cari-baris {
   display: flex;
   overflow: hidden;
-  background: white;
+  background: var(--putih);
   border: 1px solid var(--cari-garis);
   border-radius: 5px;
 }
@@ -188,12 +188,12 @@ body.beranda-editorial::before { display: none !important; }
   border: 0;
   border-radius: 0;
   background: var(--cari-tombol);
-  color: white;
+  color: var(--aksen-teks);
   font: 600 15px "Public Sans", sans-serif;
   cursor: pointer;
   padding: 10px 19px;
 }
-.beranda-editorial .editorial-cari button:hover { background: var(--biru-hover); }
+.beranda-editorial .editorial-cari button:hover { background: var(--aksen-hover); }
 .beranda-editorial .editorial-cari button:focus-visible { outline: 3px solid var(--cari-fokus); outline-offset: -3px; }
 .beranda-editorial .editorial-cari button span { display: none; }
 
@@ -313,9 +313,9 @@ body.beranda-editorial::before { display: none !important; }
   display: inline-block;
   margin: 0;
   padding: 4px 8px;
-  background: #f2e9d7;
+  background: var(--lencana-latar);
   border-radius: 12px;
-  color: #765412;
+  color: var(--lencana-teks);
   font: 700 10px/1 "Public Sans",sans-serif;
   letter-spacing: .04em;
 }
