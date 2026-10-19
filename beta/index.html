@@ -13,288 +13,206 @@
 <link rel="stylesheet" href="editorial.css">
 <style>
 /* ============================================================
-   Beta layout B: banner atas + perkakas dikelompokkan per kegunaan.
-   Warna, huruf, banner, dan anyaman tetap memakai variabel gaya.css,
+   Beta layout C: panel banner menempel di kiri, kisi perkakas ringkas
+   di kanan. Warna, huruf, banner, dan anyaman memakai variabel gaya.css,
    jadi ikut berganti bersama tema acak.
    ============================================================ */
-.beranda-b .editorial-halaman { position: relative; }
-
-/* Pita anyaman kembar di tepi kiri dan kanan, sama dengan beranda stabil. */
-.beranda-b .editorial-halaman::before,
-.beranda-b .editorial-halaman::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 48px;
+.beranda-c .editorial-halaman { position: relative; }
+.beranda-c .editorial-halaman::before,
+.beranda-c .editorial-halaman::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 48px;
   background: url("ornamen-kalimantan-anyaman.svg") left top / 48px 24px repeat-y;
-  opacity: .2;
+  opacity: .2; pointer-events: none; z-index: 0;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
-  pointer-events: none;
-  z-index: 0;
 }
-.beranda-b .editorial-halaman::before { left: calc(var(--editorial-gutter) * .5 - 24px); }
-.beranda-b .editorial-halaman::after { right: calc(var(--editorial-gutter) * .5 - 24px); }
+.beranda-c .editorial-halaman::before { left: calc(var(--editorial-gutter) * .5 - 24px); }
+.beranda-c .editorial-halaman::after { right: calc(var(--editorial-gutter) * .5 - 24px); }
 
-/* ---------- Banner atas ---------- */
-.b-banner {
-  position: relative;
-  z-index: 1;
-  margin-top: 26px;
+.c-split {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .4fr) minmax(0, .6fr);
+  gap: clamp(22px, 3vw, 44px);
+  align-items: start;
+  padding: 26px 0 40px;
+}
+
+/* ---------- Panel kiri ---------- */
+.c-panel {
+  position: sticky;
+  top: 100px;
+  min-height: min(640px, calc(100vh - 124px));
   border-radius: 6px;
   overflow: hidden;
   isolation: isolate;
-  min-height: 360px;
   display: flex;
-  align-items: center;
-  background: var(--banner) var(--banner-pita-posisi) / cover no-repeat;
+  flex-direction: column;
+  background: var(--banner) var(--banner-latar-posisi) / var(--banner-latar-ukuran, cover) no-repeat;
 }
-/* Kabut terang: kiri dipudarkan ke warna kertas supaya teks tetap gelap,
-   foto tampil jelas di sisi kanan. */
-.b-banner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(to right,
-    rgba(var(--rgb-latar),.97) 0%,
-    rgba(var(--rgb-latar),.93) 38%,
-    rgba(var(--rgb-latar),.55) 58%,
-    rgba(var(--rgb-latar),0) 78%);
+/* Kabut terang: bagian atas dipudarkan ke warna kertas, foto jelas di bawah. */
+.c-panel::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(to bottom, rgba(var(--rgb-latar),.97) 0%, rgba(var(--rgb-latar),.94) 48%, rgba(var(--rgb-latar),.6) 66%, rgba(var(--rgb-latar),0) 84%),
+    linear-gradient(to bottom, transparent 70%, rgba(var(--rgb-gelap),.5));
 }
-.b-banner-isi {
-  max-width: 640px;
-  padding: 40px clamp(22px, 4vw, 52px);
-}
-.beranda-b .editorial-label { margin: 0 0 14px; }
-.beranda-b h1 { margin-bottom: 14px; }
-.beranda-b .editorial-deskripsi { margin-bottom: 18px; }
-.b-privasi {
-  margin: 12px 0 0;
-  color: var(--editorial-muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-.b-privasi strong { color: var(--editorial-navy); }
-.b-keterangan {
-  position: absolute;
-  right: 18px;
-  bottom: 14px;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .16em;
+.c-panel-isi { padding: 30px clamp(20px, 2.4vw, 32px) 24px; }
+.beranda-c .editorial-label { margin: 0 0 12px; }
+.beranda-c h1 { font-size: clamp(30px, 2.7vw, 42px); margin-bottom: 12px; }
+.beranda-c .editorial-deskripsi { font-size: 16px; margin-bottom: 18px; }
+.beranda-c .editorial-cari button { min-width: 88px; }
+.c-privasi { margin: 12px 0 0; color: var(--editorial-muted); font-size: 14px; line-height: 1.5; }
+.c-privasi strong { color: var(--editorial-navy); }
+.c-keterangan {
+  margin-top: auto;
+  padding: 0 clamp(20px, 2.4vw, 32px) 18px;
+  color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .18em;
   text-shadow: 0 1px 10px rgba(0,0,0,.6);
 }
 
-/* ---------- Lompat ke kelompok ---------- */
-.b-lompat {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-  margin: 26px 0 0;
-  font-size: 14px;
-  color: var(--editorial-muted);
+/* ---------- Kolom kanan ---------- */
+.c-alat { min-width: 0; scroll-margin-top: 100px; }
+.c-kepala {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 4px 0 12px; margin-bottom: 14px; border-bottom: 1px solid var(--garis-editorial);
 }
-.b-lompat a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  padding: 0 16px;
-  border: 1px solid var(--kartu-garis);
-  border-radius: 999px;
-  background: var(--putih);
-  color: var(--editorial-navy);
-  font-weight: 600;
-  text-decoration: none;
+.c-kepala h2 { margin: 0; color: var(--editorial-navy); font-size: clamp(22px, 2vw, 26px); }
+.c-kepala p {
+  margin: 0; color: var(--editorial-gold-text); font-size: 12px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
 }
-.b-lompat a:hover { border-color: var(--kartu-garis-hover); background: var(--kartu-latar-hover); }
-.b-lompat a:focus-visible { outline: 3px solid var(--editorial-gold); outline-offset: 2px; }
+.c-kisi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.beranda-c .editorial-kartu { min-height: 128px; padding: 18px 20px; }
+.beranda-c .editorial-kartu-nomor { margin-bottom: 8px; }
+.beranda-c .editorial-kartu strong { margin-bottom: 6px; }
+.c-kisi > .editorial-kartu:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 0; }
+.beranda-c .editorial-kosong { margin: 14px 0 0; }
 
-/* ---------- Kelompok perkakas ---------- */
-.b-kelompok-daftar {
-  position: relative;
-  z-index: 1;
-  padding: 10px 0 56px;
+/* Gerbang Internal sebagai pita ringkas di bawah kisi. */
+.c-gerbang {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap;
+  margin-top: 18px; padding: 22px 24px;
+  border: 1px solid var(--kartu-garis); border-radius: 4px;
+  background: linear-gradient(110deg, var(--penutup-1), var(--penutup-2) 60%, var(--penutup-3));
+  color: var(--editorial-navy); text-decoration: none;
 }
-.b-kelompok { margin-top: 34px; scroll-margin-top: 100px; }
-.b-kelompok[hidden] { display: none; }
-.b-kelompok-kepala {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 14px;
-  padding-bottom: 12px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--garis-editorial);
+.c-gerbang::after {
+  content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 45%;
+  background: url("ornamen-kalimantan-anyaman.svg") right center / 48px 24px repeat;
+  opacity: .28; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 60%);
+  mask-image: linear-gradient(to right, transparent, #000 60%);
 }
-.b-kelompok-kepala h2 {
-  margin: 0;
-  color: var(--editorial-navy);
-  font-size: clamp(22px, 2vw, 26px);
-  line-height: 1.2;
-}
-.b-kelompok-kepala p { margin: 0; color: var(--editorial-muted); font-size: 15px; }
-.b-kelompok-kepala .b-jumlah {
-  margin-left: auto;
-  color: var(--editorial-gold-text);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-.b-kisi {
-  display: grid;
-  grid-template-columns: repeat(var(--kolom, 3), minmax(0, 1fr));
-  gap: 14px;
-}
-.beranda-b .editorial-kartu { min-height: 168px; }
-.beranda-b .editorial-kosong { position: relative; z-index: 1; margin: 34px 0 0; }
+.c-gerbang:hover { border-color: var(--kartu-garis-hover); }
+.c-gerbang:focus-visible { outline: 3px solid var(--editorial-gold); outline-offset: 3px; }
+.c-gerbang > span { position: relative; z-index: 1; }
+.c-gerbang .editorial-label { display: block; margin: 0 0 6px; }
+.c-gerbang strong { display: block; font-size: clamp(18px, 1.7vw, 22px); overflow-wrap: anywhere; }
+.c-gerbang .c-buka { font-weight: 700; color: var(--tautan-kartu); white-space: nowrap; }
+.beranda-c .editorial-kaki { margin-top: 18px; }
 
 @media (max-width: 1040px) {
-  .b-kisi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .b-kisi > .editorial-kartu:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 0; }
-  .beranda-b .editorial-halaman::before,
-  .beranda-b .editorial-halaman::after { width: 24px; }
-  .beranda-b .editorial-halaman::before { left: calc(var(--editorial-gutter) * .5 - 12px); }
-  .beranda-b .editorial-halaman::after { right: calc(var(--editorial-gutter) * .5 - 12px); }
+  .c-split { grid-template-columns: 1fr; }
+  .c-panel { position: relative; top: 0; min-height: 0; padding-bottom: 150px; background-position: center bottom; }
+  .beranda-c .editorial-halaman::before,
+  .beranda-c .editorial-halaman::after { width: 24px; }
+  .beranda-c .editorial-halaman::before { left: calc(var(--editorial-gutter) * .5 - 12px); }
+  .beranda-c .editorial-halaman::after { right: calc(var(--editorial-gutter) * .5 - 12px); }
 }
 @media (max-width: 700px) {
-  .beranda-b .editorial-halaman::before,
-  .beranda-b .editorial-halaman::after { display: none; }
-  .b-banner { margin-top: 16px; min-height: 0; align-items: flex-start; padding-bottom: 150px; background-position: center bottom; }
-  .b-banner::before {
-    background: linear-gradient(to bottom,
-      rgba(var(--rgb-latar),.97) 0%,
-      rgba(var(--rgb-latar),.92) 55%,
-      rgba(var(--rgb-latar),0) 85%);
-  }
-  .b-banner-isi { padding: 28px 20px 0; }
-  .b-kelompok-kepala .b-jumlah { margin-left: 0; width: 100%; }
+  .beranda-c .editorial-halaman::before,
+  .beranda-c .editorial-halaman::after { display: none; }
+  .c-split { padding-top: 16px; }
 }
 @media (max-width: 440px) {
-  .b-kisi { grid-template-columns: 1fr; }
-  .beranda-b .editorial-kartu,
-  .b-kisi > .editorial-kartu:last-child:nth-child(odd) { min-height: 120px; }
+  .c-kisi { grid-template-columns: 1fr; }
+  .beranda-c .editorial-kartu { min-height: 0; }
 }
 </style>
 </head>
-<body class="beranda-editorial beranda-b">
+<body class="beranda-editorial beranda-c">
 <a class="lewati-konten" href="beta/#konten">Lewati navigasi</a>
 
 <main id="konten" class="editorial-halaman">
-  <section class="b-banner" aria-labelledby="judul-utama">
-    <div class="b-banner-isi">
-      <p class="editorial-label">OLAH <span>/</span> PDF <span>/</span> BUBUHAN BPP <span>·</span> BETA</p>
-      <h1 id="judul-utama">Bengkel PDF <span>untuk pekerjaan yang lebih JOSJIS.</span></h1>
-      <p class="editorial-deskripsi">Berbagai perkakas PDF yang mudah digunakan, cepat, dan aman.</p>
-      <form class="editorial-cari" role="search" id="cariPerkakas">
-        <label for="cariAlat" class="sr-only">Cari perkakas PDF</label>
-        <div class="editorial-cari-baris">
-          <input type="search" id="cariAlat" name="q" autocomplete="off" placeholder="Mau diapakan PDF-nya? Misal: gabung, kecilkan, Word..." aria-controls="daftarKelompok">
-          <button type="submit">Cari <span aria-hidden="true">→</span></button>
-        </div>
-      </form>
-      <p class="b-privasi"><strong>Privasi terjaga.</strong> Dokumen diproses langsung di browser, tidak diunggah ke server aplikasi.</p>
-    </div>
-    <div class="b-keterangan" data-banner-tema role="img" aria-label="Pemandangan teluk saat matahari terbenam dengan perbukitan, gedung kota, dermaga, kilang, dan kapal">KPKNL BALIKPAPAN</div>
-  </section>
+  <div class="c-split">
+    <aside class="c-panel" aria-labelledby="judul-utama">
+      <div class="c-panel-isi">
+        <p class="editorial-label">OLAH <span>/</span> PDF <span>/</span> BUBUHAN BPP <span>·</span> BETA</p>
+        <h1 id="judul-utama">Bengkel PDF <span>untuk pekerjaan yang lebih JOSJIS.</span></h1>
+        <p class="editorial-deskripsi">Berbagai perkakas PDF yang mudah digunakan, cepat, dan aman.</p>
+        <form class="editorial-cari" role="search" id="cariPerkakas">
+          <label for="cariAlat" class="sr-only">Cari perkakas PDF</label>
+          <div class="editorial-cari-baris">
+            <input type="search" id="cariAlat" name="q" autocomplete="off" placeholder="Contoh: gabung, watermark, Word..." aria-controls="daftarAlat">
+            <button type="submit">Cari <span aria-hidden="true">→</span></button>
+          </div>
+        </form>
+        <p class="c-privasi"><strong>Privasi terjaga.</strong> Dokumen diproses langsung di browser, tidak diunggah ke server aplikasi.</p>
+      </div>
+      <div class="c-keterangan" data-banner-tema role="img" aria-label="Pemandangan teluk saat matahari terbenam dengan perbukitan, gedung kota, dermaga, kilang, dan kapal">KPKNL BALIKPAPAN</div>
+    </aside>
 
-  <nav class="b-lompat" aria-label="Kelompok perkakas">
-    <span>Lompat ke:</span>
-    <a href="beta/#susun">Susun</a>
-    <a href="beta/#ubah">Ubah</a>
-    <a href="beta/#tandai">Tandai</a>
-  </nav>
-
-  <div class="b-kelompok-daftar" id="daftarKelompok">
-    <p class="sr-only" id="jumlahAlat" role="status" aria-live="polite">9 perkakas tersedia</p>
-
-    <section class="b-kelompok" id="susun" aria-labelledby="judul-susun">
-      <header class="b-kelompok-kepala">
-        <h2 id="judul-susun">Susun</h2>
-        <p>Atur halaman dan berkas.</p>
-        <span class="b-jumlah">3 perkakas</span>
+    <section class="c-alat" id="alat" aria-labelledby="judul-alat">
+      <header class="c-kepala">
+        <h2 id="judul-alat">Daftar perkakas</h2>
+        <p id="jumlahAlat" role="status" aria-live="polite">9 perkakas tersedia</p>
       </header>
-      <div class="b-kisi" style="--kolom:3">
+      <div class="c-kisi" id="daftarAlat">
         <a class="editorial-kartu" href="gabung" data-cari="gabung susun halaman urut putar hapus nomor">
           <span class="editorial-kartu-nomor">01</span><strong>Gabung &amp; Susun PDF</strong>
-          <span>Gabungkan, urutkan, putar, dan beri nomor halaman.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+          <span>Gabungkan, urutkan, putar, dan beri nomor halaman.</span>
         </a>
         <a class="editorial-kartu" href="pecah" data-cari="pecah pisah ekstrak halaman">
           <span class="editorial-kartu-nomor">02</span><strong>Pecah PDF</strong>
-          <span>Ambil halaman tertentu atau pisahkan seluruh halaman.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+          <span>Ambil halaman tertentu atau pisahkan seluruh halaman.</span>
         </a>
-        <a class="editorial-kartu" href="pengubah-uk" data-cari="ubah ukuran kertas a4 f4 legal halaman">
-          <span class="editorial-kartu-nomor">08</span><strong>Ubah Ukuran Kertas</strong>
-          <span>Sesuaikan ukuran halaman PDF dengan kebutuhan.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
-        </a>
-      </div>
-    </section>
-
-    <section class="b-kelompok" id="ubah" aria-labelledby="judul-ubah">
-      <header class="b-kelompok-kepala">
-        <h2 id="judul-ubah">Ubah</h2>
-        <p>Ganti isi, format, atau ukuran berkas.</p>
-        <span class="b-jumlah">4 perkakas</span>
-      </header>
-      <div class="b-kisi" style="--kolom:4">
         <a class="editorial-kartu" href="koreksi" data-cari="edit teks koreksi sunting isi pdf">
           <span class="editorial-kartu-nomor">03</span><strong>Edit Teks</strong>
-          <span>Koreksi, tambahkan, atau hapus teks dalam naskah.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+          <span>Koreksi, tambahkan, atau hapus teks dalam naskah.</span>
+        </a>
+        <a class="editorial-kartu" href="beta/tanda-air" data-cari="watermark tanda air salinan konsep">
+          <span class="editorial-kartu-nomor">04 <small>Tata letak beta</small></span><strong>Watermark</strong>
+          <span>Tambahkan tulisan seperti SALINAN atau KONSEP.</span>
         </a>
         <a class="editorial-kartu" href="gambar" data-cari="pdf gambar jpg png konversi foto">
           <span class="editorial-kartu-nomor">05</span><strong>PDF &amp; Gambar</strong>
-          <span>Ubah halaman PDF ke JPG atau susun gambar jadi PDF.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+          <span>Ubah halaman PDF ke JPG atau susun gambar jadi PDF.</span>
         </a>
         <a class="editorial-kartu" href="word" data-cari="pdf ke word docx ocr pindai konversi">
           <span class="editorial-kartu-nomor">06</span><strong>PDF ke Word</strong>
-          <span>Konversi menjadi dokumen Word, termasuk hasil pindaian.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="editorial-kartu" href="kompres" data-cari="kompres kecilkan perkecil ukuran berkas hemat optimasi">
-          <span class="editorial-kartu-nomor">09</span><strong>Kompres PDF</strong>
-          <span>Perkecil ukuran berkas, teks tetap utuh dan bisa dicari.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
-        </a>
-      </div>
-    </section>
-
-    <section class="b-kelompok" id="tandai" aria-labelledby="judul-tandai">
-      <header class="b-kelompok-kepala">
-        <h2 id="judul-tandai">Tandai</h2>
-        <p>Bubuhkan keterangan pada naskah.</p>
-        <span class="b-jumlah">2 perkakas</span>
-      </header>
-      <div class="b-kisi" style="--kolom:2">
-        <a class="editorial-kartu" href="beta/tanda-air" data-cari="watermark tanda air salinan konsep">
-          <span class="editorial-kartu-nomor">04 <small>Tata letak beta</small></span><strong>Watermark</strong>
-          <span>Tambahkan tulisan seperti SALINAN atau KONSEP.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+          <span>Konversi menjadi dokumen Word, termasuk hasil pindaian.</span>
         </a>
         <a class="editorial-kartu" href="penanda" data-cari="penanda tte elektronik tandatangan tanda tangan">
           <span class="editorial-kartu-nomor">07</span><strong>Penanda TTE</strong>
-          <span>Tambahkan penanda tulisan tanda tangan elektronik.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+          <span>Tambahkan penanda tulisan tanda tangan elektronik.</span>
+        </a>
+        <a class="editorial-kartu" href="pengubah-uk" data-cari="ubah ukuran kertas a4 f4 legal halaman">
+          <span class="editorial-kartu-nomor">08</span><strong>Ubah Ukuran Kertas</strong>
+          <span>Sesuaikan ukuran halaman PDF dengan kebutuhan.</span>
+        </a>
+        <a class="editorial-kartu" href="kompres" data-cari="kompres kecilkan perkecil ukuran berkas hemat optimasi">
+          <span class="editorial-kartu-nomor">09</span><strong>Kompres PDF</strong>
+          <span>Perkecil ukuran berkas, teks tetap utuh dan bisa dicari.</span>
         </a>
       </div>
+      <p class="editorial-kosong" id="alatKosong" hidden>Tidak ada perkakas yang cocok. Coba kata kunci lain.</p>
+
+      <a class="c-gerbang" href="https://s.kemenkeu.go.id/GerbangInternal">
+        <span>
+          <span class="editorial-label">Subbagian Umum Presents</span>
+          <strong>s.kemenkeu.go.id/<wbr>GerbangInternal</strong>
+        </span>
+        <span class="c-buka">Buka <span aria-hidden="true">→</span></span>
+      </a>
+
+      <footer class="editorial-kaki">
+        <span>KPKNL Balikpapan · Berintegritas dalam Tugas, Prima dalam Pelayanan. Versi beta, <a href="./">kembali ke versi stabil</a>.</span>
+        <span class="kredit">Built with Claude ft. GPT <svg class="kredit-hati" viewBox="0 0 24 24" width="14" height="14" role="img" aria-label="cinta"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.6l1 1.4 1-1.4C14 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg></span>
+      </footer>
     </section>
-
-    <p class="editorial-kosong" id="alatKosong" hidden>Tidak ada perkakas yang cocok. Coba kata kunci lain.</p>
   </div>
-
-  <section class="editorial-penutup" aria-labelledby="judul-penutup">
-    <div class="editorial-penutup-isi">
-      <p class="editorial-label">Subbagian Umum Presents</p>
-      <h2 id="judul-penutup">s.kemenkeu.go.id/<wbr>GerbangInternal</h2>
-      <p>Akses dan dapatkan kemudahan layanan Subbagian Umum KPKNL Balikpapan pada tautan di atas.</p>
-    </div>
-    <div class="editorial-penutup-ornamen" aria-hidden="true"></div>
-  </section>
-  <footer class="editorial-kaki">
-    <span>KPKNL Balikpapan · Berintegritas dalam Tugas, Prima dalam Pelayanan. Versi beta, <a href="./">kembali ke versi stabil</a>.</span>
-    <span class="kredit">Built with Claude ft. GPT <svg class="kredit-hati" viewBox="0 0 24 24" width="14" height="14" role="img" aria-label="cinta"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.6l1 1.4 1-1.4C14 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg></span>
-  </footer>
 </main>
 
 <script src="bersama.js"></script>
@@ -305,7 +223,6 @@
   const form = document.getElementById("cariPerkakas");
   const input = document.getElementById("cariAlat");
   const cards = Array.from(document.querySelectorAll(".editorial-kartu"));
-  const groups = Array.from(document.querySelectorAll(".b-kelompok"));
   const status = document.getElementById("jumlahAlat");
   const kosong = document.getElementById("alatKosong");
 
@@ -318,8 +235,6 @@
       kartu.hidden = !cocok;
       if (cocok) terlihat++;
     }
-    // Kelompok yang seluruh kartunya tersaring ikut disembunyikan.
-    for (const g of groups) g.hidden = !g.querySelector(".editorial-kartu:not([hidden])");
     status.textContent = query ? terlihat + " dari " + cards.length + " perkakas cocok" : cards.length + " perkakas tersedia";
     kosong.hidden = terlihat > 0;
   }
@@ -327,7 +242,7 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     cari();
-    document.getElementById("daftarKelompok").scrollIntoView({ behavior: "auto", block: "start" });
+    document.getElementById("alat").scrollIntoView({ behavior: "auto", block: "start" });
   });
   input.addEventListener("input", cari);
   input.addEventListener("keydown", function (e) {
