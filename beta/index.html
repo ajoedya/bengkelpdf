@@ -1,32 +1,339 @@
-<!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Bengkel PDF — Beta Dekoratif Editorial</title>
+<!-- Semua alamat relatif dihitung dari akar situs, jadi tema, gaya, banner,
+     favicon, dan menu bersama dipakai apa adanya tanpa disalin. -->
+<base href="../">
+<title>Bengkel PDF (Beta) — KPKNL Balikpapan</title>
+<script src="tema.js"></script>
+<link rel="stylesheet" href="gaya.css">
+<link rel="stylesheet" href="editorial.css">
 <style>
-:root{--navy:#08243b;--ink:#102b43;--gold:#b98b42;--paper:#f9f8f5;--line:#d9dde0}
-*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);font-family:Arial,"Helvetica Neue",sans-serif;color:var(--ink)}a{color:inherit;text-decoration:none}
-.skip{position:absolute;left:-9999px}.skip:focus{left:10px;top:10px;background:white;padding:12px;z-index:9}
-header{background:var(--navy);color:#fff}.nav{max-width:1400px;margin:auto;display:flex;align-items:center;gap:45px;padding:18px clamp(20px,5vw,72px)}.brand{font:700 19px Georgia,serif;line-height:1.12;white-space:nowrap}.brand small{display:block;font:10px Arial,sans-serif;letter-spacing:.09em;margin-top:5px;color:#d3dfeb}.navlinks{display:flex;gap:30px;align-items:center;font-size:12px}.navlinks a:hover{text-decoration:underline}.beta{margin-left:auto;border:1px solid #8fa4b3;padding:7px 11px;font-size:10px;letter-spacing:.13em;text-transform:uppercase}
-.hero{position:relative;min-height:320px;background:linear-gradient(90deg,#f6f8f8 0%,#f6f8f8 42%,rgba(246,248,248,.26) 73%),url("../banner-tepian.jpg") right center/auto 100% no-repeat;display:flex;align-items:center;color:var(--ink);overflow:hidden}
-.hero:before{content:"";position:absolute;right:0;bottom:0;width:50%;height:30px;background:url("../ornamen-kalimantan-anyaman.svg") left bottom/60px 30px repeat-x;opacity:.85;pointer-events:none}.hero-inner{position:relative;width:min(1240px,100%);margin:auto;padding:50px clamp(26px,5vw,76px)}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:#96713d;margin:0 0 16px}.hero h1{font:normal clamp(39px,5vw,65px)/1.06 Georgia,serif;letter-spacing:-.04em;margin:0 0 16px;max-width:540px}.hero h1 span{color:var(--ink)}.lead{font:14px/1.6 Arial,sans-serif;max-width:435px;margin:0 0 20px;color:#526576}.sub{max-width:435px;font-size:12px;line-height:1.6;color:#526576;margin:0 0 20px}.search{max-width:520px;display:flex;min-height:48px;background:white;color:var(--ink);border-radius:3px;padding:4px}.search label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.search input{border:0;outline-offset:2px;padding:10px 13px;min-width:0;flex:1;font:13px Arial}.search button{border:0;background:var(--navy);min-width:44px;font-size:20px;color:white;cursor:pointer}
-main{max-width:1280px;margin:auto}.tools-section{padding:38px clamp(20px,5vw,72px) 56px;background:#fff}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px}.section-head h2{font:normal clamp(27px,3vw,39px) Georgia,serif;margin:0 0 7px}.section-head p{font-size:12px;color:#576879;margin:0}.section-head .count{font-size:11px;white-space:nowrap;letter-spacing:.04em}.toolgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tool{min-height:92px;padding:18px;display:flex;align-items:center;gap:17px;position:relative;border:1px solid var(--line);transition:background .15s}.tool:hover,.tool:focus-visible{background:#f2f6f8}.tool-text{display:flex;flex-direction:column;gap:5px}.num{font:14px Georgia,serif;color:#a17842;align-self:flex-start;border-bottom:1px solid var(--gold);padding-bottom:4px}.tool strong{font:700 16px/1.25 Georgia,serif}.desc{font-size:11px;line-height:1.55;color:#526576;padding-right:7px}.arrow{margin-left:auto;font-size:17px;color:var(--navy)}.empty{display:none;padding:25px 0}.empty.show{display:block}
-.strip{position:relative;background:linear-gradient(90deg,rgba(6,32,54,.48),rgba(6,32,54,.89)),url("../banner-pelabuhan.jpg") center/cover;min-height:166px;color:white;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:25px clamp(25px,5vw,72px)}.strip p{font-size:10px;letter-spacing:.25em;color:#e4be72;text-transform:uppercase}.strip h3{font:normal clamp(18px,2vw,25px)/1.28 Georgia,serif;max-width:440px;margin:10px 0}.strip blockquote{font:italic 20px/1.4 Georgia,serif;border-left:2px solid #c69b52;padding-left:26px;margin:0;max-width:300px}
-footer{max-width:1400px;margin:auto;padding:20px clamp(20px,5vw,72px);font-size:11px;color:#596c7d;display:flex;justify-content:space-between;gap:20px}
-@media(max-width:1050px){.navlinks{gap:16px}.hero{min-height:305px}}
-@media(max-width:650px){.nav{padding:15px 20px;gap:15px}.navlinks{display:none}.hero{min-height:360px;background:linear-gradient(180deg,#f6f8f8 0%,rgba(246,248,248,.96) 50%,rgba(246,248,248,.1) 100%),url("../banner-tepian.jpg") center bottom/cover}.hero:before{width:100%}.hero-inner{padding:35px 25px 120px}.hero h1{font-size:42px}.toolgrid{grid-template-columns:1fr}.tool{min-height:90px;padding:14px}.section-head{align-items:start}.strip{display:block}.strip blockquote{margin-top:20px;font-size:16px}footer{display:block;line-height:1.8}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tool{transition:none}}
-.featured{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.featured .tool{display:flex;flex-direction:column;align-items:flex-start;min-height:155px;background:#f6f8f9}.featured .tool-text{margin-top:14px}.featured .arrow{margin-top:auto}.directory{padding-top:12px}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.filter{border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 15px;font-size:11px;cursor:pointer}.filter[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}@media(max-width:650px){.featured{grid-template-columns:1fr}.featured .tool{min-height:95px}.featured .tool-text{margin-top:2px}} 
-/* Approved decorative editorial beta — responsive exact CSS source */
-body{background:#f2f7fb}.tools-section{background:#fff}.section-head h2{font-weight:700;font-size:clamp(24px,2.7vw,35px);letter-spacing:-.025em}.section-head{margin-bottom:17px}
-.featured{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.featured .tool{display:flex;position:relative;min-height:180px;overflow:hidden;padding:29px 25px;background:linear-gradient(120deg,#fff,var(--tint));border:1px solid var(--edge);border-radius:12px;box-shadow:0 5px 22px rgba(22,47,79,.035)}.featured .tool:after{content:"";position:absolute;inset:auto 0 0 auto;width:78%;height:82%;background-image:var(--wave);background-position:right bottom;background-size:contain;background-repeat:no-repeat;pointer-events:none}.featured .tool-text{margin:0;position:relative;z-index:1;max-width:65%}.featured .tool strong{font:700 clamp(17px,1.65vw,24px)/1.16 Georgia,serif;margin:0}.featured .desc{font:13px/1.55 Arial,sans-serif;color:#365575;margin-top:13px;display:block}.featured .num,.featured .arrow{display:none}
-.directory{padding-top:25px}.filters{gap:9px;margin-bottom:20px}.filter{border-radius:99px;background:#f7f9fc;border-color:#d6e2ed;color:#173959;padding:9px 17px}.filter[aria-pressed=true]{background:#073a77;color:#fff;border-color:#073a77}
-.toolgrid{gap:12px 17px}.toolgrid .tool{background:white;border:1px solid #dbe5ed;border-radius:11px;min-height:100px;padding:7px;gap:17px;box-shadow:0 5px 16px rgba(26,52,77,.035);display:flex}.toolgrid .num{display:none}.toolgrid .mini-art{display:block;flex:0 0 78px;height:78px;background:linear-gradient(140deg,var(--tint),var(--edge));border-radius:9px;position:relative;overflow:hidden}.mini-art:after{content:"";position:absolute;inset:0;background:var(--wave) right bottom/cover no-repeat;opacity:.9}.toolgrid .tool-text{margin:0;flex:1;gap:3px}.toolgrid .tool strong{font-size:15px}.toolgrid .desc{font-size:11px;color:#4c6580}.toolgrid .arrow{font-size:25px;margin-right:13px;color:#073a77}
-@media(max-width:800px){.featured{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.featured .tool{padding:18px 12px;min-height:145px}.featured .tool-text{max-width:85%}.featured .tool strong{font-size:17px}.featured .desc{font-size:11px}.toolgrid{grid-template-columns:1fr}}
-@media(max-width:650px){.featured{grid-template-columns:1fr}.featured .tool{min-height:124px;padding:23px}.featured .tool-text{max-width:70%}.featured .tool strong{font-size:22px}.featured .desc{font-size:12px}.toolgrid .tool{min-height:87px}.toolgrid .mini-art{flex-basis:63px;height:63px}.filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px}.filter{flex-shrink:0} }
-</style></head><body><a class="skip" href="#alat">Lewati navigasi</a>
-<header><nav class="nav" aria-label="Navigasi utama"><a class="brand" href="../">Bengkel PDF<small>KPKNL BALIKPAPAN</small></a><div class="navlinks"><a href="../">Beranda utama</a><a href="#alat">Semua Perkakas</a></div><span class="beta">Beta / pratinjau</span></nav></header>
-<section class="hero"><div class="hero-inner"><p class="eyebrow">PERKAKAS DOKUMEN · KPKNL BALIKPAPAN</p><h1>Urusan PDF<br>jadi lebih mudah.</h1><p class="lead">Berbagai perkakas PDF yang praktis dan aman, dapat digunakan langsung di browser.</p><form class="search" id="searchForm" role="search"><label for="q">Cari perkakas PDF</label><input id="q" type="search" placeholder="Cari perkakas PDF..." autocomplete="off"><button type="submit" aria-label="Cari">→</button></form></div></section>
-<main><section class="tools-section" aria-labelledby="featuredTitle"><div class="section-head"><div><h2 id="featuredTitle">Perkakas Utama</h2><p>Mulai dari perkakas yang paling sering dibutuhkan.</p></div></div><div class="featured"><a class="tool" href="../koreksi" data-category="Edit" data-search="edit teks koreksi koreksi, tambah, atau hapus teks dalam pdf. ▣" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23eaf4ff%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23a7cef1%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23438ddd%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#eaf4ff;--edge:#a7cef1"><span class="tool-text"><strong>Edit PDF</strong><span class="desc">Edit teks, gambar, dan elemen lainnya.</span></span></a><a class="tool" href="../word" data-category="Konversi" data-search="pdf ke word word konversi dokumen pdf menjadi docx, termasuk hasil pindaian. ▤" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23fff0ed%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23ffd4cb%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23f09479%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#fff0ed;--edge:#ffd4cb"><span class="tool-text"><strong>PDF ke Word</strong><span class="desc">Konversi dokumen PDF menjadi DOCX, termasuk hasil pindaian.</span></span></a><a class="tool" href="../gabung" data-category="Kelola" data-search="gabung & susun pdf gabung gabungkan, urutkan, putar, dan beri nomor halaman. ▧" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23f1f8e9%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23c8e7c6%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%2372b980%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#f1f8e9;--edge:#c8e7c6"><span class="tool-text"><strong>Gabung PDF</strong><span class="desc">Gabungkan beberapa file menjadi satu.</span></span></a></div></section><section class="tools-section directory" id="alat" aria-labelledby="judul"><div class="section-head"><div><h2 id="judul">Jelajahi Semua Perkakas</h2><p>Pilih kategori atau cari perkakas sesuai kebutuhan.</p></div><span class="count" id="count" aria-live="polite">9 perkakas</span></div><div class="filters" role="group" aria-label="Kategori perkakas"><button type="button" class="filter" data-category="Semua" aria-pressed="true">Semua</button><button type="button" class="filter" data-category="Edit" aria-pressed="false">Edit</button><button type="button" class="filter" data-category="Konversi" aria-pressed="false">Konversi</button><button type="button" class="filter" data-category="Kelola" aria-pressed="false">Kelola Halaman</button><button type="button" class="filter" data-category="Optimasi" aria-pressed="false">Optimasi</button></div><div class="toolgrid" id="toolgrid"><a class="tool" href="../koreksi" data-category="Edit" data-search="edit teks koreksi koreksi, tambah, atau hapus teks dalam pdf. ▣" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23fff0ed%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23ffd4cb%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23f09479%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#fff0ed;--edge:#ffd4cb"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Edit Teks</strong><span class="desc">Koreksi, tambah, atau hapus teks dalam PDF.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../word" data-category="Konversi" data-search="pdf ke word word konversi dokumen pdf menjadi docx, termasuk hasil pindaian. ▤" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23f1f8e9%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23c8e7c6%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%2372b980%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#f1f8e9;--edge:#c8e7c6"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>PDF ke Word</strong><span class="desc">Konversi dokumen PDF menjadi DOCX, termasuk hasil pindaian.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../gabung" data-category="Kelola" data-search="gabung & susun pdf gabung gabungkan, urutkan, putar, dan beri nomor halaman. ▧" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23eaf4ff%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23a7cef1%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23438ddd%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#eaf4ff;--edge:#a7cef1"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Gabung & Susun PDF</strong><span class="desc">Gabungkan, urutkan, putar, dan beri nomor halaman.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../koreksi" data-category="Edit" data-search="edit teks koreksi koreksi, tambah, atau hapus teks dalam pdf. ▣" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23fff0ed%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23ffd4cb%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23f09479%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#fff0ed;--edge:#ffd4cb"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Edit Teks</strong><span class="desc">Koreksi, tambah, atau hapus teks dalam PDF.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../word" data-category="Konversi" data-search="pdf ke word word konversi dokumen pdf menjadi docx, termasuk hasil pindaian. ▤" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23f1f8e9%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23c8e7c6%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%2372b980%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#f1f8e9;--edge:#c8e7c6"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>PDF ke Word</strong><span class="desc">Konversi dokumen PDF menjadi DOCX, termasuk hasil pindaian.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../gabung" data-category="Kelola" data-search="gabung & susun pdf gabung gabungkan, urutkan, putar, dan beri nomor halaman. ▧" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23eaf4ff%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23a7cef1%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23438ddd%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#eaf4ff;--edge:#a7cef1"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Gabung & Susun PDF</strong><span class="desc">Gabungkan, urutkan, putar, dan beri nomor halaman.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../pecah" data-category="Kelola" data-search="pecah pdf pecah ambil halaman tertentu atau pisahkan seluruh halaman. ◫" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23fff0ed%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23ffd4cb%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23f09479%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#fff0ed;--edge:#ffd4cb"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Pecah PDF</strong><span class="desc">Ambil halaman tertentu atau pisahkan seluruh halaman.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../pengubah-uk" data-category="Kelola" data-search="ubah ukuran kertas pengubah-uk sesuaikan ukuran halaman pdf dengan kebutuhan. ▯" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23f1f8e9%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23c8e7c6%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%2372b980%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#f1f8e9;--edge:#c8e7c6"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Ubah Ukuran Kertas</strong><span class="desc">Sesuaikan ukuran halaman PDF dengan kebutuhan.</span></span><span class="arrow" aria-hidden="true">›</span></a><a class="tool" href="../tanda-air" data-category="Kelola" data-search="watermark tanda-air tambahkan tulisan seperti salinan atau konsep. ◇" style="--wave:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20340%20175%22%3E%3Cpath%20d%3D%22M105%20175C169%20148%20189%2083%20250%2093S314%2091%20340%2067V175Z%22%20fill%3D%22%23eaf4ff%22%2F%3E%3Cpath%20d%3D%22M130%20175c55-35%2082-67%20127-64%2041%204%2058-15%2083-35v99z%22%20fill%3D%22%23a7cef1%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M170%20175c44-24%2075-65%20112-50%2021%209%2043-2%2058-16v66z%22%20fill%3D%22%23438ddd%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M154%20175c51-20%2064-57%20106-60%2044-3%2053-22%2080-36%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M192%20175c43-22%2065-51%2091-50%2023%200%2038-17%2057-27%22%20fill%3D%22none%22%20stroke%3D%22white%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E');--tint:#eaf4ff;--edge:#a7cef1"><span class="mini-art" aria-hidden="true"></span><span class="tool-text"><strong>Watermark</strong><span class="desc">Tambahkan tulisan seperti SALINAN atau KONSEP.</span></span><span class="arrow" aria-hidden="true">›</span></a></div><p class="empty" id="empty">Tidak ada perkakas yang cocok. Coba kata kunci lain.</p></section>
-<section class="strip"><div><p>KPKNL Balikpapan</p><h3>Dikembangkan dengan semangat Kalimantan untuk pelayanan publik yang lebih baik.</h3></div><blockquote>“Perkakas sederhana untuk pekerjaan yang bermakna.”</blockquote></section></main>
-<footer><span>Bengkel PDF · KPKNL Balikpapan</span><span>Beta desain — bukan situs utama · <a href="../">Kembali ke versi stabil ↗</a></span></footer>
-<script>const input=document.getElementById('q'),cards=[...document.querySelectorAll('.toolgrid .tool')],featured=[...document.querySelectorAll('.featured .tool')],count=document.getElementById('count'),empty=document.getElementById('empty'),filters=[...document.querySelectorAll('.filter')];let category='Semua';function filter(){const q=input.value.trim().toLocaleLowerCase('id');let n=0;for(const c of cards){const show=(category==='Semua'||c.dataset.category===category)&&c.dataset.search.toLocaleLowerCase('id').includes(q);c.hidden=!show;if(show)n++}for(const c of featured)c.hidden=!!q&&!c.dataset.search.toLocaleLowerCase('id').includes(q);count.textContent=n+' dari '+cards.length+' perkakas';empty.classList.toggle('show',n===0)}input.addEventListener('input',filter);filters.forEach(b=>b.addEventListener('click',()=>{category=b.dataset.category;filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));filter()}));document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();filter();document.getElementById('alat').scrollIntoView()});</script></body></html>
+/* ============================================================
+   Beta layout B: banner atas + perkakas dikelompokkan per kegunaan.
+   Warna, huruf, banner, dan anyaman tetap memakai variabel gaya.css,
+   jadi ikut berganti bersama tema acak.
+   ============================================================ */
+.beranda-b .editorial-halaman { position: relative; }
+
+/* Pita anyaman kembar di tepi kiri dan kanan, sama dengan beranda stabil. */
+.beranda-b .editorial-halaman::before,
+.beranda-b .editorial-halaman::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  background: url("ornamen-kalimantan-anyaman.svg") left top / 48px 24px repeat-y;
+  opacity: .2;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+.beranda-b .editorial-halaman::before { left: calc(var(--editorial-gutter) * .5 - 24px); }
+.beranda-b .editorial-halaman::after { right: calc(var(--editorial-gutter) * .5 - 24px); }
+
+/* ---------- Banner atas ---------- */
+.b-banner {
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+  border-radius: 6px;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  background: var(--banner) var(--banner-pita-posisi) / cover no-repeat;
+}
+/* Kabut terang: kiri dipudarkan ke warna kertas supaya teks tetap gelap,
+   foto tampil jelas di sisi kanan. */
+.b-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to right,
+    rgba(var(--rgb-latar),.97) 0%,
+    rgba(var(--rgb-latar),.93) 38%,
+    rgba(var(--rgb-latar),.55) 58%,
+    rgba(var(--rgb-latar),0) 78%);
+}
+.b-banner-isi {
+  max-width: 640px;
+  padding: 40px clamp(22px, 4vw, 52px);
+}
+.beranda-b .editorial-label { margin: 0 0 14px; }
+.beranda-b h1 { margin-bottom: 14px; }
+.beranda-b .editorial-deskripsi { margin-bottom: 18px; }
+.b-privasi {
+  margin: 12px 0 0;
+  color: var(--editorial-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.b-privasi strong { color: var(--editorial-navy); }
+.b-keterangan {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-shadow: 0 1px 10px rgba(0,0,0,.6);
+}
+
+/* ---------- Lompat ke kelompok ---------- */
+.b-lompat {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 26px 0 0;
+  font-size: 14px;
+  color: var(--editorial-muted);
+}
+.b-lompat a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--kartu-garis);
+  border-radius: 999px;
+  background: var(--putih);
+  color: var(--editorial-navy);
+  font-weight: 600;
+  text-decoration: none;
+}
+.b-lompat a:hover { border-color: var(--kartu-garis-hover); background: var(--kartu-latar-hover); }
+.b-lompat a:focus-visible { outline: 3px solid var(--editorial-gold); outline-offset: 2px; }
+
+/* ---------- Kelompok perkakas ---------- */
+.b-kelompok-daftar {
+  position: relative;
+  z-index: 1;
+  padding: 10px 0 56px;
+}
+.b-kelompok { margin-top: 34px; scroll-margin-top: 100px; }
+.b-kelompok[hidden] { display: none; }
+.b-kelompok-kepala {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--garis-editorial);
+}
+.b-kelompok-kepala h2 {
+  margin: 0;
+  color: var(--editorial-navy);
+  font-size: clamp(22px, 2vw, 26px);
+  line-height: 1.2;
+}
+.b-kelompok-kepala p { margin: 0; color: var(--editorial-muted); font-size: 15px; }
+.b-kelompok-kepala .b-jumlah {
+  margin-left: auto;
+  color: var(--editorial-gold-text);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.b-kisi {
+  display: grid;
+  grid-template-columns: repeat(var(--kolom, 3), minmax(0, 1fr));
+  gap: 14px;
+}
+.beranda-b .editorial-kartu { min-height: 168px; }
+.beranda-b .editorial-kosong { position: relative; z-index: 1; margin: 34px 0 0; }
+
+@media (max-width: 1040px) {
+  .b-kisi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .b-kisi > .editorial-kartu:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 0; }
+  .beranda-b .editorial-halaman::before,
+  .beranda-b .editorial-halaman::after { width: 24px; }
+  .beranda-b .editorial-halaman::before { left: calc(var(--editorial-gutter) * .5 - 12px); }
+  .beranda-b .editorial-halaman::after { right: calc(var(--editorial-gutter) * .5 - 12px); }
+}
+@media (max-width: 700px) {
+  .beranda-b .editorial-halaman::before,
+  .beranda-b .editorial-halaman::after { display: none; }
+  .b-banner { margin-top: 16px; min-height: 0; align-items: flex-start; padding-bottom: 150px; background-position: center bottom; }
+  .b-banner::before {
+    background: linear-gradient(to bottom,
+      rgba(var(--rgb-latar),.97) 0%,
+      rgba(var(--rgb-latar),.92) 55%,
+      rgba(var(--rgb-latar),0) 85%);
+  }
+  .b-banner-isi { padding: 28px 20px 0; }
+  .b-kelompok-kepala .b-jumlah { margin-left: 0; width: 100%; }
+}
+@media (max-width: 440px) {
+  .b-kisi { grid-template-columns: 1fr; }
+  .beranda-b .editorial-kartu,
+  .b-kisi > .editorial-kartu:last-child:nth-child(odd) { min-height: 120px; }
+}
+</style>
+</head>
+<body class="beranda-editorial beranda-b">
+<a class="lewati-konten" href="beta/#konten">Lewati navigasi</a>
+
+<main id="konten" class="editorial-halaman">
+  <section class="b-banner" aria-labelledby="judul-utama">
+    <div class="b-banner-isi">
+      <p class="editorial-label">OLAH <span>/</span> PDF <span>/</span> BUBUHAN BPP <span>·</span> BETA</p>
+      <h1 id="judul-utama">Bengkel PDF <span>untuk pekerjaan yang lebih JOSJIS.</span></h1>
+      <p class="editorial-deskripsi">Berbagai perkakas PDF yang mudah digunakan, cepat, dan aman.</p>
+      <form class="editorial-cari" role="search" id="cariPerkakas">
+        <label for="cariAlat" class="sr-only">Cari perkakas PDF</label>
+        <div class="editorial-cari-baris">
+          <input type="search" id="cariAlat" name="q" autocomplete="off" placeholder="Mau diapakan PDF-nya? Misal: gabung, kecilkan, Word..." aria-controls="daftarKelompok">
+          <button type="submit">Cari <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+      <p class="b-privasi"><strong>Privasi terjaga.</strong> Dokumen diproses langsung di browser, tidak diunggah ke server aplikasi.</p>
+    </div>
+    <div class="b-keterangan" data-banner-tema role="img" aria-label="Pemandangan teluk saat matahari terbenam dengan perbukitan, gedung kota, dermaga, kilang, dan kapal">KPKNL BALIKPAPAN</div>
+  </section>
+
+  <nav class="b-lompat" aria-label="Kelompok perkakas">
+    <span>Lompat ke:</span>
+    <a href="beta/#susun">Susun</a>
+    <a href="beta/#ubah">Ubah</a>
+    <a href="beta/#tandai">Tandai</a>
+  </nav>
+
+  <div class="b-kelompok-daftar" id="daftarKelompok">
+    <p class="sr-only" id="jumlahAlat" role="status" aria-live="polite">9 perkakas tersedia</p>
+
+    <section class="b-kelompok" id="susun" aria-labelledby="judul-susun">
+      <header class="b-kelompok-kepala">
+        <h2 id="judul-susun">Susun</h2>
+        <p>Atur halaman dan berkas.</p>
+        <span class="b-jumlah">3 perkakas</span>
+      </header>
+      <div class="b-kisi" style="--kolom:3">
+        <a class="editorial-kartu" href="gabung" data-cari="gabung susun halaman urut putar hapus nomor">
+          <span class="editorial-kartu-nomor">01</span><strong>Gabung &amp; Susun PDF</strong>
+          <span>Gabungkan, urutkan, putar, dan beri nomor halaman.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="editorial-kartu" href="pecah" data-cari="pecah pisah ekstrak halaman">
+          <span class="editorial-kartu-nomor">02</span><strong>Pecah PDF</strong>
+          <span>Ambil halaman tertentu atau pisahkan seluruh halaman.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="editorial-kartu" href="pengubah-uk" data-cari="ubah ukuran kertas a4 f4 legal halaman">
+          <span class="editorial-kartu-nomor">08</span><strong>Ubah Ukuran Kertas</strong>
+          <span>Sesuaikan ukuran halaman PDF dengan kebutuhan.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="b-kelompok" id="ubah" aria-labelledby="judul-ubah">
+      <header class="b-kelompok-kepala">
+        <h2 id="judul-ubah">Ubah</h2>
+        <p>Ganti isi, format, atau ukuran berkas.</p>
+        <span class="b-jumlah">4 perkakas</span>
+      </header>
+      <div class="b-kisi" style="--kolom:4">
+        <a class="editorial-kartu" href="koreksi" data-cari="edit teks koreksi sunting isi pdf">
+          <span class="editorial-kartu-nomor">03</span><strong>Edit Teks</strong>
+          <span>Koreksi, tambahkan, atau hapus teks dalam naskah.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="editorial-kartu" href="gambar" data-cari="pdf gambar jpg png konversi foto">
+          <span class="editorial-kartu-nomor">05</span><strong>PDF &amp; Gambar</strong>
+          <span>Ubah halaman PDF ke JPG atau susun gambar jadi PDF.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="editorial-kartu" href="word" data-cari="pdf ke word docx ocr pindai konversi">
+          <span class="editorial-kartu-nomor">06</span><strong>PDF ke Word</strong>
+          <span>Konversi menjadi dokumen Word, termasuk hasil pindaian.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="editorial-kartu" href="kompres" data-cari="kompres kecilkan perkecil ukuran berkas hemat optimasi">
+          <span class="editorial-kartu-nomor">09</span><strong>Kompres PDF</strong>
+          <span>Perkecil ukuran berkas, teks tetap utuh dan bisa dicari.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="b-kelompok" id="tandai" aria-labelledby="judul-tandai">
+      <header class="b-kelompok-kepala">
+        <h2 id="judul-tandai">Tandai</h2>
+        <p>Bubuhkan keterangan pada naskah.</p>
+        <span class="b-jumlah">2 perkakas</span>
+      </header>
+      <div class="b-kisi" style="--kolom:2">
+        <a class="editorial-kartu" href="beta/tanda-air" data-cari="watermark tanda air salinan konsep">
+          <span class="editorial-kartu-nomor">04 <small>Tata letak beta</small></span><strong>Watermark</strong>
+          <span>Tambahkan tulisan seperti SALINAN atau KONSEP.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="editorial-kartu" href="penanda" data-cari="penanda tte elektronik tandatangan tanda tangan">
+          <span class="editorial-kartu-nomor">07</span><strong>Penanda TTE</strong>
+          <span>Tambahkan penanda tulisan tanda tangan elektronik.</span><span class="editorial-buka">Buka perkakas <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
+    <p class="editorial-kosong" id="alatKosong" hidden>Tidak ada perkakas yang cocok. Coba kata kunci lain.</p>
+  </div>
+
+  <section class="editorial-penutup" aria-labelledby="judul-penutup">
+    <div class="editorial-penutup-isi">
+      <p class="editorial-label">Subbagian Umum Presents</p>
+      <h2 id="judul-penutup">s.kemenkeu.go.id/<wbr>GerbangInternal</h2>
+      <p>Akses dan dapatkan kemudahan layanan Subbagian Umum KPKNL Balikpapan pada tautan di atas.</p>
+    </div>
+    <div class="editorial-penutup-ornamen" aria-hidden="true"></div>
+  </section>
+  <footer class="editorial-kaki">
+    <span>KPKNL Balikpapan · Berintegritas dalam Tugas, Prima dalam Pelayanan. Versi beta, <a href="./">kembali ke versi stabil</a>.</span>
+    <span class="kredit">Built with Claude ft. GPT <svg class="kredit-hati" viewBox="0 0 24 24" width="14" height="14" role="img" aria-label="cinta"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.6l1 1.4 1-1.4C14 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg></span>
+  </footer>
+</main>
+
+<script src="bersama.js"></script>
+<script src="beta/beta.js"></script>
+<script>
+(function () {
+  "use strict";
+  const form = document.getElementById("cariPerkakas");
+  const input = document.getElementById("cariAlat");
+  const cards = Array.from(document.querySelectorAll(".editorial-kartu"));
+  const groups = Array.from(document.querySelectorAll(".b-kelompok"));
+  const status = document.getElementById("jumlahAlat");
+  const kosong = document.getElementById("alatKosong");
+
+  function cari() {
+    const query = input.value.trim().toLocaleLowerCase("id");
+    let terlihat = 0;
+    for (const kartu of cards) {
+      const teks = (kartu.textContent + " " + kartu.dataset.cari).toLocaleLowerCase("id");
+      const cocok = !query || teks.includes(query);
+      kartu.hidden = !cocok;
+      if (cocok) terlihat++;
+    }
+    // Kelompok yang seluruh kartunya tersaring ikut disembunyikan.
+    for (const g of groups) g.hidden = !g.querySelector(".editorial-kartu:not([hidden])");
+    status.textContent = query ? terlihat + " dari " + cards.length + " perkakas cocok" : cards.length + " perkakas tersedia";
+    kosong.hidden = terlihat > 0;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    cari();
+    document.getElementById("daftarKelompok").scrollIntoView({ behavior: "auto", block: "start" });
+  });
+  input.addEventListener("input", cari);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && input.value) { input.value = ""; cari(); }
+  });
+})();
+</script>
+</body>
+</html>
