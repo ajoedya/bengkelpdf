@@ -937,6 +937,9 @@ footer {
   font-size: 14px;
   line-height: 1.55;
 }
+/* Kredit pembuat di ujung kanan footer; di layar sempit turun ke baris sendiri. */
+.kredit { font-weight: 600; color: var(--biru-tua); white-space: nowrap; }
+.kredit-hati { width: 14px; height: 14px; vertical-align: -2px; fill: #c8423b; }
 
 /* ---------- Layar sedang dan ponsel ----------
    Teks kop hampir selebar layar, jadi foto tidak dipasang di samping teks.
