@@ -63,6 +63,25 @@
   #catatanPenyunting{margin:8px 0 0;font-size:13.5px;line-height:1.45;color:var(--tinta-lembut);}
   #catatanPenyunting .awas{color:#8f1d14;}
 
+  /* ---------- Ketik langsung di pratinjau ---------- */
+  @font-face{font-family:"Arimo";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/arimo@0.4.3/400Regular/Arimo_400Regular.ttf");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"Arimo";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/arimo@0.4.3/700Bold/Arimo_700Bold.ttf");font-weight:700;font-style:normal;font-display:swap}
+  @font-face{font-family:"Arimo";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/arimo@0.4.3/400Regular_Italic/Arimo_400Regular_Italic.ttf");font-weight:400;font-style:italic;font-display:swap}
+  @font-face{font-family:"Arimo";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/arimo@0.4.3/700Bold_Italic/Arimo_700Bold_Italic.ttf");font-weight:700;font-style:italic;font-display:swap}
+  @font-face{font-family:"Tinos";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/tinos@0.4.2/400Regular/Tinos_400Regular.ttf");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"Tinos";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/tinos@0.4.2/700Bold/Tinos_700Bold.ttf");font-weight:700;font-style:normal;font-display:swap}
+  @font-face{font-family:"Tinos";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/tinos@0.4.2/400Regular_Italic/Tinos_400Regular_Italic.ttf");font-weight:400;font-style:italic;font-display:swap}
+  @font-face{font-family:"Tinos";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/tinos@0.4.2/700Bold_Italic/Tinos_700Bold_Italic.ttf");font-weight:700;font-style:italic;font-display:swap}
+  @font-face{font-family:"Cousine";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/cousine@0.4.3/400Regular/Cousine_400Regular.ttf");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"Cousine";src:url("https://cdn.jsdelivr.net/npm/@expo-google-fonts/cousine@0.4.3/700Bold/Cousine_700Bold.ttf");font-weight:700;font-style:normal;font-display:swap}
+  .ketik{position:absolute;z-index:15;transform-origin:0 0;pointer-events:none;}
+  .ketik-isi{position:absolute;left:0;box-sizing:content-box;padding:0;margin:0;pointer-events:auto;cursor:text;
+    outline:2px solid var(--emas-tua);outline-offset:2px;border-radius:1px;caret-color:#b42318;white-space:pre;overflow-wrap:normal;}
+  .ketik-isi:focus{outline:2px solid var(--emas-tua);}
+  .grup-rata{display:inline-flex;gap:4px;}
+  .grup-rata[hidden]{display:none;}
+  .grup-rata svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;vertical-align:-3px;}
+
   /* ---------- Bilah sisip ---------- */
   .bilah.sisip{padding:8px 10px;background:var(--putih);border:1px solid var(--garis);border-radius:var(--radius-sm);}
   .label-sisip{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--tinta-lembut);margin-right:2px;}
@@ -73,6 +92,7 @@
   #panggung.mode-bentuk{cursor:crosshair;touch-action:none;}
   .draf{position:absolute;pointer-events:none;border:1.5px dashed var(--emas-tua);background:rgba(184,137,58,.06);}
   .draf.elips{border-radius:50%;}
+  .pegangan[data-ujung="lebar"]{cursor:ew-resize;border-radius:7px;}
   .pegangan{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;background:var(--putih);
     border:2px solid var(--emas-tua);border-radius:3px;cursor:nwse-resize;touch-action:none;}
   .tanda.objek{outline-style:dashed;outline-color:var(--biru);}
@@ -194,7 +214,6 @@
       <div id="panggung" aria-label="Pratinjau halaman, klik tulisan untuk menyuntingnya"></div>
       <div id="penyunting" hidden role="dialog" aria-label="Penyunting teks">
         <p class="judul"><b id="judulPenyunting">Sunting baris</b><span id="semula"></span></p>
-        <input type="text" id="isiTeks" autocomplete="off" aria-label="Teks pengganti">
         <div class="alat-gaya">
           <select id="pilihHuruf" aria-label="Jenis huruf">
             <option value="sans">Tanpa kait (Arial, Helvetica)</option>
@@ -206,11 +225,18 @@
           <button type="button" class="tg" id="gayaMiring" aria-pressed="false" title="Miring"><i>I</i></button>
           <button type="button" class="tg" id="gayaGaris" aria-pressed="false" title="Garis bawah"><u>U</u></button>
           <input type="color" id="warnaHuruf" aria-label="Warna huruf">
+          <span class="grup-rata" id="grupRata" role="group" aria-label="Perataan">
+            <button type="button" class="tg" data-rata="kiri" aria-pressed="false" title="Rata kiri"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M2 6.5h8M2 10h12M2 13.5h8"/></svg></button>
+            <button type="button" class="tg" data-rata="tengah" aria-pressed="false" title="Rata tengah"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M4 6.5h8M2 10h12M4 13.5h8"/></svg></button>
+            <button type="button" class="tg" data-rata="kanan" aria-pressed="false" title="Rata kanan"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M6 6.5h8M2 10h12M6 13.5h8"/></svg></button>
+            <button type="button" class="tg" data-rata="rata" aria-pressed="false" title="Rata kiri-kanan"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 3h12M2 6.5h12M2 10h12M2 13.5h8"/></svg></button>
+          </span>
         </div>
         <p id="catatanPenyunting"></p>
         <div class="aksi-penyunting">
           <button type="button" class="tombol kecil" id="selesai">Selesai</button>
           <button type="button" class="tombol sekunder kecil" id="hapusTeks">Hapus tulisan ini</button>
+          <button type="button" class="tombol sekunder kecil" id="jadiParagraf" hidden>Sunting satu paragraf</button>
           <button type="button" class="tombol sekunder kecil ke-kanan" id="batalkan">Kembalikan seperti semula</button>
         </div>
       </div>
@@ -232,7 +258,7 @@
       </div>
     </div>
     </div>
-    <p class="petunjuk">Klik tulisan untuk menyuntingnya, lalu tekan Enter atau Selesai. Untuk kotak dan elips, pilih bentuknya lalu seret di halaman; untuk garis dan panah, seret dari titik awal ke titik akhir. Objek yang dipilih bisa diseret, atau digeser dengan tombol panah (tahan Shift untuk langkah lebih jauh). Ctrl+Z mengurungkan dan Ctrl+Y mengulangi.</p>
+    <p class="petunjuk">Klik tulisan lalu ketik langsung di halaman; tekan Enter atau Selesai bila sudah. Untuk mengubah beberapa baris sekaligus, pilih Sunting satu paragraf. Pada teks baru dan paragraf, Enter membuat baris baru dan Esc mengakhiri. Untuk kotak dan elips, pilih bentuknya lalu seret di halaman; untuk garis dan panah, seret dari titik awal ke titik akhir. Objek yang dipilih bisa diseret, atau digeser dengan tombol panah (tahan Shift untuk langkah lebih jauh). Ctrl+Z mengurungkan dan Ctrl+Y mengulangi.</p>
 
     <div class="baris-tombol">
       <button type="button" class="tombol" id="simpan">Simpan dokumen</button>
@@ -289,6 +315,61 @@ let ukur = null;                    // dokumen bantu berisi 12 huruf standar unt
 let tiketPratinjau = 0, tundaPratinjau = null;
 let bertandaTangan = false;
 
+/* ---------- Huruf tertanam ----------
+   Teks pengganti ditulis dengan huruf terbuka yang ukurannya setara huruf
+   kantor: Arimo setara Arial/Helvetica, Tinos setara Times, Cousine setara
+   Courier. Hurufnya diunduh sekali saat pertama dibutuhkan, lalu hanya huruf
+   yang terpakai yang disematkan. Bila gagal dimuat (jaringan menyaring CDN),
+   alat kembali memakai huruf standar PDF seperti sebelumnya. */
+const URL_FONTKIT = "https://unpkg.com/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js";
+const URL_HURUF = "https://cdn.jsdelivr.net/npm/@expo-google-fonts/";
+const BERKAS_HURUF = {
+  sans: ["arimo@0.4.3/400Regular/Arimo_400Regular.ttf", "arimo@0.4.3/700Bold/Arimo_700Bold.ttf",
+         "arimo@0.4.3/400Regular_Italic/Arimo_400Regular_Italic.ttf", "arimo@0.4.3/700Bold_Italic/Arimo_700Bold_Italic.ttf"],
+  serif: ["tinos@0.4.2/400Regular/Tinos_400Regular.ttf", "tinos@0.4.2/700Bold/Tinos_700Bold.ttf",
+          "tinos@0.4.2/400Regular_Italic/Tinos_400Regular_Italic.ttf", "tinos@0.4.2/700Bold_Italic/Tinos_700Bold_Italic.ttf"],
+  mono: ["cousine@0.4.3/400Regular/Cousine_400Regular.ttf", "cousine@0.4.3/700Bold/Cousine_700Bold.ttf",
+         "cousine@0.4.3/400Regular_Italic/Cousine_400Regular_Italic.ttf", "cousine@0.4.3/700Bold_Italic/Cousine_700Bold_Italic.ttf"]
+};
+const tanam = { fontkit: null, janjiKit: null, bytes: {}, fk: {}, janji: {}, gagal: false };
+function kunciHuruf(g) { return (g.keluarga || "sans") + ((g.tebal ? 1 : 0) + (g.miring ? 2 : 0)); }
+function muatSkrip(url) {
+  return new Promise((selesai, gagal) => {
+    const el = document.createElement("script");
+    el.src = url; el.onload = () => selesai(); el.onerror = () => gagal(new Error("Skrip tidak dapat dimuat: " + url));
+    document.head.appendChild(el);
+  });
+}
+async function siapkanTanam(daftarKunci) {
+  if (tanam.gagal) return false;
+  try {
+    if (!tanam.fontkit) {
+      if (!tanam.janjiKit) tanam.janjiKit = (window.fontkit ? Promise.resolve() : muatSkrip(URL_FONTKIT));
+      await tanam.janjiKit;
+      tanam.fontkit = window.fontkit;
+    }
+    await Promise.all(daftarKunci.filter((k) => !tanam.fk[k]).map((k) => {
+      if (!tanam.janji[k]) {
+        const kel = k.slice(0, -1), no = +k.slice(-1);
+        tanam.janji[k] = fetch(URL_HURUF + BERKAS_HURUF[kel][no]).then((res) => {
+          if (!res.ok) throw new Error("Huruf " + k + " gagal diunduh (" + res.status + ")");
+          return res.arrayBuffer();
+        }).then((buf) => {
+          const b = new Uint8Array(buf);
+          tanam.fk[k] = tanam.fontkit.create(b);
+          tanam.bytes[k] = b;
+        });
+      }
+      return tanam.janji[k];
+    }));
+    return true;
+  } catch (e) {
+    console.warn("Huruf tertanam tidak dipakai:", e);
+    tanam.gagal = true;
+    return false;
+  }
+}
+
 /* ================================================================
    1. Membaca berkas
    ================================================================ */
@@ -329,9 +410,11 @@ async function muat(file) {
     const h = await js.getPage(i);
     const isi = await h.getTextContent();
     const items = isi.items.filter((it) => it.str !== "" && it.transform);
-    const rec = { no: i, items, gaya: null, ops: null, pemilik: null, baris: [] };
+    const rec = { no: i, items, gaya: null, ops: null, pemilik: null, baris: [], paragraf: [],
+                  halX0: h.view[0], halLebar: h.view[2] - h.view[0] };
     rec.items.forEach((it) => siapkanGeometri(it));
     rec.baris = susunBaris(items);
+    susunParagraf(rec);
     const aliran = ambilAliran(halLib[i - 1].node);
     if (aliran) {
       rec.ops = petakanOperator(aliran.teks);
@@ -342,6 +425,7 @@ async function muat(file) {
   }
   suntingan = []; nomorUrut = 0; terpilih = null; riwayat = []; riwayatMaju = [];
   gudangGambar.clear(); aturMode(null);
+  siapkanTanam(["sans0", "serif0"]);   // diunduh di belakang layar supaya suntingan pertama cepat
   const pesan = [namaAsli + " berhasil dimuat, " + js.numPages + " halaman."];
   if (bisaUrai < js.numPages) pesan.push("Isi sebagian halaman tidak bisa diurai, jadi di halaman itu teks lama hanya bisa ditutup.");
   if (bertandaTangan) pesan.push("<b>Berkas ini bertanda tangan elektronik.</b> Setelah disunting, tanda tangannya tidak lagi sah.");
@@ -428,6 +512,85 @@ function bentukBaris(items, idx) {
     teks += it.str;
   });
   return { idx, bagian, teks };
+}
+
+/* ---------- Paragraf dan perataan ----------
+   Baris-baris yang berurutan ke bawah dengan ukuran huruf sama, jarak baris
+   wajar, dan saling tumpang tindih mendatar dianggap satu paragraf. Dari
+   tepi kiri dan kanannya ditebak perataannya: kiri, tengah, kanan, atau
+   rata kiri-kanan. */
+function geoBaris(rec, k) {
+  const b = rec.baris[k], it0 = rec.items[b.idx[0]], itZ = rec.items[b.idx[b.idx.length - 1]];
+  return { it0, kiri: it0.sepanjang, kanan: itZ.sepanjang + itZ.lebar, mel: it0.melintang, sudut: it0.sudut,
+           ukuran: Math.max(...b.idx.map((i) => rec.items[i].ukuran)) };
+}
+function deteksiRata(gs) {
+  const n = gs.length;
+  const kiri = gs.map((g) => g.kiri), kanan = gs.map((g) => g.kanan), tengah = gs.map((g) => (g.kiri + g.kanan) / 2);
+  const sebarKiri = Math.max(...kiri) - Math.min(...kiri);
+  if (tengah.every((c) => Math.abs(c - tengah[0]) < 2) && sebarKiri > 4) return "tengah";
+  if (kanan.every((x) => Math.abs(x - kanan[0]) < 1.5) && sebarKiri > 4) return "kanan";
+  const maks = Math.max(...kanan);
+  const kiriLain = kiri.slice(1);
+  if (n >= 3 && kanan.slice(0, -1).every((x) => Math.abs(x - maks) < 1.5) &&
+      Math.max(...kiriLain) - Math.min(...kiriLain) < 1.5) return "rata";
+  return "kiri";
+}
+function susunParagraf(rec) {
+  const geo = rec.baris.map((b, k) => geoBaris(rec, k));
+  const urut = geo.map((g, k) => k).sort((a, b) => (geo[b].mel - geo[a].mel) || (geo[a].kiri - geo[b].kiri));
+  const par = [];
+  for (const k of urut) {
+    const g = geo[k];
+    let pilih = null;
+    for (const p of par) {
+      const t = geo[p.baris[p.baris.length - 1]];
+      if (Math.abs(t.sudut - g.sudut) > 0.03 || Math.abs(t.ukuran - g.ukuran) > 0.6) continue;
+      const d = t.mel - g.mel;
+      if (d < g.ukuran * 0.95 || d > g.ukuran * 2.0) continue;
+      if (p.jarak && Math.abs(d - p.jarak) > p.jarak * 0.2) continue;
+      const tumpang = Math.min(t.kanan, g.kanan) - Math.max(t.kiri, g.kiri);
+      if (tumpang < 0.5 * Math.min(t.kanan - t.kiri, g.kanan - g.kiri)) continue;
+      if (p.baris.length >= 2) {
+        const gs = p.baris.map((j) => geo[j]);
+        const kiriBadan = Math.min(...gs.slice(1).map((x) => x.kiri));
+        const kananMaks = Math.max(...gs.map((x) => x.kanan));
+        // baris menjorok ke dalam menandai awal paragraf baru
+        if (g.kiri > kiriBadan + 0.8 * g.ukuran) continue;
+        // baris sebelumnya pendek padahal paragraf rata kanan: itu baris terakhir paragraf
+        if (t.kanan < kananMaks - 3 * g.ukuran && gs.slice(0, -1).every((x) => Math.abs(x.kanan - kananMaks) < 1.5)) continue;
+      }
+      pilih = p; break;
+    }
+    if (pilih) { if (!pilih.jarak) pilih.jarak = geo[pilih.baris[pilih.baris.length - 1]].mel - g.mel; pilih.baris.push(k); }
+    else par.push({ baris: [k], jarak: 0 });
+  }
+  // Tepi kanan isi halaman: posisi kanan yang dipakai banyak baris (rata kanan naskah)
+  const hitungKanan = new Map();
+  geo.forEach((g) => { if (Math.abs(g.sudut) < 0.01) { const x = Math.round(g.kanan); hitungKanan.set(x, (hitungKanan.get(x) || 0) + 1); } });
+  let tepiKanan = null;
+  hitungKanan.forEach((n, x) => {
+    const total = (hitungKanan.get(x - 1) || 0) + n + (hitungKanan.get(x + 1) || 0);
+    if (total >= 3 && (tepiKanan === null || x > tepiKanan)) tepiKanan = x;
+  });
+  par.forEach((p, i) => {
+    const gs = p.baris.map((k) => geo[k]);
+    p.rata = p.baris.length >= 2 ? deteksiRata(gs) : "kiri";
+    p.baris.forEach((k) => {
+      const b = rec.baris[k];
+      b.par = i;
+      b.rata = p.rata === "tengah" || p.rata === "kanan" ? p.rata : "kiri";
+      // Satu baris yang berdiri sendiri di tengah halaman, misalnya judul naskah
+      const g = geo[k];
+      if (p.baris.length === 1 && Math.abs(g.sudut) < 0.01) {
+        const c = (g.kiri + g.kanan) / 2, tengahHal = rec.halX0 + rec.halLebar / 2;
+        if (Math.abs(c - tengahHal) < 3 && g.kiri > rec.halX0 + rec.halLebar * 0.15) b.rata = p.rata = "tengah";
+        // baris pendek yang menempel tepi kanan, misalnya tanggal surat
+        else if (tepiKanan !== null && Math.abs(g.kanan - tepiKanan) < 1.5 && g.kiri > tengahHal) b.rata = p.rata = "kanan";
+      }
+    });
+  });
+  rec.paragraf = par;
 }
 
 /* ================================================================
@@ -694,7 +857,7 @@ function cuplikWarna(c, vp, it) {
 /* ================================================================
    4. Huruf standar dan pengukuran
    ================================================================ */
-async function muatHuruf(doc) {
+async function muatHuruf(doc, perlu) {
   const S = P.StandardFonts;
   const daftar = {
     sans: [S.Helvetica, S.HelveticaBold, S.HelveticaOblique, S.HelveticaBoldOblique],
@@ -706,26 +869,51 @@ async function muatHuruf(doc) {
     hasil[k] = [];
     for (const f of daftar[k]) hasil[k].push(await doc.embedFont(f));
   }
+  // Huruf tertanam disematkan utuh: penyematan sebagian (subset) di pdf-lib
+  // merusak bentuk huruf Arimo/Tinos, jadi tidak dipakai. Hanya gaya yang
+  // benar-benar dipakai di halaman yang disunting yang disematkan.
+  const kunci = Object.keys(tanam.bytes).filter((k) => !perlu || perlu.includes(k));
+  if (kunci.length && tanam.fontkit) {
+    doc.registerFontkit(tanam.fontkit);
+    hasil.tanam = {};
+    for (const k of kunci) hasil.tanam[k] = await doc.embedFont(tanam.bytes[k]);
+  }
   return hasil;
 }
+function hurufAktif(g) { const k = kunciHuruf(g); return tanam.fk[k] ? k : null; }
 function fonUntuk(kumpulan, g) {
+  const k = hurufAktif(g);
+  if (k && kumpulan.tanam && kumpulan.tanam[k]) return kumpulan.tanam[k];
   return kumpulan[g.keluarga || "sans"][(g.tebal ? 1 : 0) + (g.miring ? 2 : 0)];
 }
 const bisaDitulis = new Map();
-// Huruf yang tidak ada pada huruf standar PDF (misalnya emoji) dibuang, dan dilaporkan.
-function saring(teks) {
+// Huruf yang tidak tersedia pada huruf yang dipakai (misalnya emoji) dibuang, dan dilaporkan.
+function saring(teks, g) {
+  const k = g ? hurufAktif(g) : null;
   const f = ukur.font.sans[0];
   let aman = "", buang = "";
   for (const ch of String(teks)) {
-    let ok = bisaDitulis.get(ch);
-    if (ok === undefined) { try { f.encodeText(ch); ok = true; } catch (e) { ok = false; } bisaDitulis.set(ch, ok); }
+    let ok;
+    if (ch === "\n") ok = true;
+    else if (k) ok = tanam.fk[k].hasGlyphForCodePoint(ch.codePointAt(0)) || /\s/.test(ch);
+    else {
+      ok = bisaDitulis.get(ch);
+      if (ok === undefined) { try { f.encodeText(ch); ok = true; } catch (e) { ok = false; } bisaDitulis.set(ch, ok); }
+    }
     if (ok) aman += ch; else if (!buang.includes(ch)) buang += ch;
   }
   return { aman, buang };
 }
 function lebarTeks(teks, g, ukuran) {
   if (!teks) return 0;
-  return fonUntuk(ukur.font, g).widthOfTextAtSize(saring(teks).aman, ukuran);
+  const aman = saring(teks, g).aman.replace(/\n/g, "");
+  const k = hurufAktif(g);
+  if (k) {
+    const fk = tanam.fk[k];
+    const lebar = fk.layout(aman).glyphs.reduce((n, gl) => n + gl.advanceWidth, 0);
+    return lebar / fk.unitsPerEm * ukuran;
+  }
+  return fonUntuk(ukur.font, g).widthOfTextAtSize(aman, ukuran);
 }
 
 /* ================================================================
@@ -791,6 +979,13 @@ function rencanaUbah(rec, s) {
     return { idx: kel.map((b) => b.idx), runs, it0, lebarBaru, lebarLama };
   };
 
+  // Baris rata tengah atau kanan ditulis ulang utuh lalu digeser, supaya
+  // tetap di tengah (atau tetap menempel kanan) setelah panjangnya berubah.
+  if ((baris.rata === "tengah" || baris.rata === "kanan") && !s.dx && !s.dy) {
+    const penuh = hasil(0, nyata.length - 1);
+    const selisih = penuh.lebarLama - penuh.lebarBaru;
+    if (Math.abs(selisih) > 0.3) { penuh.geser = baris.rata === "tengah" ? selisih / 2 : selisih; return penuh; }
+  }
   // Bila tulisan baru lebih panjang dari ruangnya, potongan sesudahnya ikut
   // ditulis ulang supaya tidak bertumpuk.
   let r = hasil(pertama, terakhir);
@@ -801,7 +996,106 @@ function rencanaUbah(rec, s) {
     terakhir++;
     r = hasil(pertama, terakhir);
   }
+  r.geser = 0;
   return r;
+}
+
+/* ---------- Tata letak teks banyak baris (paragraf dan teks baru) ---------- */
+function tataTeks(teks, g, lebar, lebarPertama) {
+  const hasil = [];
+  const sp = lebarTeks(" ", g, g.ukuran);
+  String(teks).split("\n").forEach((blok) => {
+    const kata = blok.split(/ +/).filter((w) => w !== "");
+    let baris = [], w = 0;
+    for (const kt of kata) {
+      const lk = lebarTeks(kt, g, g.ukuran);
+      const batas = hasil.length === 0 && lebarPertama != null ? lebarPertama : lebar;
+      if (baris.length && batas != null && w + sp + lk > batas + 0.01) { hasil.push({ kata: baris, lebar: w, akhir: false }); baris = []; w = 0; }
+      w = baris.length ? w + sp + lk : lk;
+      baris.push(kt);
+    }
+    hasil.push({ kata: baris, lebar: w, akhir: true });
+  });
+  return hasil;
+}
+function gayaDominan(rec, idx) {
+  const hitung = new Map();
+  idx.forEach((i) => { const g = rec.gaya[i]; hitung.set(g, (hitung.get(g) || 0) + rec.items[i].str.length); });
+  return [...hitung.entries()].sort((a, b) => b[1] - a[1])[0][0];
+}
+function paragrafDari(rec, s) { return rec.paragraf[rec.baris[s.daftarBaris[0]].par]; }
+
+// Rencana menulis ulang satu paragraf utuh dengan alir ulang di dalam kolomnya
+function rencanaParagraf(rec, s, paksa) {
+  const par = paragrafDari(rec, s);
+  const ubahRata = s.rata && s.rata !== par.rata;
+  if (!paksa && s.teksBaru === s.teksLama && !s.gaya && !s.dx && !s.dy && !ubahRata) return null;
+  const gs = s.daftarBaris.map((k) => geoBaris(rec, k));
+  const idx = s.daftarBaris.flatMap((k) => rec.baris[k].idx);
+  const g = s.gaya || gayaDominan(rec, idx);
+  const ref = gs[0].it0;
+  const kiri1 = gs[0].kiri;
+  const kiri = gs.length > 1 ? Math.min(...gs.slice(1).map((x) => x.kiri)) : kiri1;
+  const kanan = Math.max(...gs.map((x) => x.kanan));
+  const jarak = gs.length > 1 ? (gs[0].mel - gs[gs.length - 1].mel) / (gs.length - 1) : g.ukuran * 1.2;
+  const rata = s.rata || par.rata;
+  const susun = tataTeks(s.teksBaru, g, kanan - Math.min(kiri, kiri1), kanan - kiri1);
+  const baris = susun.map((b, j) => {
+    const ki = j === 0 ? kiri1 : kiri, ruang = kanan - ki;
+    let mulai = ki, spasi = 0;
+    if (rata === "tengah") mulai = ki + (ruang - b.lebar) / 2;
+    else if (rata === "kanan") mulai = kanan - b.lebar;
+    else if (rata === "rata" && !b.akhir && b.kata.length > 1) spasi = Math.max(0, (ruang - b.lebar) / (b.kata.length - 1));
+    return { kata: b.kata, mulai, mel: gs[0].mel - j * jarak, spasi, lebar: b.lebar };
+  });
+  return { idx, g, sudut: ref.sudut, cos: ref.cos, sin: ref.sin, asal: [s.dx || 0, s.dy || 0],
+           baris, kiri: Math.min(kiri, kiri1), kanan, jarak, rata, jumlahLama: gs.length };
+}
+
+// Rencana teks baru (bisa banyak baris dan dibungkus selebar kotaknya)
+function rencanaBebas(s) {
+  const g = s.gaya, a = s.sudut || 0;
+  const jarak = g.ukuran * 1.2;
+  const susun = tataTeks(s.teksBaru, g, s.lebarBungkus || null, null);
+  const lebar = s.lebarBungkus || Math.max(0, ...susun.map((b) => b.lebar));
+  const rata = s.rata || "kiri";
+  const baris = susun.map((b, j) => {
+    let mulai = 0, spasi = 0;
+    if (rata === "tengah") mulai = (lebar - b.lebar) / 2;
+    else if (rata === "kanan") mulai = lebar - b.lebar;
+    else if (rata === "rata" && s.lebarBungkus && !b.akhir && b.kata.length > 1) spasi = Math.max(0, (lebar - b.lebar) / (b.kata.length - 1));
+    return { kata: b.kata, mulai, mel: -j * jarak, spasi, lebar: b.lebar };
+  });
+  return { g, sudut: a, cos: Math.cos(a), sin: Math.sin(a), asal: [s.x, s.y], baris, kiri: 0, kanan: lebar, jarak, rata };
+}
+
+// Titik PDF dari koordinat sepanjang/melintang pada kerangka rencana
+function titikRencana(rn, sep, mel) {
+  return [rn.asal[0] + sep * rn.cos - mel * rn.sin, rn.asal[1] + sep * rn.sin + mel * rn.cos];
+}
+function gambarRencana(page, fonts, rn, laporan) {
+  const sp = lebarTeks(" ", rn.g, rn.g.ukuran);
+  for (const b of rn.baris) {
+    if (!b.kata.length) continue;
+    if (b.spasi > 0) {
+      let jalan = b.mulai;
+      for (const kt of b.kata) {
+        const [x, y] = titikRencana(rn, jalan, b.mel);
+        gambarRuns(page, fonts, [{ teks: kt, g: rn.g }], x, y, rn.sudut, laporan);
+        jalan += lebarTeks(kt, rn.g, rn.g.ukuran) + sp + b.spasi;
+      }
+    } else {
+      const [x, y] = titikRencana(rn, b.mulai, b.mel);
+      gambarRuns(page, fonts, [{ teks: b.kata.join(" "), g: rn.g }], x, y, rn.sudut, laporan);
+    }
+  }
+}
+function sudutRencana(rn, kiriLama, kananLama, melAtas) {
+  const u = rn.g.ukuran;
+  const kiri = Math.min(kiriLama, ...rn.baris.map((b) => b.mulai));
+  const kanan = Math.max(kananLama, ...rn.baris.map((b) => b.mulai + b.lebar + b.spasi * Math.max(0, b.kata.length - 1)));
+  const atas = Math.max(melAtas, rn.baris[0].mel) + 0.92 * u, bawah = rn.baris[rn.baris.length - 1].mel - 0.24 * u;
+  return [titikRencana(rn, kiri, bawah), titikRencana(rn, kanan, bawah), titikRencana(rn, kanan, atas), titikRencana(rn, kiri, atas)];
 }
 
 // Memperluas daftar potongan sampai semua potongan milik perintah yang
@@ -825,7 +1119,9 @@ function warnaKeHex(w) { return "#" + w.map((v) => Math.max(0, Math.min(255, v |
 function gambarRuns(page, fonts, runs, x, y, sudut, laporan) {
   let jalan = 0;
   for (const r of runs) {
-    const sar = saring(r.teks);
+    // Bila gaya ini tidak punya huruf tertanam di dokumen, saring menurut huruf standar.
+    const tertanam = !!(fonts.tanam && fonts.tanam[kunciHuruf(r.g)]);
+    const sar = saring(r.teks, tertanam ? r.g : null);
     if (sar.buang) laporan.buang += sar.buang;
     if (!sar.aman) continue;
     const f = fonUntuk(fonts, r.g);
@@ -861,11 +1157,17 @@ async function terapkanHalaman(page, rec, daftar, fonts, aset) {
   const laporan = { hapus: [], tutup: [], potonganDibuang: 0, buang: "" };
   const rencana = [];
   for (const s of daftar) {
-    if (s.jenis !== "ubah") continue;
-    const r = rencanaUbah(rec, s);
-    if (!r) continue;
-    const luas = s.tutup ? null : perluasPemilik(rec, r.idx);
-    rencana.push({ s, r, luas });
+    if (s.jenis === "ubah") {
+      const r = rencanaUbah(rec, s);
+      if (!r) continue;
+      const luas = s.tutup ? null : perluasPemilik(rec, r.idx);
+      rencana.push({ s, r, luas });
+    } else if (s.jenis === "paragraf") {
+      const rn = rencanaParagraf(rec, s);
+      if (!rn) continue;
+      const luas = s.tutup ? null : perluasPemilik(rec, rn.idx);
+      rencana.push({ s, r: { idx: rn.idx }, rn, luas });
+    }
   }
 
   // Tahap 1, membuang perintah teks lama dari isi halaman
@@ -913,17 +1215,19 @@ async function terapkanHalaman(page, rec, daftar, fonts, aset) {
       }
     } else {
       laporan.tutup.push(s.id);
-      tutupKotak(page, rec, r.idx, 0);
+      if (x.rn) s.daftarBaris.forEach((k) => tutupKotak(page, rec, rec.baris[k].idx, 0));
+      else tutupKotak(page, rec, r.idx, 0);
     }
-    gambarRuns(page, fonts, r.runs, r.it0.x + dx, r.it0.y + dy, r.it0.sudut, laporan);
+    if (x.rn) { gambarRencana(page, fonts, x.rn, laporan); continue; }
+    const geser = r.geser || 0;
+    gambarRuns(page, fonts, r.runs, r.it0.x + dx + r.it0.cos * geser, r.it0.y + dy + r.it0.sin * geser, r.it0.sudut, laporan);
   }
   // Teks baru, gambar, dan bentuk digambar sesuai urutan dibuat.
   for (const s of daftar.slice().sort((a, b) => a.id - b.id)) {
     if (s.jenis === "gambar" || s.jenis === "bentuk") { await gambarObjek(page, s, aset); continue; }
     if (s.jenis !== "bebas") continue;
-    const sar = saring(s.teksBaru);
-    if (!sar.aman.trim() && !sar.buang) continue;
-    gambarRuns(page, fonts, [{ teks: s.teksBaru, g: s.gaya }], s.x, s.y, s.sudut || 0, laporan);
+    if (!String(s.teksBaru).trim()) continue;
+    gambarRencana(page, fonts, rencanaBebas(s), laporan);
   }
   return laporan;
 }
@@ -993,6 +1297,13 @@ function sudutObjek(s) {
 }
 
 function ubahUkuran(s, a, dX, dY, ujung) {
+  if (ujung === "lebar") {
+    // lebar bungkus teks baru, diukur searah tulisan
+    const c = Math.cos(a.sudut || 0), n = Math.sin(a.sudut || 0);
+    const awal = a.lebarBungkus || rencanaBebas(a).kanan;
+    s.lebarBungkus = Math.max(20, awal + dX * c + dY * n);
+    return;
+  }
   if (ujung === "1") { s.x1 = a.x1 + dX; s.y1 = a.y1 + dY; return; }
   if (ujung === "2") { s.x2 = a.x2 + dX; s.y2 = a.y2 + dY; return; }
   const c = Math.cos(a.sudut || 0), n = Math.sin(a.sudut || 0);
@@ -1011,6 +1322,23 @@ function titikLayar(sx, sy) {
   return { pt, sudut: Math.atan2(kanan[1] - pt[1], kanan[0] - pt[0]) };
 }
 
+// Gaya huruf yang akan dipakai menulis ulang di halaman-halaman ini
+function kunciDibutuhkan(urutHal) {
+  const k = new Set();
+  for (const s of suntingan) {
+    if (!urutHal.includes(s.hal)) continue;
+    if (s.gaya) k.add(kunciHuruf(s.gaya));
+    const rec = halaman[s.hal - 1];
+    for (const bk of barisMilik(s)) rec.baris[bk].idx.forEach((i) => { if (rec.gaya) k.add(kunciHuruf(rec.gaya[i])); });
+  }
+  return [...k];
+}
+function barisMilik(s) {
+  if (s.jenis === "ubah") return [s.baris];
+  if (s.jenis === "paragraf") return s.daftarBaris;
+  return [];
+}
+
 async function susunDokumen(hanyaHalaman) {
   const urutHal = hanyaHalaman ? [hanyaHalaman] : halaman.map((h) => h.no);
   for (const no of urutHal) if (suntingan.some((s) => s.hal === no)) await siapkanGaya(halaman[no - 1]);
@@ -1023,7 +1351,9 @@ async function susunDokumen(hanyaHalaman) {
     doc = await P.PDFDocument.load(bytesAsli.slice(0), { updateMetadata: false });
     pages = {}; doc.getPages().forEach((p, i) => { pages[i + 1] = p; });
   }
-  const fonts = await muatHuruf(doc);
+  const perlu = kunciDibutuhkan(urutHal);
+  await siapkanTanam(perlu);
+  const fonts = await muatHuruf(doc, perlu);
   const aset = { doc, peta: new Map() };
   const laporan = { hapus: [], tutup: [], perHal: {}, buang: "" };
   for (const no of urutHal) {
@@ -1086,6 +1416,7 @@ async function gambarPratinjau() {
   pasangTanda();
   if (fokus) { const d = panggung.querySelector('.tanda[data-id="' + fokus + '"]'); if (d) d.focus({ preventScroll: true }); }
   if (terpilih) letakkanPenyunting();
+  letakkanKetik();
 }
 
 // Kotak layar dari sudut-sudut di ruang PDF
@@ -1100,21 +1431,24 @@ function sudutSuntingan(s) {
   const rec = halaman[s.hal - 1];
   if (adalahObjek(s)) return sudutObjek(s);
   if (s.jenis === "bebas") {
-    const w = Math.max(lebarTeks(s.teksBaru || " ", s.gaya, s.gaya.ukuran), 8);
-    const a = s.sudut || 0;
-    const it = { x: s.x, y: s.y, cos: Math.cos(a), sin: Math.sin(a), ukuran: s.gaya.ukuran };
-    return sudutKotak(it, w);
+    const rn = rencanaBebas(s);
+    return sudutRencana(rn, 0, Math.max(8, rn.kanan), 0);
+  }
+  if (s.jenis === "paragraf") {
+    const rn = rencanaParagraf(rec, s, true);
+    return sudutRencana(rn, rn.kiri, rn.kanan, geoBaris(rec, s.daftarBaris[0]).mel);
   }
   const baris = rec.baris[s.baris];
   const r = rencanaUbah(rec, s);
   const it0 = rec.items[baris.idx[0]], itZ = rec.items[baris.idx[baris.idx.length - 1]];
-  let panjang = (itZ.sepanjang + itZ.lebar) - it0.sepanjang;
+  let mulai = 0, panjang = (itZ.sepanjang + itZ.lebar) - it0.sepanjang;
   const ukuran = Math.max(...baris.idx.map((i) => rec.items[i].ukuran));
   const awal = Object.assign({}, it0, { ukuran });
   if (r) {
-    const geser = r.it0.sepanjang - it0.sepanjang;
-    panjang = Math.max(panjang, geser + r.lebarBaru);
-    awal.x += s.dx || 0; awal.y += s.dy || 0;
+    const geser = r.it0.sepanjang - it0.sepanjang + (r.geser || 0);
+    mulai = Math.min(0, geser);
+    panjang = Math.max(panjang, geser + r.lebarBaru) - mulai;
+    awal.x += (s.dx || 0) + it0.cos * mulai; awal.y += (s.dy || 0) + it0.sin * mulai;
   }
   return sudutKotak(awal, Math.max(panjang, 6));
 }
@@ -1127,8 +1461,8 @@ function pasangTanda() {
     d.tabIndex = 0;
     d.dataset.id = s.id;
     d.setAttribute("aria-label", "Suntingan " + s.id + ": " + (adalahObjek(s) ? namaObjek(s) : (s.teksBaru || "dihapus")));
-    if (adalahObjek(s)) {
-      (adalahGaris(s) ? ["1", "2"] : ["sudut"]).forEach((u) => {
+    if (adalahObjek(s) || s.jenis === "bebas") {
+      (s.jenis === "bebas" ? ["lebar"] : adalahGaris(s) ? ["1", "2"] : ["sudut"]).forEach((u) => {
         const h = document.createElement("span");
         h.className = "pegangan"; h.dataset.ujung = u;
         h.setAttribute("aria-hidden", "true");
@@ -1149,6 +1483,7 @@ function letakkanTanda(d, s) {
   d.querySelectorAll(".pegangan").forEach((h) => {
     let px, py;
     if (h.dataset.ujung === "sudut") { px = k.w + 4; py = k.h + 4; }
+    else if (h.dataset.ujung === "lebar") { px = k.w + 4; py = (k.h + 4) / 2; }
     else {
       const t = tampil.viewport.convertToViewportPoint(h.dataset.ujung === "1" ? s.x1 : s.x2, h.dataset.ujung === "1" ? s.y1 : s.y2);
       px = t[0] - (k.x - 2); py = t[1] - (k.y - 2);
@@ -1174,6 +1509,7 @@ function pasangPegangan(h, d, s, ujung) {
     const v = tampil.viewport, a = v.convertToPdfPoint(mulai.x, mulai.y), b = v.convertToPdfPoint(e.clientX, e.clientY);
     ubahUkuran(s, mulai.awal, b[0] - a[0], b[1] - a[1], ujung);
     letakkanTanda(d, s);
+    if (ketikUntuk === s.id) letakkanKetik();
   });
   const lepas = (e) => {
     if (!mulai) return;
@@ -1211,7 +1547,7 @@ panggung.addEventListener("mousemove", (e) => {
   if (!tampil || mode || e.target.closest(".tanda")) { sorot.remove(); return; }
   const rec = halaman[halKini - 1];
   const k = barisDi(rec, titikPdf(e));
-  if (k < 0 || suntingan.some((s) => s.hal === halKini && s.baris === k)) { sorot.remove(); return; }
+  if (k < 0 || suntingan.some((s) => s.hal === halKini && barisMilik(s).includes(k))) { sorot.remove(); return; }
   const b = rec.baris[k], it0 = rec.items[b.idx[0]], itZ = rec.items[b.idx[b.idx.length - 1]];
   const ukuran = Math.max(...b.idx.map((i) => rec.items[i].ukuran));
   const kk = kotakLayar(sudutKotak(Object.assign({}, it0, { ukuran }), (itZ.sepanjang + itZ.lebar) - it0.sepanjang));
@@ -1243,15 +1579,16 @@ panggung.addEventListener("click", (e) => {
   }
   const k = barisDi(rec, pt);
   if (k < 0) { tutupPenyunting(); return; }
-  const ada = suntingan.find((s) => s.hal === halKini && s.jenis === "ubah" && s.baris === k);
-  if (ada) { bukaPenyunting(ada.id); return; }
+  const klik = { x: e.clientX, y: e.clientY };
+  const ada = suntingan.find((s) => s.hal === halKini && barisMilik(s).includes(k));
+  if (ada) { bukaPenyunting(ada.id, klik); return; }
   catatRiwayat();
   nomorUrut++;
   const b = rec.baris[k];
   suntingan.push({ id: nomorUrut, jenis: "ubah", hal: halKini, baris: k, teksLama: b.teks, teksBaru: b.teks,
                    gaya: null, dx: 0, dy: 0, tutup: !rec.pemilik });
   sorot.remove();
-  bukaPenyunting(nomorUrut);
+  bukaPenyunting(nomorUrut, klik);
   gambarDaftar(); perbaruiNav();
 });
 
@@ -1445,39 +1782,160 @@ let sedangKetik = false;
 function cariSuntingan(id) { return suntingan.find((s) => s.id === id); }
 
 // Gaya yang ditampilkan di penyunting: gaya pengganti bila ada, kalau
-// tidak, gaya potongan pertama yang berubah.
+// tidak, gaya potongan pertama yang berubah (baris) atau gaya utama (paragraf).
 function gayaTampil(s) {
   if (s.gaya) return s.gaya;
   const rec = halaman[s.hal - 1];
+  if (s.jenis === "paragraf") return gayaDominan(rec, s.daftarBaris.flatMap((k) => rec.baris[k].idx));
   const r = rencanaUbah(rec, Object.assign({}, s, { teksBaru: s.teksBaru === s.teksLama ? s.teksLama + " " : s.teksBaru }));
   if (r && r.runs.length) return r.runs[0].g;
   return rec.gaya[rec.baris[s.baris].idx[0]];
 }
+function potongTeks(t, n) { t = String(t).replace(/\n/g, " "); return t.length > n ? t.slice(0, n - 1) + "…" : t; }
+function tekan(b, v) { b.classList.toggle("aktif", !!v); b.setAttribute("aria-pressed", String(!!v)); }
+function tandaiRata(v) { document.querySelectorAll("#grupRata [data-rata]").forEach((b) => tekan(b, b.dataset.rata === v)); }
 
-function bukaPenyunting(id) {
+function bukaPenyunting(id, klik) {
   terpilih = id;
   const s = cariSuntingan(id);
   if (!s) return;
   if (s.hal !== halKini) { tampilkanHalaman(s.hal).then(() => bukaPenyunting(id)); return; }
-  if (adalahObjek(s)) { bukaPanelObjek(s); return; }
+  if (adalahObjek(s)) { tutupKetik(); bukaPanelObjek(s); return; }
   panelObjek.hidden = true;
+  const rec = halaman[s.hal - 1];
   const g = gayaTampil(s);
-  el("judulPenyunting").textContent = s.jenis === "bebas" ? "Teks baru" : "Sunting baris";
-  el("semula").textContent = s.jenis === "bebas" ? "" : "Semula: " + s.teksLama;
-  el("isiTeks").value = s.teksBaru;
+  el("judulPenyunting").textContent = { bebas: "Teks baru", paragraf: "Sunting paragraf", ubah: "Sunting baris" }[s.jenis];
+  el("semula").textContent = s.jenis === "bebas" ? "" : "Semula: " + potongTeks(s.teksLama, 70);
   el("pilihHuruf").value = g.keluarga;
   el("ukuranHuruf").value = g.ukuran;
   setTekan("gayaTebal", g.tebal); setTekan("gayaMiring", g.miring); setTekan("gayaGaris", g.garis);
   el("warnaHuruf").value = warnaKeHex(g.warna);
+  const pakaiRata = s.jenis === "bebas" || s.jenis === "paragraf";
+  el("grupRata").hidden = !pakaiRata;
+  if (pakaiRata) tandaiRata(s.rata || (s.jenis === "paragraf" ? paragrafDari(rec, s).rata : "kiri"));
+  const par = s.jenis === "ubah" ? rec.paragraf[rec.baris[s.baris].par] : null;
+  el("jadiParagraf").hidden = !(par && par.baris.length > 1);
+  if (par) el("jadiParagraf").textContent = "Sunting satu paragraf (" + par.baris.length + " baris)";
   penyunting.hidden = false;
   perbaruiCatatan(s);
-  letakkanPenyunting();
   [...panggung.querySelectorAll(".tanda")].forEach((d) => d.classList.toggle("terpilih", +d.dataset.id === id));
   gambarDaftar();
-  el("isiTeks").focus();
+  bukaKetik(s, klik);
+  letakkanPenyunting();
   sedangKetik = false;
 }
-function setTekan(id, v) { el(id).classList.toggle("aktif", !!v); el(id).setAttribute("aria-pressed", String(!!v)); }
+function setTekan(id, v) { tekan(el(id), v); }
+
+/* ---------- Ketik langsung di pratinjau ----------
+   Kotak ketik diletakkan tepat di atas tulisan, dengan huruf yang ukurannya
+   sama dengan huruf yang nanti ditulis ke PDF, jadi yang diketik tampak di
+   tempatnya. Setelah selesai, pratinjau digambar ulang dari hasil sebenarnya. */
+const ketik = document.createElement("div");
+ketik.className = "ketik";
+const ketikIsi = document.createElement("div");
+ketikIsi.className = "ketik-isi";
+ketikIsi.contentEditable = "true";
+ketikIsi.spellcheck = false;
+ketikIsi.setAttribute("role", "textbox");
+ketikIsi.setAttribute("aria-label", "Ketik teks di sini");
+ketik.appendChild(ketikIsi);
+let ketikUntuk = null;
+const METRIK = { sans: [0.905, 0.212], serif: [0.891, 0.216], mono: [0.833, 0.300] };
+const CSS_HURUF = {
+  sans: "Arimo, Arial, Helvetica, 'Liberation Sans', sans-serif",
+  serif: "Tinos, 'Times New Roman', Times, 'Liberation Serif', serif",
+  mono: "Cousine, 'Courier New', Courier, 'Liberation Mono', monospace"
+};
+
+function bentukKetik(s) {
+  const rec = halaman[s.hal - 1];
+  if (s.jenis === "ubah") {
+    const gb = geoBaris(rec, s.baris), b = rec.baris[s.baris];
+    return { asal: [gb.it0.x + (s.dx || 0), gb.it0.y + (s.dy || 0)], cos: gb.it0.cos, sin: gb.it0.sin, g: gayaTampil(s),
+             banyak: false, minLebar: gb.kanan - gb.kiri, lebar: null, rata: b.rata, latar: rec.gaya[b.idx[0]].latar, jarak: null, inden: 0 };
+  }
+  if (s.jenis === "paragraf") {
+    const rn = rencanaParagraf(rec, s, true);
+    const gb0 = geoBaris(rec, s.daftarBaris[0]);
+    return { asal: titikRencana(rn, rn.kiri, gb0.mel), cos: rn.cos, sin: rn.sin, g: rn.g, banyak: true,
+             minLebar: rn.kanan - rn.kiri, lebar: rn.kanan - rn.kiri, rata: rn.rata, latar: rec.gaya[rec.baris[s.daftarBaris[0]].idx[0]].latar,
+             jarak: rn.jarak, inden: gb0.kiri - rn.kiri, barisLama: rn.jumlahLama };
+  }
+  const a = s.sudut || 0;
+  return { asal: [s.x, s.y], cos: Math.cos(a), sin: Math.sin(a), g: s.gaya, banyak: true, minLebar: 8,
+           lebar: s.lebarBungkus || null, rata: s.rata || "kiri", latar: null, jarak: s.gaya.ukuran * 1.2, inden: 0 };
+}
+
+function letakkanKetik() {
+  const s = ketikUntuk && cariSuntingan(ketikUntuk);
+  if (!s || s.hal !== halKini || !tampil) { ketik.remove(); return; }
+  const b = bentukKetik(s), v = tampil.viewport, sk = v.scale;
+  const p0 = v.convertToViewportPoint(b.asal[0], b.asal[1]);
+  const p1 = v.convertToViewportPoint(b.asal[0] + b.cos, b.asal[1] + b.sin);
+  const sudut = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]);
+  const fs = b.g.ukuran * sk;
+  const [naik, turun] = METRIK[b.g.keluarga || "sans"];
+  const L = b.jarak ? b.jarak * sk : (naik + turun) * fs;
+  Object.assign(ketik.style, { left: p0[0] + "px", top: p0[1] + "px", transform: "rotate(" + sudut + "rad)" });
+  Object.assign(ketikIsi.style, {
+    top: -((L - (naik + turun) * fs) / 2 + naik * fs) + "px",
+    fontFamily: CSS_HURUF[b.g.keluarga || "sans"], fontSize: fs + "px", lineHeight: L + "px",
+    fontWeight: b.g.tebal ? "700" : "400", fontStyle: b.g.miring ? "italic" : "normal",
+    textDecoration: b.g.garis ? "underline" : "none",
+    color: "rgb(" + b.g.warna.join(",") + ")",
+    background: b.latar ? "rgb(" + b.latar.join(",") + ")" : "rgba(255,255,255,.94)",
+    minWidth: b.minLebar * sk + "px",
+    width: b.lebar ? b.lebar * sk + "px" : "auto",
+    minHeight: b.barisLama ? b.barisLama * L + "px" : "",
+    whiteSpace: b.banyak && b.lebar ? "pre-wrap" : "pre",
+    textAlign: { tengah: "center", kanan: "right", rata: "justify" }[b.rata] || "left",
+    textAlignLast: b.rata === "rata" ? "left" : "",
+    textIndent: b.inden ? b.inden * sk + "px" : "0px"
+  });
+  if (!ketik.isConnected) panggung.appendChild(ketik);
+}
+
+function bukaKetik(s, klik) {
+  ketikUntuk = s.id;
+  ketikIsi.dataset.banyak = s.jenis === "ubah" ? "" : "1";
+  ketikIsi.innerText = s.teksBaru;
+  letakkanKetik();
+  ketikIsi.focus({ preventScroll: true });
+  const sel = window.getSelection();
+  let range = null;
+  try {
+    if (klik && document.caretRangeFromPoint) range = document.caretRangeFromPoint(klik.x, klik.y);
+    else if (klik && document.caretPositionFromPoint) {
+      const pos = document.caretPositionFromPoint(klik.x, klik.y);
+      if (pos) { range = document.createRange(); range.setStart(pos.offsetNode, pos.offset); range.collapse(true); }
+    }
+  } catch (e) { range = null; }
+  if (!range || !ketikIsi.contains(range.startContainer)) {
+    range = document.createRange(); range.selectNodeContents(ketikIsi); range.collapse(false);
+  }
+  sel.removeAllRanges(); sel.addRange(range);
+}
+function tutupKetik() { ketikUntuk = null; ketik.remove(); }
+function bacaKetik() {
+  let t = ketikIsi.innerText.replace(/\u00a0/g, " ");
+  if (!ketikIsi.dataset.banyak) t = t.replace(/\n/g, " ");
+  else t = t.replace(/\n$/, "");
+  return t;
+}
+ketikIsi.addEventListener("input", () => {
+  const catat = !sedangKetik; sedangKetik = true;
+  ubahTerpilih((s) => { s.teksBaru = bacaKetik(); }, catat);
+  letakkanPenyunting();
+});
+ketikIsi.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" || (e.key === "Enter" && !ketikIsi.dataset.banyak)) { e.preventDefault(); tutupPenyunting(); gambarDaftar(); }
+});
+ketikIsi.addEventListener("paste", (e) => {
+  e.preventDefault();
+  const t = (e.clipboardData || window.clipboardData).getData("text/plain");
+  document.execCommand("insertText", false, ketikIsi.dataset.banyak ? t : t.replace(/\s*\n\s*/g, " "));
+});
+["pointerdown", "mousedown", "click"].forEach((ev) => ketik.addEventListener(ev, (e) => e.stopPropagation()));
 
 function letakkanPenyunting() {
   const s = cariSuntingan(terpilih);
@@ -1496,6 +1954,7 @@ function letakkanPenyunting() {
 }
 
 function tutupPenyunting() {
+  tutupKetik();
   penyunting.hidden = true;
   panelObjek.hidden = true;
   terpilih = null;
@@ -1544,7 +2003,7 @@ el("hapusObjek").addEventListener("click", () => { if (terpilih) kembalikan(terp
 function perbaruiCatatan(s) {
   if (adalahObjek(s)) return;
   const c = el("catatanPenyunting");
-  const sar = saring(s.teksBaru);
+  const sar = saring(s.teksBaru, gayaTampil(s));
   const pesan = [];
   if (s.jenis === "ubah") {
     const rec = halaman[s.hal - 1];
@@ -1554,8 +2013,19 @@ function perbaruiCatatan(s) {
     } else if (r) {
       pesan.push("Bagian yang berubah akan ditulis ulang, teks lamanya dibuang dari berkas.");
     }
+  } else if (s.jenis === "paragraf") {
+    const rec = halaman[s.hal - 1];
+    const rn = rencanaParagraf(rec, s);
+    if (s.tutup || (rn && !perluasPemilik(rec, rn.idx))) {
+      pesan.push("<span class='awas'>Teks lama paragraf ini hanya bisa ditutup kotak, jadi masih bisa disalin dari berkas.</span>");
+    } else if (rn) {
+      pesan.push("Paragraf ditulis ulang dan dialirkan ulang di dalam kolomnya.");
+    }
+    if (rn && rn.baris.length > rn.jumlahLama) {
+      pesan.push("<span class='awas'>Paragraf bertambah " + (rn.baris.length - rn.jumlahLama) + " baris dan bisa menimpa tulisan di bawahnya.</span>");
+    }
   }
-  if (sar.buang) pesan.push("<span class='awas'>Huruf " + Bersama.lolos(sar.buang) + " tidak tersedia pada huruf standar PDF dan akan dilewati.</span>");
+  if (sar.buang) pesan.push("<span class='awas'>Huruf " + Bersama.lolos(sar.buang) + " tidak tersedia pada huruf yang dipakai dan akan dilewati.</span>");
   c.innerHTML = pesan.join(" ");
 }
 
@@ -1565,17 +2035,33 @@ function ubahTerpilih(fn, riwayatBaru) {
   if (riwayatBaru) catatRiwayat();
   fn(s);
   perbaruiCatatan(s);
+  if (ketikUntuk === s.id) letakkanKetik();
   jadwalkanPratinjau(); gambarDaftar(); perbaruiNav();
 }
 function gayaBaru(s) { return Object.assign({}, gayaTampil(s)); }
 
-el("isiTeks").addEventListener("input", () => {
-  const catat = !sedangKetik; sedangKetik = true;
-  ubahTerpilih((s) => { s.teksBaru = el("isiTeks").value; }, catat);
-});
-el("isiTeks").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") { e.preventDefault(); tutupPenyunting(); gambarDaftar(); }
-  if (e.key === "Escape") { e.preventDefault(); tutupPenyunting(); gambarDaftar(); }
+document.querySelectorAll("#grupRata [data-rata]").forEach((b) => b.addEventListener("click", () => {
+  ubahTerpilih((s) => { s.rata = b.dataset.rata; }, true);
+  tandaiRata(b.dataset.rata);
+}));
+// Satu baris dijadikan suntingan paragraf: semua baris paragrafnya ditulis ulang bersama
+el("jadiParagraf").addEventListener("click", () => {
+  const s = cariSuntingan(terpilih);
+  if (!s || s.jenis !== "ubah") return;
+  const rec = halaman[s.hal - 1];
+  const par = rec.paragraf[rec.baris[s.baris].par];
+  catatRiwayat();
+  const lama = par.baris.map((k) => rec.baris[k].teks.trim()).join(" ");
+  const baru = par.baris.map((k) => {
+    const sk = suntingan.find((x) => x.hal === s.hal && x.jenis === "ubah" && x.baris === k);
+    return (sk ? sk.teksBaru : rec.baris[k].teks).trim();
+  }).filter((t) => t).join(" ");
+  suntingan = suntingan.filter((x) => !(x.hal === s.hal && x.jenis === "ubah" && par.baris.includes(x.baris)));
+  nomorUrut++;
+  suntingan.push({ id: nomorUrut, jenis: "paragraf", hal: s.hal, daftarBaris: par.baris.slice(), teksLama: lama, teksBaru: baru,
+                   gaya: s.gaya || null, rata: null, dx: 0, dy: 0, tutup: !rec.pemilik });
+  bukaPenyunting(nomorUrut);
+  jadwalkanPratinjau(); gambarDaftar(); perbaruiNav();
 });
 el("pilihHuruf").addEventListener("change", () => ubahTerpilih((s) => { s.gaya = Object.assign(gayaBaru(s), { keluarga: el("pilihHuruf").value }); }, true));
 el("ukuranHuruf").addEventListener("change", () => ubahTerpilih((s) => {
@@ -1588,7 +2074,7 @@ el("warnaHuruf").addEventListener("change", () => ubahTerpilih((s) => { s.gaya =
   }, true));
 });
 el("selesai").addEventListener("click", () => { tutupPenyunting(); gambarDaftar(); });
-el("hapusTeks").addEventListener("click", () => { ubahTerpilih((s) => { s.teksBaru = ""; }, true); el("isiTeks").value = ""; });
+el("hapusTeks").addEventListener("click", () => { ubahTerpilih((s) => { s.teksBaru = ""; }, true); ketikIsi.innerText = ""; });
 el("batalkan").addEventListener("click", () => { if (terpilih) kembalikan(terpilih); });
 
 function kembalikan(id) {
@@ -1669,8 +2155,16 @@ el("gantiSemua").addEventListener("click", () => {
   let jumlah = 0, barisKena = 0;
   const halKena = new Set();
   catatRiwayat();
+  // Paragraf yang sedang disunting dicari di teks barunya
+  suntingan.filter((s) => s.jenis === "paragraf").forEach((s) => {
+    const cocok = s.teksBaru.match(pola);
+    if (!cocok) return;
+    jumlah += cocok.length; barisKena++; halKena.add(s.hal);
+    s.teksBaru = s.teksBaru.replace(pola, ganti);
+  });
   halaman.forEach((rec) => {
     rec.baris.forEach((b, k) => {
+      if (suntingan.some((s) => s.hal === rec.no && s.jenis === "paragraf" && s.daftarBaris.includes(k))) return;
       const ada = suntingan.find((s) => s.hal === rec.no && s.jenis === "ubah" && s.baris === k);
       const sumber = ada ? ada.teksBaru : b.teks;
       const cocok = sumber.match(pola);
@@ -1724,8 +2218,8 @@ function gambarDaftar() {
     const rec = halaman[s.hal - 1];
     let cara = "bebas", ket = "Teks baru";
     if (adalahObjek(s)) { cara = "objek"; ket = s.jenis === "gambar" ? "Gambar sisipan" : "Bentuk sisipan"; }
-    else if (s.jenis === "ubah") {
-      const r = rencanaUbah(rec, s);
+    else if (s.jenis === "ubah" || s.jenis === "paragraf") {
+      const r = s.jenis === "ubah" ? rencanaUbah(rec, s) : rencanaParagraf(rec, s);
       const bisa = !s.tutup && r && perluasPemilik(rec, r.idx);
       cara = bisa ? "hapus" : "tutup";
       ket = !r ? "Belum ada perubahan" : bisa ? "Teks lama dibuang dari berkas" : "Teks lama hanya ditutup, masih bisa disalin";
@@ -1734,14 +2228,14 @@ function gambarDaftar() {
     li.innerHTML = "<span class='hal'></span><span class='isi'></span><span class='tombolan'></span>";
     li.querySelector(".hal").textContent = "Hlm " + s.hal;
     const isi = li.querySelector(".isi");
-    if (s.jenis === "ubah" && s.teksLama !== s.teksBaru) {
-      const d = document.createElement("del"); d.textContent = s.teksLama;
-      const i = document.createElement("ins"); i.textContent = s.teksBaru || "(dihapus)";
+    if ((s.jenis === "ubah" || s.jenis === "paragraf") && s.teksLama !== s.teksBaru) {
+      const d = document.createElement("del"); d.textContent = potongTeks(s.teksLama, 90);
+      const i = document.createElement("ins"); i.textContent = potongTeks(s.teksBaru, 90) || "(dihapus)";
       isi.append(d, document.createTextNode(" → "), i);
     } else if (adalahObjek(s)) {
       isi.textContent = namaObjek(s);
     } else {
-      isi.textContent = s.teksBaru || s.teksLama || "(kosong)";
+      isi.textContent = potongTeks(s.teksBaru || s.teksLama, 90) || "(kosong)";
     }
     const k = document.createElement("span"); k.className = "cara"; k.textContent = ket; isi.append(k);
     const buka = document.createElement("button");
@@ -1785,7 +2279,8 @@ async function periksaHasil(bytes, perHal) {
 }
 
 el("simpan").addEventListener("click", async () => {
-  const nyata = suntingan.filter((s) => adalahObjek(s) ? true : s.jenis === "bebas" ? s.teksBaru.trim() : rencanaUbah(halaman[s.hal - 1], s));
+  const nyata = suntingan.filter((s) => adalahObjek(s) ? true : s.jenis === "bebas" ? s.teksBaru.trim()
+    : s.jenis === "paragraf" ? rencanaParagraf(halaman[s.hal - 1], s) : rencanaUbah(halaman[s.hal - 1], s));
   if (!nyata.length) { Bersama.pesan("kabar", "Belum ada teks yang diubah atau objek yang ditambahkan.", "gagal"); return; }
   const tombol = el("simpan");
   tombol.disabled = true; tombol.textContent = "Menyimpan...";
@@ -1811,7 +2306,7 @@ el("simpan").addEventListener("click", async () => {
     if (L.hapus.length) pesan.push(L.hapus.length + " baris teks lamanya dibuang dari berkas.");
     if (L.tutup.length) pesan.push("<b>" + L.tutup.length + " baris teks lamanya hanya ditutup, jadi masih bisa disalin dari berkas.</b>");
     if (mundur) pesan.push("Penghapusan dibatalkan sendiri karena membuat isi halaman berkurang, lalu dokumen disusun ulang dengan cara yang aman.");
-    if (L.buang) pesan.push("Huruf " + Bersama.lolos([...new Set(L.buang)].join("")) + " dilewati karena tidak tersedia pada huruf standar PDF.");
+    if (L.buang) pesan.push("Huruf " + Bersama.lolos([...new Set(L.buang)].join("")) + " dilewati karena tidak tersedia pada huruf yang dipakai.");
     if (bertandaTangan) pesan.push("Tanda tangan elektronik pada berkas asal tidak lagi sah.");
     Bersama.pesan("kabar", pesan.join(" "), L.tutup.length || mundur || bertandaTangan ? "" : "beres");
     gambarDaftar();
