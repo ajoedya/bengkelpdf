@@ -548,6 +548,46 @@
   --penutup-1: #161d26; --penutup-2: #141a22; --rgb-gelap: 6, 9, 13;
 }
 
+/* Banner malam: di mode gelap, tema berlatar kota memakai foto malam hari
+   (ukuran penuh 2172 x 724, JPG kualitas tinggi). Hutan Hujan dan Mangrove
+   tetap memakai banner siangnya. */
+/* Pelabuhan Senja adalah tema bawaan tanpa atribut data-tema. */
+:root[data-mode="gelap"]:not([data-tema]) {
+  --banner: url("banner-pelabuhan-malam.jpg");
+  --banner-latar-posisi: 24% 100%;
+  --banner-kop-posisi: right 60%;
+  --banner-pita-posisi: center 62%;
+}
+:root[data-mode="gelap"][data-tema="tepian"] {
+  --banner: url("banner-tepian-malam.jpg");
+  --banner-latar-posisi: 57% 100%;
+  --banner-kop-posisi: right 45%;
+  --banner-pita-posisi: center 50%;
+}
+:root[data-mode="gelap"][data-tema="kilang"] {
+  --banner: url("banner-kilang-malam.jpg");
+  --banner-latar-posisi: 22% 100%;
+  --banner-kop-posisi: right 55%;
+  --banner-pita-posisi: center 55%;
+}
+:root[data-mode="gelap"][data-tema="tongkang"] {
+  --banner: url("banner-tongkang-malam.jpg");
+  --banner-latar-posisi: 80% 100%;
+  --banner-latar-ukuran: cover;
+  --banner-kop-posisi: right 60%;
+  --banner-pita-posisi: center 60%;
+}
+
+@media (min-width: 1041px) {
+  /* Panel beranda bentuknya tegak; foto malam yang lebar diperkecil dan
+     ditaruh di bawah, supaya objeknya tidak tertutup kabut di bagian atas.
+     Langit malamnya menyatu dengan warna latar. */
+  :root[data-mode="gelap"]:not([data-tema]) { --banner-latar-ukuran: auto 68%; --banner-latar-posisi: 30% 100%; }
+  :root[data-mode="gelap"][data-tema="tepian"] { --banner-latar-ukuran: auto 70%; --banner-latar-posisi: 57% 100%; }
+  :root[data-mode="gelap"][data-tema="kilang"] { --banner-latar-ukuran: auto 70%; --banner-latar-posisi: 18% 100%; }
+  :root[data-mode="gelap"][data-tema="tongkang"] { --banner-latar-ukuran: auto 70%; --banner-latar-posisi: 86% 100%; }
+}
+
 * { box-sizing: border-box; }
 
 html, body { margin: 0; padding: 0; }
