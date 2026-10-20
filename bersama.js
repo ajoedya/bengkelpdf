@@ -250,7 +250,7 @@
     // Membaca PDF melalui pdf.js
     bacaPdf: async function (file) {
       const bytes = await file.arrayBuffer();
-      const dok = await pdfjsLib.getDocument({ data: bytes.slice(0) }).promise;
+      const dok = await pdfjsLib.getDocument({ data: bytes.slice(0), isEvalSupported: false }).promise;
       return { bytes, dok, nama: file.name };
     },
 

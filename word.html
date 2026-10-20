@@ -2,6 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net; worker-src 'self' blob: https://cdn.jsdelivr.net; connect-src 'self' blob: data: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PDF ke Word — Bengkel PDF</title>
 <script src="tema.js"></script>
@@ -97,12 +99,12 @@ details.pw-lipat summary{cursor:pointer;font-weight:600;font-size:14px}
   </footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="pustaka/pdfjs/pdf.min.js"></script>
 <script src="bersama.js"></script>
 <script>
 "use strict";
 
-const PDFJS_BASE = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+const PDFJS_BASE = new URL("pustaka/pdfjs/", location.href).href;
 pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + "pdf.worker.min.js";
 
 const el = (id) => document.getElementById(id);
@@ -1210,9 +1212,9 @@ function siapkanOcr() {
   if (!pekerjaOcr) {
     pekerjaOcr = batasWaktu(new Promise((selesai, gagal) => {
       (async () => {
-        if (typeof Tesseract === "undefined") await muatSkrip(CDN_NPM + "tesseract.js@" + TESS_VERSI + "/dist/tesseract.min.js");
+        if (typeof Tesseract === "undefined") await muatSkrip("pustaka/tesseract/tesseract.min.js");
         const pekerja = await Tesseract.createWorker(["ind", "eng"], 1, {
-          workerPath: CDN_NPM + "tesseract.js@" + TESS_VERSI + "/dist/worker.min.js",
+          workerPath: new URL("pustaka/tesseract/worker.min.js", location.href).href,
           corePath: CDN_NPM + "tesseract.js-core@" + TESS_VERSI,
           logger: (m) => { if (laporOcr) { try { laporOcr(m); } catch (e) {} } },
           /* kegagalan mengunduh mesin atau data bahasa dilaporkan lewat sini */

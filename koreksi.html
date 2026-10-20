@@ -2,6 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net; worker-src 'self' blob: https://cdn.jsdelivr.net; connect-src 'self' blob: data: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Edit Teks — Bengkel PDF</title>
 <script src="tema.js"></script>
@@ -315,12 +317,12 @@
   </footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="pustaka/pdfjs/pdf.min.js"></script>
+<script src="pustaka/pdf-lib.min.js"></script>
 <script src="bersama.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  "pustaka/pdfjs/pdf.worker.min.js";
 
 const el = (id) => document.getElementById(id);
 const P = PDFLib;
@@ -363,7 +365,7 @@ let bertandaTangan = false;
    Courier. Hurufnya diunduh sekali saat pertama dibutuhkan, lalu hanya huruf
    yang terpakai yang disematkan. Bila gagal dimuat (jaringan menyaring CDN),
    alat kembali memakai huruf standar PDF seperti sebelumnya. */
-const URL_FONTKIT = "https://unpkg.com/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js";
+const URL_FONTKIT = "pustaka/fontkit.umd.min.js";
 const URL_HURUF = "https://cdn.jsdelivr.net/npm/@expo-google-fonts/";
 const BERKAS_HURUF = {
   sans: ["arimo@0.4.3/400Regular/Arimo_400Regular.ttf", "arimo@0.4.3/700Bold/Arimo_700Bold.ttf",
@@ -1274,9 +1276,9 @@ function siapkanOcr() {
   if (!pekerjaOcr) {
     pekerjaOcr = batasWaktu(new Promise((selesai, gagal) => {
       (async () => {
-        if (typeof Tesseract === "undefined") await muatSkrip(CDN_NPM + "tesseract.js@" + TESS_VERSI + "/dist/tesseract.min.js");
+        if (typeof Tesseract === "undefined") await muatSkrip("pustaka/tesseract/tesseract.min.js");
         const pekerja = await Tesseract.createWorker(["ind", "eng"], 1, {
-          workerPath: CDN_NPM + "tesseract.js@" + TESS_VERSI + "/dist/worker.min.js",
+          workerPath: new URL("pustaka/tesseract/worker.min.js", location.href).href,
           corePath: CDN_NPM + "tesseract.js-core@" + TESS_VERSI,
           logger: (m) => { if (laporOcr) { try { laporOcr(m); } catch (e) {} } },
           errorHandler: (e) => gagal(new Error("Mesin OCR gagal dimuat: " + String(e && e.message ? e.message : e).slice(0, 120)))

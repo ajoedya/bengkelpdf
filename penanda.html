@@ -2,6 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net; worker-src 'self' blob: https://cdn.jsdelivr.net; connect-src 'self' blob: data: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Penanda TTE — Bengkel PDF</title>
 <script src="tema.js"></script>
@@ -102,12 +104,12 @@
   </footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="pustaka/pdfjs/pdf.min.js"></script>
+<script src="pustaka/pdf-lib.min.js"></script>
 <script src="bersama.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  "pustaka/pdfjs/pdf.worker.min.js";
 
 const TEKS = "Ditandatangani secara elektronik";
 const UKURAN = 10;                 // titik (pt)
@@ -564,7 +566,7 @@ async function terapkanGeseran(semuaGeseran) {
   });
 
   bytesKerja = await dok.save();
-  dokJs = await pdfjsLib.getDocument({ data: bytesKerja.slice(0) }).promise;
+  dokJs = await pdfjsLib.getDocument({ data: bytesKerja.slice(0), isEvalSupported: false }).promise;
   // Susunan dibaca ulang supaya letak baris di ingatan sama dengan di lembar.
   await bacaSusunan();
   return { ditolak };
@@ -583,7 +585,7 @@ async function tandaiNama() {
   tombol.disabled = true; tombol.textContent = "Memeriksa halaman...";
 
   // Setiap penandaan selalu berangkat dari berkas aslinya, bukan dari hasil geseran sebelumnya.
-  dokJs = await pdfjsLib.getDocument({ data: bytesAsli.slice(0) }).promise;
+  dokJs = await pdfjsLib.getDocument({ data: bytesAsli.slice(0), isEvalSupported: false }).promise;
   await bacaSusunan();
 
   const bolehGeser = el("bolehGeser").checked;
