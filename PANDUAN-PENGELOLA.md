@@ -51,7 +51,7 @@ Jangan menyebarkan alamatnya sebelum kelima hal berikut lolos, dan lakukan pengu
 
 1. **Seluruh menu terbuka.** Klik satu per satu kedelapan tautan perkakas pada menu atas, pastikan tidak ada yang menampilkan halaman 404. Kalau ada, berarti berkasnya belum terunggah atau namanya tertulis berbeda, sebab GitHub membedakan huruf besar dan kecil.
 2. **Warna dan menu muncul.** Kalau halaman tampil polos tanpa warna, `gaya.css` belum terunggah. Kalau menu atas tidak ada, `bersama.js` yang belum.
-3. **Pembacaan PDF berjalan.** Buka `penanda.html`, pilih satu Nota Dinas polos, dan pastikan pratinjaunya tergambar. Kalau berkas terpilih tetapi tidak terjadi apa pun, jaringan kantor menyaring `cdnjs.cloudflare.com` atau `unpkg.com`, dan situsnya tidak akan bisa dipakai sampai hal itu diatasi.
+3. **Pembacaan PDF berjalan.** Buka `penanda.html`, pilih satu Nota Dinas polos, dan pastikan pratinjaunya tergambar. Kalau berkas terpilih tetapi tidak terjadi apa pun, kemungkinan ada galat skrip, jadi buka konsol peramban (F12) untuk melihat sebabnya.
 4. **Unduhan beruntun.** Buka `gabung-pecah.html`, pilih bentuk hasil satu berkas per halaman, lalu pastikan berkasnya benar-benar tersimpan semua dan bukan hanya yang pertama. Ini bagian yang paling sering bermasalah sebab perilaku tiap peramban berbeda.
 5. **Hasilnya benar.** Buka berkas keluaran dengan Adobe Reader, bukan hanya dengan pratinjau peramban, dan periksa letak penandanya pada halaman yang benar.
 
@@ -100,10 +100,16 @@ Di beranda, banner menjadi latar panel kiri yang bentuknya tegak, jadi hanya seb
 
 ## 5. Ketergantungan yang perlu diwaspadai
 
-Situs ini memanggil empat alamat luar pada saat dijalankan.
+Pustaka pdf.js, pdf-lib, fontkit, dan skrip Tesseract.js sudah ikut disimpan di folder `pustaka/`, sehingga fungsi utama tetap jalan walaupun jaringan kantor menyaring CDN. Tinggal dua alamat luar yang dipanggil.
 
 | Alamat | Kegunaan | Akibat kalau tersaring |
 |---|---|---|
+| `cdn.jsdelivr.net` | Inti mesin dan data bahasa Tesseract.js untuk OCR, serta huruf untuk Koreksi PDF | Hanya pengenalan teks hasil pindaian dan penanaman huruf yang mati |
+| `fonts.googleapis.com` | Huruf Public Sans | Hanya hurufnya berubah, fungsinya tetap jalan |
+
+Kalau menambah pustaka atau alamat luar baru, ingat memperbarui *Content Security Policy* di bagian `<head>` setiap halaman. Tanpa itu, peramban akan memblokir alamat baru tersebut. Saat memutakhirkan pdf.js, pertahankan opsi `isEvalSupported: false` di setiap pemanggilan `getDocument`.
+
+---|---|---|
 | `cdnjs.cloudflare.com` | Pustaka pdf.js, membaca dan menggambar PDF | Pratinjau dan deteksi nama mati total |
 | `unpkg.com` | Pustaka pdf-lib, menulis PDF | Penyimpanan hasil gagal |
 | `cdn.jsdelivr.net` | Tesseract.js untuk OCR di PDF ke Word | Hanya pengenalan teks hasil pindaian yang mati |

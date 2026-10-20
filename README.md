@@ -25,15 +25,14 @@ Kumpulan perkakas PDF untuk pekerjaan sehari-hari di kantor, buatan KPKNL Balikp
 
 Bengkel PDF adalah situs statis. Pustaka pembaca dan penulis PDF dimuat ke peramban, lalu semua pekerjaan (membaca, menyunting, mengonversi, menyimpan) dikerjakan di komputer pengguna sendiri. Tidak ada server aplikasi, tidak ada akun, dan tidak ada berkas yang dikirim keluar.
 
-Situs hanya memanggil beberapa alamat luar untuk memuat pustaka dan huruf:
+Pustaka utama (pdf.js, pdf-lib, fontkit, dan skrip Tesseract.js) disimpan di folder `pustaka/`, jadi situs hanya memanggil dua alamat luar.
 
 | Alamat | Untuk apa |
 |---|---|
-| `cdnjs.cloudflare.com` | pdf.js, membaca dan menggambar PDF |
-| `unpkg.com` | pdf-lib, menulis PDF |
-| `cdn.jsdelivr.net` | Tesseract.js untuk OCR, serta huruf Arimo, Tinos, dan Cousine yang ditanam saat menyunting teks |
-| `unpkg.com` (fontkit) | Menanam huruf berukuran sama dengan Arial, Times, dan Courier supaya huruf di luar Latin dasar ikut tertulis |
+| `cdn.jsdelivr.net` | Inti mesin dan data bahasa Tesseract.js untuk OCR, serta huruf Arimo, Tinos, dan Cousine yang ditanam saat menyunting teks |
 | `fonts.googleapis.com` | Huruf Public Sans |
+
+Setiap halaman memasang *Content Security Policy* yang hanya mengizinkan kedua alamat itu, sehingga skrip dari tempat lain tidak bisa dimuat dan data tidak bisa dikirim ke alamat lain.
 
 ## Tampilan
 
